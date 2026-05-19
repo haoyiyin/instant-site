@@ -1,0 +1,35 @@
+{
+  "cadence": {
+    "blog": "weekly",
+    "productUpdates": "monthly",
+    "industryNews": "biweekly"
+  },
+  "languages": ["en"],
+  "topics": [
+    {
+      "type": "blog",
+      "title": "How to Choose CNC Cutting Tools for Aluminum",
+      "targetKeyword": "CNC cutting tools for aluminum",
+      "buyerStage": "consideration",
+      "status": "planned",
+      "dueDate": null
+    },
+    {
+      "type": "product_update",
+      "title": "Refresh CNC Cutting Tool Applications",
+      "targetKeyword": "CNC cutting tool supplier",
+      "buyerStage": "decision",
+      "status": "planned",
+      "dueDate": null
+    }
+  ],
+  "rules": {
+    "minWords": 900,
+    "includeFaq": true,
+    "includeInternalLinks": true,
+    "internalLinkTarget": "3-5 links per article",
+    "includeProductCta": true,
+    "avoidClaimsWithoutEvidence": true,
+    "draftFirst": true
+  }
+}

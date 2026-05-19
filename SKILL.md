@@ -1,6 +1,6 @@
 ---
 name: instant-site
-description: "Deploy static sites for free without registration, with SEO optimization. Use when user wants to quickly publish a static site (HTML/CSS/JS) online with zero signup, or needs SEO audit after deployment."
+description: "Build, deploy, update, and SEO-optimize static foreign trade independent sites using HTML/CSS/JS, DESIGN.md templates, Surge.sh, and scheduled agent operations. Use for from-zero site generation, static deployment, scheduled content operations, SEO audits, and multi-site independent site operations."
 triggers:
   - deploy static site
   - free hosting
@@ -8,378 +8,540 @@ triggers:
   - surge deploy
   - netlify drop
   - static site SEO
+  - build foreign trade site
+  - independent site operations
+  - scheduled website content
+  - multi-site operations
   - 上线静态站
   - 免费部署
+  - 外贸独立站
+  - 从零建站
+  - 独立站运营
+  - 自动更新网站内容
+  - SEO 审计
+  - 多站点运营
 ---
 
-# Instant Site — Free Static Site Deployment + SEO Optimization
+# Instant Site — Agent-Operated Foreign Trade Independent Sites
 
-Zero-registration static site deployment with post-launch SEO checklist.
+Instant Site helps an agent build, deploy, update, and SEO-optimize static foreign trade independent sites. The default stack is HTML/CSS/JS, DESIGN.md, Surge.sh, JSON state files, and scheduled agent operations.
 
-## Part 1: One-Command Deployment
+## Operating Principles
 
-唯一方案：**Surge.sh**。一行命令，首次运行输入邮箱+密码即可（自动创建账号，存本地 `~/.netrc`）。
+1. **Static first** — Generate crawlable HTML/CSS/JS. Do not use pure CSR/SPAs for SEO-critical pages.
+2. **Surge first** — Use Surge.sh as the default deployment provider; use Netlify Drop only as emergency demo fallback.
+3. **DESIGN.md required** — Generate or reuse a DESIGN.md before building pages.
+4. **SEO by default** — Every page needs title, description, canonical, Open Graph, Twitter Card, and relevant JSON-LD.
+5. **State in files** — Use `site.config.json`, `.instant-site/state.json`, and related JSON files instead of relying on chat history.
+6. **Review risky publishing** — Default to `review_required` for new commercial content, product claims, pricing, certifications, legal text, and domain changes.
+7. **Multi-site isolation** — When operating multiple sites, read each site's config and state separately; never reuse canonical URLs, sitemap URLs, or domains across sites.
+
+## Part 1: Intake and Site Configuration
+
+When building or operating a site, first locate or create `site.config.json`.
+
+Required inputs:
+
+- Brand name, tagline, language, target markets, and tone
+- Business type, industry, target customers, and export markets
+- Product list with names, slugs, features, applications, and target keywords
+- Certifications and proof points that can be safely claimed
+- Contact email, WhatsApp, address, and primary CTA
+- Surge domain and optional custom domain
+- DESIGN.md template
+- Required pages
+- Publishing policy: `review_required`, `hybrid`, or `auto_publish`
+
+Recommended user site structure:
+
+```text
+customer-site/
+  site.config.json
+  content-plan.json
+  seo-profile.json
+  review-policy.json
+  DESIGN.md
+  index.html
+  about.html
+  contact.html
+  products/
+    index.html
+    product-slug.html
+  blog/
+    index.html
+    article-slug.html
+  assets/
+    css/styles.css
+    js/main.js
+    images/
+  robots.txt
+  sitemap.xml
+  .instant-site/
+    state.json
+    deployments.json
+    content-calendar.json
+    content-drafts/
+    seo-audits/
+```
+
+State files:
+
+- `site.config.json` — source of truth for build, deploy, content, and SEO decisions.
+- `content-plan.json` — planned blog posts, product updates, industry news, cadence, and content rules.
+- `seo-profile.json` — target keywords, markets, mapped pages, competitors, and optional external SEO integrations.
+- `review-policy.json` — publishing rules and approval requirements.
+- `.instant-site/state.json` — current domain, last deployment, content status, SEO status, and known issues.
+- `.instant-site/deployments.json` — deployment history and verification results.
+
+If required information is missing, create a config draft with explicit `needsConfirmation` fields instead of inventing business facts.
+
+## Part 2: Full Static Site Generation
+
+Use this workflow when the user asks to create a site from zero.
+
+1. Read `site.config.json` or collect the minimum inputs listed above.
+2. Select or generate `DESIGN.md` from one of the templates in `templates/design/`.
+3. Generate the minimum page set:
+   - `index.html`
+   - `products/index.html`
+   - `products/{slug}.html` for each priority product
+   - `about.html`
+   - `contact.html`
+   - `blog/index.html`
+   - `robots.txt`
+   - `sitemap.xml`
+4. Generate shared assets:
+   - `assets/css/styles.css`
+   - `assets/js/main.js` only when needed for non-critical enhancements
+   - `assets/images/` placeholders or user-provided optimized images
+5. Run the site generation checklist.
+6. Produce a publish review before first deployment.
+
+Page requirements:
+
+### Home page
+
+- Hero section with clear value proposition
+- Main product categories or featured products
+- Export/manufacturing/service advantages
+- Certifications or verified trust signals
+- FAQ section
+- Strong inquiry CTA
+- `WebSite` and `Organization` JSON-LD where appropriate
+
+### Products index
+
+- Product categories or cards
+- Descriptive internal links to product detail pages
+- Commercial-intent copy for buyers
+- Category-level title, description, canonical, and OG tags
+
+### Product detail page
+
+- Product overview
+- Key features
+- Specifications table
+- Applications and buyer use cases
+- FAQ
+- Request-a-quote CTA
+- `Product` JSON-LD when product facts are available
+
+### About page
+
+- Company introduction
+- Production capability
+- Quality control
+- Export markets
+- `Organization` JSON-LD
+
+### Contact page
+
+- Email, WhatsApp, and address when provided
+- `mailto:` fallback for static sites
+- Inquiry CTA
+- Do not invent phone numbers, addresses, certifications, clients, or factory claims
+
+### Blog index and article pages
+
+- Blog index lists published articles
+- Article pages include title, description, canonical, OG/Twitter, author or organization attribution, publish date, internal links, FAQ where useful, and product CTA
+
+Generation rules:
+
+- HTML must contain SEO-critical content without requiring JavaScript.
+- Every page must have unique title, meta description, canonical, Open Graph, and Twitter Card tags.
+- `og:image` and `twitter:image` must use absolute URLs after deployment target is known.
+- Images need descriptive filenames, alt text, width, height, and lazy loading where appropriate.
+- Important pages must appear in `sitemap.xml`.
+- `robots.txt` must reference the sitemap.
+- Avoid placeholders such as `TODO`, `Lorem ipsum`, `example.com`, and `your-project.surge.sh` in final published files.
+
+## Part 3: DESIGN.md Template Selection
+
+DESIGN.md defines the visual system that the agent must follow when generating static pages.
+
+Use this 9-section format:
+
+1. Visual Theme & Atmosphere
+2. Color Palette & Roles
+3. Typography Rules
+4. Component Stylings
+5. Layout Principles
+6. Depth & Elevation
+7. Do's and Don'ts
+8. Responsive Behavior
+9. Agent Prompt Guide
+
+Recommended templates:
+
+| Template | Best For |
+|----------|----------|
+| `b2b-industrial` | Machinery, tools, hardware, building materials, industrial exports |
+| `clean-export-brand` | Consumer goods, homeware, packaging, light industry |
+| `premium-manufacturing` | OEM/ODM, precision manufacturing, high-ticket products |
+| `warm-content` | Content-heavy sites, guides, founder stories, educational blogs |
+| `dark-tech` | AI, electronics, industrial technology, high-tech products |
+
+When generating pages, read `DESIGN.md` before editing HTML/CSS and keep colors, typography, spacing, buttons, cards, forms, and responsive behavior consistent.
+
+## Part 4: Deploy and Verify with Surge.sh
+
+Surge.sh is the default deployment path.
 
 ```bash
-# 首次使用
 npm install -g surge
-cd ./my-site && surge . my-project.surge.sh
-
-# 后续更新（同一行）
-surge ./dist my-project.surge.sh
-
-# package.json 集成
-"scripts": { "deploy": "surge ./dist my-project.surge.sh" }
-
-# 自定义域名
-surge . --domain mysite.com
+cd ./customer-site
+surge . example-site.surge.sh
 ```
 
-> **备选**: Netlify Drop (app.netlify.com/drop) 拖拽文件夹即部署，完全无需登录，但站点会过期。仅适合临时演示。
-
-## Part 2: Frontend Design (DESIGN.md Approach)
-
-借鉴 [awesome-design-md](https://github.com/voltagent/awesome-design-md) 的 DESIGN.md 理念：用纯 Markdown 定义设计系统，让 AI agent 生成一致的 UI。
-
-### 快速流程
-
-1. **选择设计风格** — 从以下常用风格中选一个，或自定义
-2. **生成 DESIGN.md** — 放到项目根目录
-3. **告诉 AI agent** — "按照 DESIGN.md 构建页面"
-
-### 常用静态站设计模板
-
-#### 模板 A: 极简开发者风格 (类 Vercel/Linear)
-```markdown
-## Visual Theme
-Stark black-and-white, minimal chrome, developer-centric.
-
-## Colors
-- Canvas: #ffffff
-- Ink/Primary: #171717
-- Mute: #888888
-- Accent: #0070f3
-- Surface Soft: #fafafa
-- Border: #ebebeb
-
-## Typography
-- Headlines: Inter 600, -1.2px tracking
-- Body: Inter 400, 16px/1.6
-- Code: JetBrains Mono 400, 14px
-
-## Layout
-- Max-width: 1200px, centered
-- Section spacing: 96px vertical
-- Card padding: 24-32px
-- 4px base grid
-
-## Components
-- Buttons: pill-shaped (radius 9999px), single primary color
-- Cards: white bg, subtle shadow, 12px radius
-- Input: 6px radius, 1px #e3e8ee border
-
-## Do's
-- Generous whitespace
-- Sentence-case headings
-- Single accent color for CTAs
-
-## Don'ts
-- No gradients on buttons
-- No centered body text
-- No drop shadows on text
-```
-
-#### 模板 B: 温暖内容型 (类 Notion/Medium)
-```markdown
-## Visual Theme
-Warm minimalism, reading-optimized, serif headings.
-
-## Colors
-- Canvas: #ffffff
-- Surface: #f7f6f3
-- Ink: #37352f
-- Mute: #9b9a97
-- Accent: #2eaadc
-- Border: #e3e2de
-
-## Typography
-- Headlines: Georgia/serif, 400, -0.2px tracking
-- Body: system-ui sans, 16px/1.7
-- Mono: IBM Plex Mono
-
-## Layout
-- Max-width: 720px (content-first)
-- Section spacing: 64px
-- Generous line-height for readability
-```
-
-#### 模板 C: 暗黑科技风 (类 Stripe/AI 产品)
-```markdown
-## Visual Theme
-Deep dark background, gradient mesh accents, cinematic.
-
-## Colors
-- Canvas: #0a0a0a
-- Surface: #141414
-- Ink: #ededed
-- Mute: #888
-- Primary: #533afd (indigo)
-- Gradient: cyan → violet → pink
-
-## Typography
-- Display: 300 weight, -1.4px tracking (thin + tight = premium)
-- Body: 400, 15px/1.5
-- Mono: for code/tech labels
-
-## Layout
-- Max-width: 1200px
-- Hero section with gradient mesh backdrop
-- Card: dark surface, subtle border, 12px radius
-```
-
-### DESIGN.md 完整格式 (9 Sections)
-
-参考 [Stitch DESIGN.md 规范](https://stitch.withgoogle.com/docs/design-md/format/)：
-
-1. **Visual Theme & Atmosphere** — 整体氛围和设计理念
-2. **Color Palette & Roles** — 语义化颜色 + hex 值 + 用途
-3. **Typography Rules** — 字体族 + 完整字阶
-4. **Component Stylings** — 按钮/卡片/输入框等样式和状态
-5. **Layout Principles** — 间距系统/网格/留白哲学
-6. **Depth & Elevation** — 阴影系统和层级
-7. **Do's and Don'ts** — 设计红线
-8. **Responsive Behavior** — 断点/触控目标/折叠策略
-9. **Agent Prompt Guide** — 给 AI agent 的快速参考
-
-### 推荐 DESIGN.md 资源
-
-直接从 awesome-design-md 选取参考：
-- **简洁科技**: `vercel`, `linear`, `cursor`
-- **温暖内容**: `notion`, `medium-style`
-- **暗黑高级**: `stripe`, `elevenlabs`, `runwayml`
-- **开发工具**: `supabase`, `posthog`, `sentry`
-
-## Part 3: Post-Deploy SEO Checklist
-
-借鉴 [claude-seo](https://github.com/AgriciDaniel/claude-seo) 的 SEO 审计框架，针对静态站的关键优化项。
-
-### 3.1 必做项 (Critical)
-
-#### robots.txt
-```
-User-agent: *
-Allow: /
-
-# 站点地图
-Sitemap: https://your-project.surge.sh/sitemap.xml
-
-# 可选：屏蔽 AI 爬虫
-# User-agent: GPTBot
-# Disallow: /
-# User-agent: ClaudeBot
-# Disallow: /
-```
-
-#### sitemap.xml
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://your-project.surge.sh/</loc>
-    <lastmod>2025-01-15</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://your-project.surge.sh/about</loc>
-    <lastmod>2025-01-15</lastmod>
-    <priority>0.8</priority>
-  </url>
-</urlset>
-```
-
-#### Meta Tags (每个页面)
-```html
-<head>
-  <!-- 基础 -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>页面标题 - 站点名</title>
-  <meta name="description" content="150字以内的页面描述">
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="页面标题">
-  <meta property="og:description" content="页面描述">
-  <meta property="og:image" content="https://your-project.surge.sh/og-image.png">
-  <meta property="og:url" content="https://your-project.surge.sh/">
-  <meta property="og:type" content="website">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="页面标题">
-  <meta name="twitter:description" content="页面描述">
-  <meta name="twitter:image" content="https://your-project.surge.sh/og-image.png">
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://your-project.surge.sh/">
-</head>
-```
-
-#### Structured Data (JSON-LD)
-```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "站点名",
-  "url": "https://your-project.surge.sh",
-  "description": "站点描述",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": "https://your-project.surge.sh/search?q={search_term_string}",
-    "query-input": "required name=search_term_string"
-  }
-}
-</script>
-```
-
-### 3.2 高优先级 (High)
-
-#### Core Web Vitals 目标
-- **LCP** (Largest Contentful Paint): < 2.5s
-- **INP** (Interaction to Next Paint): < 200ms
-- **CLS** (Cumulative Layout Shift): < 0.1
-
-#### 静态站常见优化
-```html
-<!-- 图片懒加载 -->
-<img src="photo.webp" alt="描述" loading="lazy" width="800" height="600">
-
-<!-- 预连接关键资源 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://cdn.example.com" crossorigin>
-
-<!-- 字体优化 -->
-<link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
-
-<!-- 关键 CSS 内联 -->
-<style>/* 首屏关键 CSS */</style>
-<link rel="stylesheet" href="/styles.css" media="print" onload="this.media='all'">
-```
-
-#### 图片 SEO
-- 使用描述性文件名: `product-hero.webp` 而非 `img001.jpg`
-- Alt text 必填，自然语言描述
-- 现代格式: WebP/AVIF 优先，PNG/JPG 兜底
-- 明确 width/height 防止 CLS
-
-### 3.3 中优先级 (Medium)
-
-#### 安全头 (Surge 不支持自定义头，通过 meta 标签部分实现)
-```html
-<meta http-equiv="X-Content-Type-Options" content="nosniff">
-<meta name="referrer" content="strict-origin-when-cross-origin">
-```
-
-#### URL 结构
-- 使用短横线分隔: `/blog/my-post` ✓ `/blog/my_post` ✗
-- 语义化路径: `/pricing` ✓ `/page123` ✗
-- 小写字母，无特殊字符
-
-#### 内链策略
-- 每页至少 3-5 个内部链接
-- 使用描述性锚文本（"查看定价方案" ✓ "点击这里" ✗）
-- 确保重要页面从首页 ≤3 次点击可达
-
-### 3.4 AI 搜索优化 (GEO/AEO)
-
-2025-2026 趋势：AI 爬虫和搜索引擎优化同等重要。
-
-```html
-<!-- 结构化数据增强 AI 可读性 -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [{
-    "@type": "Question",
-    "name": "这个产品是做什么的？",
-    "acceptedAnswer": {
-      "@type": "Answer",
-      "text": "清晰简洁的回答..."
-    }
-  }]
-}
-</script>
-```
-
-**AI 爬虫管理策略**:
-- `GPTBot` — OpenAI 训练数据采集
-- `ClaudeBot` — Anthropic 数据采集
-- `Google-Extended` — Gemini 训练（不影响 Google 搜索排名）
-- `PerplexityBot` — Perplexity AI 引用
-
-> 屏蔽 AI 爬虫 = 放弃 AI 搜索引擎的品牌曝光机会。建议允许。
-
-### 3.5 提交索引
-
-部署后主动通知搜索引擎：
+Custom domain:
 
 ```bash
-# Google — 通过 Google Search Console (需验证站点)
-# Bing — 通过 Bing Webmaster Tools
-# IndexNow (Bing/Yandex) — 一行 curl：
-curl "https://api.indexnow.org/indexnow?url=https://your-project.surge.sh/&key=YOUR_KEY"
+surge . --domain www.example.com
 ```
 
-### SEO 审计快速检查表
+First Surge use may ask for email and password and store credentials in `~/.netrc`.
 
-| 检查项 | 状态 |
-|--------|------|
-| robots.txt 存在且有效 | ☐ |
-| sitemap.xml 存在且提交 | ☐ |
-| 每页有唯一 title + description | ☐ |
-| canonical 标签正确 | ☐ |
-| OG/Twitter meta 完整 | ☐ |
-| JSON-LD 结构化数据 | ☐ |
-| 图片有 alt + 懒加载 | ☐ |
-| 移动端响应式 | ☐ |
-| HTTPS 启用 | ☐ |
-| LCP < 2.5s | ☐ |
-| INP < 200ms | ☐ |
-| CLS < 0.1 | ☐ |
-| 内链 ≥3/页 | ☐ |
-| 提交 Google/Bing | ☐ |
+### Pre-deploy checks
 
-## Pitfalls
+Before running Surge, verify:
 
-1. **Surge 的 email 不是注册** — 首次 `surge` 会问邮箱+密码（自动创建账号），存入 `~/.netrc`。后续部署无需再输入。
-2. **Surge 偶发 504** — Surge CDN 不稳定，CLI 显示 Success 但站点可能返回 504。遇到时等 10-30 分钟重试，或换 Netlify Drop 应急。
-3. **Surge 不支持自定义 HTTP 头** — 无法设 HSTS、CSP 等安全头。如需这些，考虑 Cloudflare Pages（需注册）。
-4. **静态站 JS 渲染问题** — 纯 CSR (React/Vue SPA) 对 SEO 不友好。用 SSR 或预渲染。
-5. **INP 取代了 FID** — 2024年3月起，Core Web Vitals 中 FID 已被 INP 替代。不要引用 FID。
-6. **FAQ Schema 受限** — 2023年8月起，Google 仅对政府/医疗站点显示 FAQ 富片段。商业站点的 FAQPage 对 Google 无直接收益，但对 AI 引用仍有价值。
-7. **不要用 HowTo Schema** — 2023年9月已废弃。
-8. **og:image 需要绝对 URL** — `https://your-project.surge.sh/og.png` ✓ `/og.png` ✗
+- `index.html` exists.
+- `robots.txt` exists and references the target sitemap URL.
+- `sitemap.xml` exists and includes homepage, product pages, about page, contact page, and blog index.
+- `DESIGN.md` exists.
+- Canonical URLs use the deployment domain.
+- Open Graph and Twitter image URLs are absolute.
+- No final published file contains unresolved placeholders.
+- Custom domain deployments have DNS configured or the user understands DNS is still required.
 
-## Verification
+### Post-deploy verification
 
-部署后验证：
 ```bash
-# 1. 检查站点可访问
-curl -I https://your-project.surge.sh/
+curl -I https://example-site.surge.sh/
+curl https://example-site.surge.sh/robots.txt
+curl https://example-site.surge.sh/sitemap.xml
+curl -s https://example-site.surge.sh/ | grep -E '<title>|<meta name="description"|og:title|canonical'
+```
 
-# 2. 检查 robots.txt
-curl https://your-project.surge.sh/robots.txt
+Verification passes when:
 
-# 3. 检查 sitemap
-curl https://your-project.surge.sh/sitemap.xml
+- Homepage returns 2xx or expected 3xx.
+- HTTPS is available.
+- `robots.txt` is reachable and includes sitemap.
+- `sitemap.xml` is reachable and contains important pages.
+- Homepage contains title, description, canonical, and OG tags.
+- No Surge 504 appears.
 
-# 4. 检查 meta 标签
-curl -s https://your-project.surge.sh/ | grep -E '<title>|<meta name="description"|og:title'
+After successful deployment, update the user's site state:
 
-# 5. 结构化数据验证
-# 打开 https://search.google.com/test/rich-results 输入 URL
+- `.instant-site/deployments.json`
+- `.instant-site/state.json`
 
-# 6. PageSpeed 测试
-# 打开 https://pagespeed.web.dev/ 输入 URL
+Record timestamp, target domain, command, status, verification results, and known issues.
+
+### Deployment failures
+
+- `surge` missing: ask the user to install it with `npm install -g surge`.
+- First login required: explain the email/password prompt and `~/.netrc` storage.
+- CLI success but 504: wait 10-30 minutes and retry; use Netlify Drop only for urgent demos.
+- Custom domain failure: check DNS provider records.
+- Need CSP/HSTS/custom headers: Surge is not suitable; consider Cloudflare Pages or another provider.
+
+## Part 5: Scheduled Content Operations
+
+Use this workflow for regular blog posts, product updates, and industry content.
+
+Inputs:
+
+- `content-plan.json`
+- `review-policy.json`
+- `site.config.json`
+- Existing pages and sitemap
+
+Workflow:
+
+1. Read `content-plan.json` and select the next `planned` topic due by cadence.
+2. Generate a draft in `.instant-site/content-drafts/` unless the user explicitly requests direct file publishing.
+3. Check the draft for:
+   - Brand tone consistency
+   - Target keyword and search intent alignment
+   - Unique title, description, canonical, OG/Twitter
+   - FAQ where useful
+   - 3-5 relevant internal links
+   - Product or inquiry CTA
+   - No unsupported certification, customer, price, lead-time, or compliance claims
+   - No placeholders
+4. Apply `review-policy.json`:
+   - `review_required`: show summary and wait for approval.
+   - `hybrid`: auto-publish only low-risk approved categories.
+   - `auto_publish`: publish only if all required checks pass and the user has explicitly allowed it.
+5. On publish:
+   - Move content into `blog/{slug}.html` or the relevant product page.
+   - Update `blog/index.html`.
+   - Update `sitemap.xml` and lastmod values.
+   - Add internal links from relevant pages.
+   - Update `.instant-site/state.json` and `.instant-site/content-calendar.json`.
+6. Deploy and verify if publishing changes live.
+
+Recommended agent schedules:
+
+```text
+weekly-content-draft:
+  interval: weekly
+  action: generate_next_content_draft
+  requiresApproval: true
+
+monthly-product-refresh:
+  interval: monthly
+  action: review_product_pages_for_updates
+  requiresApproval: true
+
+weekly-seo-audit:
+  interval: weekly
+  action: run_static_seo_audit
+  requiresApproval: false
+```
+
+## Part 6: SEO Audit and Optimization
+
+Use this workflow for SEO checks and low-risk optimization.
+
+Inputs:
+
+- `seo-profile.json`
+- `site.config.json`
+- HTML files
+- `robots.txt`
+- `sitemap.xml`
+- Optional external data from Google Search Console, Bing Webmaster Tools, PageSpeed Insights, IndexNow, or a rank tracking API
+
+### Audit layers
+
+#### A. Local static audit
+
+Check every HTML page for:
+
+- `<html lang>`
+- charset and viewport
+- unique title
+- meta description
+- canonical
+- Open Graph tags
+- Twitter Card tags
+- JSON-LD where appropriate
+- semantic headings
+- internal links
+- image alt, width, height, lazy loading
+- no unresolved placeholders
+- no pure CSR dependency for SEO-critical content
+
+Check site files:
+
+- `robots.txt` exists and references sitemap.
+- `sitemap.xml` includes all important pages.
+- URLs are lowercase, semantic, and hyphenated.
+
+#### B. Deployed-site audit
+
+Check online URLs for:
+
+- Homepage HTTP status
+- robots.txt HTTP status
+- sitemap.xml HTTP status
+- Canonical points to live URL
+- OG image is reachable
+- Important pages do not return 404 or 504
+
+#### C. External data audit
+
+Real ranking and performance data require external tools. Do not claim exact Google ranking monitoring without configured data access.
+
+- Google Search Console: clicks, impressions, CTR, average position after site verification and authorization.
+- Bing Webmaster Tools: indexing and search data after verification.
+- PageSpeed Insights: lab and field performance when available.
+- IndexNow: URL submission when a key is configured.
+- Third-party rank tracking API: optional and user-provided.
+
+### Issue severity
+
+- **Critical** — page unreachable, robots blocks indexing, sitemap broken, canonical points to wrong domain.
+- **High** — missing title, description, canonical, important structured data, or sitemap entry.
+- **Medium** — weak image SEO, internal links, heading structure, Core Web Vitals risk.
+- **Low** — content expansion, FAQ/AEO improvements, minor metadata wording.
+
+### Auto-fix boundaries
+
+Can be auto-fixed when allowed:
+
+- sitemap lastmod updates
+- robots sitemap URL fixes
+- missing canonical based on known domain
+- basic OG/Twitter tag completion
+- blog index links for already approved content
+
+Require review:
+
+- major title or description rewrites
+- new SEO content blocks
+- product claims
+- certification claims
+- pricing, lead time, compliance, or legal statements
+- competitor comparisons
+
+Core Web Vitals targets:
+
+- LCP < 2.5s
+- INP < 200ms
+- CLS < 0.1
+
+Do not use FID as a current Core Web Vital. Do not recommend deprecated HowTo schema. FAQPage can help clarity and AI citation but does not guarantee Google rich results for commercial sites.
+
+## Part 7: Multi-Site Operations
+
+Use `sites.registry.json` when the user operates more than one site.
+
+Example structure:
+
+```text
+workspace/
+  sites.registry.json
+  sites/
+    acme-tools/
+    homeware-export/
+```
+
+Workflow:
+
+1. Read `sites.registry.json`.
+2. Select only sites with `status: active`.
+3. For each site, read its own `site.config.json`, `review-policy.json`, and `.instant-site/state.json`.
+4. Check whether content or SEO cadence is due.
+5. Process one site at a time.
+6. Keep canonical URLs, sitemap URLs, deployment domains, drafts, and audit reports isolated per site.
+7. Produce a summary report with:
+   - healthy sites
+   - sites needing human review
+   - SEO issues by severity
+   - deployment failures
+   - DNS or external tool blockers
+
+Recommended multi-site schedules:
+
+- Daily health check: homepage, robots, sitemap, last deployment status.
+- Weekly content planning: generate due drafts, do not publish by default.
+- Weekly SEO audit: report issues and auto-fix low-risk items if allowed.
+- Monthly strategy review: compare Search Console data if configured; otherwise summarize technical SEO and content status.
+
+## Part 8: Review Gates and Publishing Policy
+
+Default to human approval for:
+
+- First launch
+- New product pages
+- New blog articles
+- Brand positioning changes
+- Pricing, lead time, certification, compliance, or legal claims
+- Contact method changes
+- Custom domain changes
+- Page deletion
+- Major title or description rewrites
+
+Low-risk actions may be automated when policy allows:
+
+- sitemap updates
+- robots sitemap URL correction
+- lastmod updates
+- minor metadata completion
+- internal links to already approved pages
+- approved draft publishing
+- deployment verification
+- health checks
+- SEO audit report generation
+
+Before publishing, output a review summary:
+
+```text
+Publish Review
+- Site:
+- Domain:
+- Files to publish:
+- New pages:
+- Modified pages:
+- SEO changes:
+- Claims requiring user confirmation:
+- Deployment target:
+- Rollback option:
+```
+
+Recommend git for user site projects so rollbacks can use previous commits or deployment history.
+
+## Part 9: Fallbacks and Pitfalls
+
+1. **Surge credential prompt** — First use may ask for email and password and store credentials in `~/.netrc`.
+2. **Surge temporary 504** — CLI success can still produce a temporary CDN 504. Wait 10-30 minutes and retry.
+3. **Netlify Drop is fallback only** — Good for emergency demos, not the default operating path.
+4. **Surge has no custom headers** — Use meta tags for partial coverage; choose another provider if CSP/HSTS are mandatory.
+5. **DNS is external** — Custom domain deployment still requires correct DNS records from the user's provider.
+6. **Static sites do not process secure forms** — Use mailto, third-party forms, or a backend service for real lead capture.
+7. **Do not invent claims** — Product specifications, certifications, clients, factory capacity, lead times, and prices must come from the user or verified source.
+8. **Search ranking data is external** — Technical SEO is local; ranking monitoring requires Search Console, Bing, or a rank tracker.
+9. **`og:image` must be absolute** — Use a full deployed URL, not `/og.png`.
+10. **Avoid deprecated SEO advice** — Use INP, not FID; do not use HowTo schema.
+
+## Verification Commands
+
+After deployment:
+
+```bash
+curl -I https://example-site.surge.sh/
+curl https://example-site.surge.sh/robots.txt
+curl https://example-site.surge.sh/sitemap.xml
+curl -s https://example-site.surge.sh/ | grep -E '<title>|<meta name="description"|og:title|canonical'
+```
+
+Manual checks when relevant:
+
+- Google Rich Results Test for structured data
+- PageSpeed Insights for performance
+- Google Search Console after site verification
+- Bing Webmaster Tools after site verification
+- IndexNow only when the user provides a valid key
+
+## Example Prompts
+
+```text
+请根据以下品牌和产品信息，从零生成一个英文 B2B 外贸独立站，使用 b2b-industrial DESIGN.md，包含首页、产品列表页、2 个产品详情页、关于我们、联系方式、robots.txt 和 sitemap.xml。部署目标是 acme-tools.surge.sh，发布前需要我审核。
+```
+
+```text
+为 sites.registry.json 中所有 active 站点执行本周 SEO 审计。只生成报告，不自动修改页面。
+```
+
+```text
+根据 content-plan.json 为 acme-tools 生成下一篇博客草稿，目标关键词是 CNC cutting tool supplier。生成后先进入审核，不要发布。
+```
+
+```text
+部署当前站点到 Surge.sh，并验证首页、robots.txt、sitemap.xml、meta 标签和 canonical。
 ```

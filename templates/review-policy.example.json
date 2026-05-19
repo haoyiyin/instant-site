@@ -1,0 +1,36 @@
+{
+  "publishMode": "review_required",
+  "requiredChecks": [
+    "brand_consistency",
+    "factual_claims",
+    "seo_metadata",
+    "internal_links",
+    "no_placeholder_text",
+    "contact_cta",
+    "sitemap_updated"
+  ],
+  "autoPublishAllowedFor": [
+    "sitemap_refresh",
+    "robots_sitemap_url_fix",
+    "lastmod_update",
+    "minor_metadata_completion",
+    "approved_draft_publish",
+    "deployment_verification",
+    "health_check",
+    "seo_audit_report"
+  ],
+  "humanApprovalRequiredFor": [
+    "first_launch",
+    "new_blog_article",
+    "new_product_page",
+    "brand_positioning_change",
+    "pricing_claim",
+    "certification_claim",
+    "lead_time_claim",
+    "compliance_or_legal_claim",
+    "contact_method_change",
+    "custom_domain_change",
+    "page_deletion",
+    "major_title_or_description_rewrite"
+  ]
+}

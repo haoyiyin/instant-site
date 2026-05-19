@@ -1,0 +1,39 @@
+{
+  "siteId": "acme-tools",
+  "brand": {
+    "name": "Acme Tools",
+    "tagline": "Precision tools for global manufacturers",
+    "language": "en",
+    "markets": ["US", "EU", "Middle East"],
+    "tone": "professional, trustworthy, practical, B2B"
+  },
+  "business": {
+    "type": "foreign_trade_b2b",
+    "industry": "industrial cutting tools",
+    "targetCustomers": ["distributors", "manufacturers", "procurement managers"],
+    "certifications": ["ISO 9001", "CE"],
+    "mainProducts": [
+      {
+        "name": "CNC Cutting Tool",
+        "slug": "cnc-cutting-tool",
+        "features": ["High precision", "Long service life", "Stable machining performance"],
+        "applications": ["Aluminum machining", "Automotive parts", "Mold manufacturing"],
+        "targetKeywords": ["CNC cutting tool supplier", "precision cutting tools"]
+      }
+    ]
+  },
+  "site": {
+    "domain": "acme-tools.surge.sh",
+    "customDomain": "www.acmetools.com",
+    "primaryCta": "Request a Quote",
+    "contactEmail": "sales@example.com",
+    "whatsapp": "+0000000000",
+    "address": "To be confirmed"
+  },
+  "generation": {
+    "designTemplate": "b2b-industrial",
+    "pages": ["home", "products", "productDetail", "about", "contact", "blog"],
+    "publishMode": "review_required"
+  },
+  "needsConfirmation": []
+}

@@ -1,0 +1,30 @@
+{
+  "sites": [
+    {
+      "siteId": "acme-tools",
+      "path": "./sites/acme-tools",
+      "domain": "acme-tools.surge.sh",
+      "customDomain": "www.acmetools.com",
+      "language": "en",
+      "status": "active",
+      "contentCadence": "weekly",
+      "seoAuditCadence": "weekly",
+      "publishMode": "review_required"
+    },
+    {
+      "siteId": "homeware-export",
+      "path": "./sites/homeware-export",
+      "domain": "homeware-export.surge.sh",
+      "customDomain": null,
+      "language": "en",
+      "status": "active",
+      "contentCadence": "biweekly",
+      "seoAuditCadence": "monthly",
+      "publishMode": "hybrid"
+    }
+  ],
+  "operationLimits": {
+    "maxSitesPerRun": 3,
+    "defaultAction": "draft_or_report_first"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "primaryMarket": "US",
+  "language": "en",
+  "targetKeywords": [
+    {
+      "keyword": "CNC cutting tool supplier",
+      "page": "/products/cnc-cutting-tool.html",
+      "intent": "commercial",
+      "priority": "high"
+    },
+    {
+      "keyword": "precision cutting tools",
+      "page": "/products/index.html",
+      "intent": "commercial",
+      "priority": "medium"
+    }
+  ],
+  "competitors": ["competitor-a.com", "competitor-b.com"],
+  "searchConsole": {
+    "enabled": false,
+    "propertyUrl": "https://www.example.com/"
+  },
+  "bingWebmaster": {
+    "enabled": false
+  },
+  "pageSpeedInsights": {
+    "enabled": false
+  },
+  "indexNow": {
+    "enabled": false,
+    "key": null
+  },
+  "rankTracking": {
+    "enabled": false,
+    "provider": null
+  }
+}
