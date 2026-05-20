@@ -1,32 +1,32 @@
 # Instant Site
 
-A universal agent skill for building, deploying, updating, and SEO-optimizing static foreign trade independent sites with HTML/CSS/JS, DESIGN.md templates, Surge.sh, and scheduled agent operations. Works with any AI agent (Claude Code, Cursor, Windsurf, Copilot, Hermes, etc.).
+Agent-operated platform for foreign trade independent sites. An AI agent reads this skill to build, deploy, and operate static sites — from zero to launch, then continuously with content updates, SEO audits, multi-language support, and inquiry forms. Works with any AI agent (Claude Code, Cursor, Windsurf, Copilot, Hermes, etc.).
 
 ## What It Does
 
-Instant Site is designed as a full lifecycle workflow for agent-operated independent sites:
+Full lifecycle, agent-operated:
 
 1. **Build** — Generate a complete static site from product, brand, market, and SEO inputs.
-2. **Design** — Use DESIGN.md templates to keep layout, typography, colors, and components consistent.
-3. **Deploy** — Publish to Surge.sh, including custom domain workflows.
-4. **Verify** — Check homepage, robots.txt, sitemap.xml, metadata, canonical URLs, and Surge availability after deployment.
-5. **Update** — Generate content drafts for blog posts, product updates, and industry articles on a schedule.
-6. **SEO Optimize** — Run static and deployed-site SEO audits, fix low-risk issues, and prepare higher-risk changes for review.
-7. **Operate Multiple Sites** — Use a registry file to manage several independent sites with isolated configs and schedules.
+2. **Design** — Use DESIGN.md templates (B2B industrial, clean export, premium manufacturing, warm content, dark tech) for visual consistency.
+3. **Deploy** — Publish to Surge.sh with custom domain support and post-deploy verification.
+4. **Verify** — Check homepage, robots.txt, sitemap.xml, metadata, canonical URLs, and CDN availability.
+5. **Content Operations** — Generate blog drafts, product updates, and industry articles on a schedule with review gates.
+6. **SEO Optimization** — Three-layer audits: local static, deployed-site, and external data (Search Console, PageSpeed, etc.).
+7. **Inquiry Forms** — Zero-config contact forms via FormSubmit; emails delivered to the configured inbox without registration or API keys.
+8. **Multi-Language** — Subdirectory-based `/en/` `/ar/` with hreflang, RTL support, per-language content plans, and language switchers.
+9. **Multi-Site** — Manage multiple independent sites from a registry with isolated configs, domains, and schedules.
 
 ## Best For
 
-- B2B foreign trade websites
-- Product catalog sites
-- Single-product landing pages
+- B2B foreign trade websites (machinery, tools, hardware, OEM/ODM)
+- B2C consumer goods and lifestyle brands targeting overseas markets
+- Product catalog and single-product landing pages
 - Small brand independent sites
 - Static marketing sites that need repeatable content and SEO operations
 
-Instant Site is not a replacement for a full backend, ecommerce platform, CRM, or CMS. If a site needs payments, accounts, server-side forms, strict custom HTTP headers, or complex editorial permissions, use Instant Site for static marketing pages only or move to a platform with backend support.
+## Quick Start
 
-## Quick Start: Build a New Foreign Trade Site
-
-Create a project directory, then ask the agent to generate the site from your business inputs:
+Create a project directory, then ask an AI agent:
 
 ```text
 Build an English B2B foreign trade site for the following brand and products. Use the b2b-industrial DESIGN.md template. Generate site.config.json, DESIGN.md, index.html, product pages, about.html, contact.html, robots.txt, and sitemap.xml. Prepare a publish review before deployment.
@@ -35,15 +35,15 @@ Build an English B2B foreign trade site for the following brand and products. Us
 Minimum inputs:
 
 - Brand name and tagline
-- Target markets and language
+- Target markets and languages
 - Product list, features, applications, and target keywords
-- Certifications or proof points that can be safely claimed
-- Contact email, WhatsApp, or inquiry CTA
+- Certifications or proof points
+- Contact email and primary CTA
 - Preferred Surge domain or custom domain
-- Preferred design template
+- Design template selection
 - Publishing policy: `review_required`, `hybrid`, or `auto_publish`
 
-## Recommended Project Structure
+## Project Structure
 
 ```text
 customer-site/
@@ -75,59 +75,23 @@ customer-site/
     seo-audits/
 ```
 
-For multi-site operations:
+## Core Features
 
-```text
-workspace/
-  sites.registry.json
-  sites/
-    site-a/
-    site-b/
-```
+| Feature | Description |
+|---------|-------------|
+| **Full Site Generation** | Home, products, about, contact, blog, robots.txt, sitemap.xml — complete from day one |
+| **DESIGN.md System** | 5 visual templates ensuring AI-generated pages look consistent |
+| **Zero-Config Forms** | FormSubmit inquiry forms — no registration, no API key, emails go straight to your inbox |
+| **Multi-Language + RTL** | Subdirectory structure with hreflang, Arabic RTL support, per-language content |
+| **Content Calendar** | Scheduled blog posts, product refreshes, industry articles with review gates |
+| **3-Layer SEO** | Static HTML audit + deployed-site checks + external data (Search Console, PageSpeed) |
+| **Publish Safety** | Default `review_required` — risky claims (pricing, certifications, legal) need human approval |
+| **Multi-Site Registry** | Manage many sites from one workspace with isolated configs and cadences |
+| **State in Files** | `.instant-site/state.json` stores deployment and content status, not in chat history |
 
-## Site Configuration
+## Deployment
 
-`site.config.json` is the source of truth for generation, deployment, content updates, and SEO audits. It should include:
-
-- `siteId`
-- brand name, tagline, language, markets, and tone
-- business type, industry, products, certifications, and target customers
-- Surge domain, custom domain, contact methods, and primary CTA
-- selected DESIGN.md template
-- required pages
-- publishing mode
-
-See `templates/site.config.example.json` for a complete example.
-
-Runtime state should be stored in `.instant-site/state.json`, not in chat history. Deployment history should be stored in `.instant-site/deployments.json`.
-
-## DESIGN.md Templates
-
-Instant Site uses DESIGN.md to make AI-generated static pages consistent. The templates follow a 9-section structure:
-
-1. Visual Theme & Atmosphere
-2. Color Palette & Roles
-3. Typography Rules
-4. Component Stylings
-5. Layout Principles
-6. Depth & Elevation
-7. Do's and Don'ts
-8. Responsive Behavior
-9. Agent Prompt Guide
-
-Included templates:
-
-| Template | Style | Best For |
-|----------|-------|----------|
-| `b2b-industrial` | Precise, trustworthy, manufacturing-focused | Machinery, tools, hardware, building materials |
-| `clean-export-brand` | Bright, clean, approachable export brand | Homeware, consumer goods, light industry |
-| `premium-manufacturing` | Premium, technical, high-confidence | OEM/ODM, advanced manufacturing, high-ticket products |
-| `warm-content` | Editorial, readable, content-first | Blogs, founder stories, educational content |
-| `dark-tech` | Dark, cinematic, high-tech | AI, electronics, industrial technology |
-
-## Deployment with Surge.sh
-
-Surge.sh is the default deployment target because it is simple static hosting with automatic SSL.
+Surge.sh is the default target — simple, free, automatic HTTPS on `*.surge.sh`:
 
 ```bash
 npm install -g surge
@@ -141,20 +105,7 @@ Custom domain:
 surge . --domain www.example.com
 ```
 
-First Surge use may ask for email and password and store credentials in `~/.netrc`. DNS setup for custom domains must be completed in the user's domain provider.
-
-### Deployment Checklist
-
-Before deployment, verify:
-
-- `index.html`, `robots.txt`, `sitemap.xml`, and `DESIGN.md` exist.
-- Canonical URLs match the target domain.
-- `robots.txt` references the sitemap.
-- `sitemap.xml` includes homepage, products, about, contact, and blog index.
-- Open Graph images use absolute URLs.
-- No placeholder text remains.
-
-After deployment, verify:
+### Verification
 
 ```bash
 curl -I https://example-site.surge.sh/
@@ -163,94 +114,50 @@ curl https://example-site.surge.sh/sitemap.xml
 curl -s https://example-site.surge.sh/ | grep -E '<title>|<meta name="description"|og:title|canonical'
 ```
 
-If Surge returns a temporary 504 after CLI success, wait 10-30 minutes and retry. Netlify Drop can be used as an emergency demo fallback, but it is not the preferred long-term operating path.
+## Design Templates
 
-## Scheduled Content Operations
-
-Content operations are driven by `content-plan.json` and `review-policy.json`.
-
-Recommended cadence:
-
-- Weekly blog or industry article draft
-- Monthly product page refresh
-- Weekly SEO audit
-- Monthly strategy review if Search Console or other external SEO data is connected
-
-Default behavior is `review_required`: the agent generates drafts and checks them, but does not publish new commercial content without approval. This protects against incorrect product claims, fake certifications, unsupported delivery promises, and inaccurate pricing.
-
-## SEO Audits and Search Data Limitations
-
-Instant Site supports three SEO layers:
-
-1. **Local static audit** — scan HTML, robots.txt, sitemap.xml, canonical URLs, metadata, JSON-LD, images, internal links, and placeholders.
-2. **Deployed-site audit** — verify HTTP status, HTTPS access, robots.txt, sitemap.xml, canonical, OG image availability, and 404/504 issues.
-3. **External data audit** — use Google Search Console, Bing Webmaster Tools, PageSpeed Insights, IndexNow, or a rank tracking API when configured.
-
-Technical and on-page SEO can be automated from static files. Real search ranking monitoring requires external data access. Without Search Console, Bing Webmaster Tools, or a third-party rank tracker, Instant Site should not claim exact ranking changes.
-
-SEO rules retained from the original skill:
-
-- Use unique title and meta description on every page.
-- Use Open Graph and Twitter Card tags.
-- Use canonical URLs.
-- Use JSON-LD for `WebSite`, `Organization`, `Product`, and `FAQPage` where appropriate.
-- Optimize Core Web Vitals: LCP < 2.5s, INP < 200ms, CLS < 0.1.
-- Use descriptive image names, alt text, lazy loading, modern formats, width, and height.
-- Do not rely on pure CSR/SPAs for SEO-critical pages.
-- Do not use deprecated HowTo schema.
-- Do not reference FID as a current Core Web Vital.
+| Template | Best For |
+|----------|----------|
+| `b2b-industrial` | Machinery, tools, hardware, building materials |
+| `clean-export-brand` | Homeware, consumer goods, light industry |
+| `premium-manufacturing` | OEM/ODM, precision manufacturing, high-ticket products |
+| `warm-content` | Blogs, founder stories, educational content |
+| `dark-tech` | AI, electronics, industrial technology |
 
 ## Multi-Site Operations
 
-Use `sites.registry.json` to operate multiple sites. Each site should have its own project directory, `site.config.json`, `.instant-site/state.json`, and deployment target.
+Use `sites.registry.json` to manage multiple sites:
 
-The agent should:
+```text
+workspace/
+  sites.registry.json
+  sites/
+    acme-tools/
+    homeware-export/
+```
 
-- Process only active sites.
-- Respect each site's content and SEO cadence.
-- Keep canonical URLs, sitemap URLs, and deployment domains isolated per site.
-- Generate drafts by default rather than publishing new content automatically.
-- Produce a summary report for health checks, pending reviews, SEO issues, and deployment failures.
+Each site maintains its own `site.config.json`, `.instant-site/state.json`, and deployment target.
 
-## Review Gates and Safety
+## Review & Safety
 
-Human approval is required by default for:
+Human approval required by default for:
 
 - First launch
-- New product pages
-- New blog articles
+- New product pages and blog articles
 - Brand positioning changes
-- Pricing, lead time, certification, compliance, or legal claims
-- Contact method changes
-- Custom domain changes
-- Page deletion
-- Major title or description rewrites
+- Pricing, lead time, certification, compliance claims
+- Contact method and custom domain changes
 
-Low-risk automated actions may include sitemap updates, robots sitemap URL fixes, lastmod updates, minor metadata completion, approved draft publishing, deployment verification, health checks, and SEO audit report generation.
-
-## Pitfalls
-
-| Issue | Solution |
-|-------|----------|
-| Surge CDN returns 504 | Wait 10-30 min, retry, or use Netlify Drop as emergency fallback |
-| Custom domain does not resolve | Check DNS records with the domain provider |
-| No custom HTTP headers on Surge | Use meta tags for partial coverage or move to Cloudflare Pages if CSP/HSTS are mandatory |
-| CSR/SPA sites hurt SEO | Generate static HTML for SEO-critical pages |
-| FID references in old SEO content | Use INP; FID was replaced in March 2024 |
-| FAQ rich results are limited | Use FAQPage mainly for clarity and AI citation, not guaranteed Google rich results |
-| `og:image` uses a relative path | Use an absolute URL such as `https://domain/og.png` |
+Low-risk actions (sitemap updates, minor metadata, health checks, SEO audit reports) may be automated when policy allows.
 
 ## Installation
-### For AI Agents
 
 ```bash
 # Copy to your agent's skills/tools directory
 cp -r instant-site ~/.your-agent/skills/
 ```
 
-### Standalone Use
-
-`SKILL.md` is a standalone operating guide. Copy it into a site project — any AI agent can read and follow it.
+`SKILL.md` is a standalone operating guide — copy it into any site project and any AI agent can read and follow it.
 
 ## License
 
