@@ -157,7 +157,8 @@ Page requirements:
 ### Contact page
 
 - Email, WhatsApp, and address when provided
-- `mailto:` fallback for static sites
+- Use FormSubmit as the default inquiry form (see Part 10)
+- `mailto:` fallback when the user explicitly opts out of FormSubmit
 - Inquiry CTA
 - Do not invent phone numbers, addresses, certifications, clients, or factory claims
 
@@ -503,11 +504,68 @@ Recommend git for user site projects so rollbacks can use previous commits or de
 3. **Netlify Drop is fallback only** — Good for emergency demos, not the default operating path.
 4. **Surge has no custom headers** — Use meta tags for partial coverage; choose another provider if CSP/HSTS are mandatory.
 5. **DNS is external** — Custom domain deployment still requires correct DNS records from the user's provider.
-6. **Static sites do not process secure forms** — Use mailto, third-party forms, or a backend service for real lead capture.
+6. **Static sites use FormSubmit for forms** — FormSubmit.co requires no registration, no API key. Point form action to `https://formsubmit.co/{contactEmail}`. Use Web3Forms as fallback if FormSubmit is blocked.
 7. **Do not invent claims** — Product specifications, certifications, clients, factory capacity, lead times, and prices must come from the user or verified source.
 8. **Search ranking data is external** — Technical SEO is local; ranking monitoring requires Search Console, Bing, or a rank tracker.
 9. **`og:image` must be absolute** — Use a full deployed URL, not `/og.png`.
 10. **Avoid deprecated SEO advice** — Use INP, not FID; do not use HowTo schema.
+
+## Part 10: Inquiry Form with FormSubmit
+
+Static sites cannot process forms server-side. Use FormSubmit as the default zero-configuration inquiry form for contact and product inquiry pages.
+
+### Why FormSubmit
+
+- Zero configuration: no registration, no API key required.
+- Only needs the contact email from `site.config.json`.
+- Free with unlimited submissions.
+- Emails are forwarded to the configured contact inbox.
+
+### Form HTML Template
+
+```html
+<form action="https://formsubmit.co/{contactEmail}" method="POST">
+  <input type="hidden" name="_subject" value="New inquiry from {brandName}">
+  <input type="hidden" name="_next" value="https://{domain}/thanks.html">
+
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="text" name="company" placeholder="Company (optional)">
+  <textarea name="message" placeholder="Describe your inquiry..." required></textarea>
+
+  <button type="submit">Send Inquiry</button>
+</form>
+```
+
+### Hidden Fields
+
+| Field | Purpose |
+|-------|---------|
+| `_subject` | Email subject line — use `{brandName}` |
+| `_next` | Custom thank-you page URL — use absolute deployed URL |
+
+### Required Steps
+
+1. Replace `{contactEmail}` with the email from `site.config.json`.
+2. Set `_next` to the absolute URL of a `thanks.html` page on the deployed domain.
+3. Generate a simple `thanks.html` page with a thank-you message and a link back to the homepage.
+4. **First activation**: the first form submission triggers a confirmation email from FormSubmit to the contact email. The user must click the confirmation link. Remind the user to check their inbox (and spam folder) after the first submission.
+
+### Spam Protection
+
+FormSubmit includes a default CAPTCHA challenge on submission. Do not disable it unless the user explicitly requests a frictionless experience — the tradeoff is higher spam risk. If the user opts out of CAPTCHA, FormSubmit's built-in spam filter still provides baseline protection.
+
+### Fallback: Web3Forms
+
+If FormSubmit is unavailable or blocked:
+
+- Use Web3Forms (`https://api.web3forms.com/submit`) — requires one-time registration to get an access key.
+- Form action: `https://api.web3forms.com/submit` with `<input type="hidden" name="access_key" value="{key}">`.
+- Free tier: 250 submissions/month.
+
+### After Deployment
+
+Test the contact form by submitting a test inquiry and verifying the confirmation email is received. Update `.instant-site/state.json` to record that the form has been activated.
 
 ## Verification Commands
 

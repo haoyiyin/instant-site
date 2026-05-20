@@ -17,7 +17,8 @@
     "approved_draft_publish",
     "deployment_verification",
     "health_check",
-    "seo_audit_report"
+    "seo_audit_report",
+    "inquiry_form_setup"
   ],
   "humanApprovalRequiredFor": [
     "first_launch",

@@ -38,6 +38,16 @@
 - [ ] Internal links
 - [ ] CTA
 
+## Inquiry Form
+
+- [ ] Contact page uses FormSubmit `<form>` with correct contact email.
+- [ ] `_next` points to absolute URL of `thanks.html`.
+- [ ] `_subject` includes brand name.
+- [ ] FormSubmit CAPTCHA is enabled (default).
+- [ ] Form fields include name, email, message at minimum.
+- [ ] `thanks.html` page exists with thank-you message and homepage link.
+- [ ] First submission confirmation email reminder prepared for the user.
+
 ## Structured Data
 
 - [ ] `WebSite` where appropriate
