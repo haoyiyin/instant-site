@@ -67,6 +67,7 @@ Don't:
 - Reduce background effects on mobile.
 - Keep nav and CTA contrast high.
 - Avoid scroll-jacking.
+- RTL: mirror layout direction. Use `dir="rtl"` on `<html>`. Mirror padding/margin/text-align. Arabic font stack: `Tajawal, 'Noto Naskh Arabic', sans-serif`.
 
 ## 9. Agent Prompt Guide
 

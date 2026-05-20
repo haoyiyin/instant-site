@@ -362,6 +362,7 @@ Check site files:
 - `robots.txt` exists and references sitemap.
 - `sitemap.xml` includes all important pages.
 - URLs are lowercase, semantic, and hyphenated.
+- Multi-language sites have `hreflang` alternates on every page, including `x-default`.
 
 #### B. Deployed-site audit
 
@@ -567,6 +568,109 @@ If FormSubmit is unavailable or blocked:
 
 Test the contact form by submitting a test inquiry and verifying the confirmation email is received. Update `.instant-site/state.json` to record that the form has been activated.
 
+## Part 11: Multi-Language Site Generation
+
+Use this workflow when `site.config.json` lists more than one language in `brand.languages`.
+
+### URL Structure
+
+All languages live under subdirectories on the same domain. This consolidates SEO weight and keeps hosting simple.
+
+```
+/en/          — default language
+/ar/          — Arabic (RTL)
+```
+
+Root `index.html` is a minimal language detector that redirects based on `<meta http-equiv="refresh">` with a 0-second delay, or provides manual language links.
+
+### Directory Structure for Multi-Language
+
+```
+customer-site/
+  index.html                 — language detector/redirect
+  /en/
+    index.html
+    about.html
+    contact.html
+    products/
+      index.html
+      cnc-cutting-tool.html
+    blog/
+      index.html
+  /ar/
+    index.html
+    about.html
+    contact.html
+    products/
+      index.html
+    blog/
+      index.html
+  /assets/
+    css/styles.css           — shared, with RTL overrides
+    js/main.js
+    images/
+  robots.txt
+  sitemap.xml                — combined, with hreflang
+```
+
+### Generating Multi-Language Sites
+
+1. Generate the default language first (complete all pages, verify).
+2. For each additional language, create its subdirectory and generate parallel pages.
+3. Non-default language content can be translated from default content, written independently per market, or a mix of both. When translating, adapt examples and buyer scenarios to the target market — do not do literal word-for-word translation.
+
+### hreflang Requirements
+
+Every page must list all language alternates. Example on an English page:
+
+```html
+<link rel="alternate" hreflang="en" href="https://domain.com/en/products/">
+<link rel="alternate" hreflang="ar" href="https://domain.com/ar/products/">
+<link rel="alternate" hreflang="x-default" href="https://domain.com/en/products/">
+```
+
+- `hreflang` values use ISO 639-1 language codes (en, ar, es, fr, de, etc.).
+- `x-default` should point to the default language version.
+- Every alternate page must have a reciprocal link back to the current page.
+
+### Language Switcher
+
+Include a simple language selector in the site navigation on every page. Use native language names (English, العربية, Español, Français, etc.), not country flags. The switcher should link to the equivalent page in the target language, not the homepage.
+
+### RTL Language Rules
+
+When a language has `"dir": "rtl"` in its config:
+
+- Set `<html lang="{code}" dir="rtl">` on every page.
+- Mirror text alignment: `text-align: right` becomes the default.
+- Mirror padding and margin: `padding-left` → `padding-right`, etc.
+- Mirror flexbox direction: `flex-direction: row-reverse` where needed.
+- Use the Arabic font stack from DESIGN.md: `Tajawal, 'Noto Naskh Arabic', sans-serif`.
+- Keep numbers in their natural direction (Arabic numerals are LTR).
+- Logo, brand marks, and icons should not be mirrored.
+
+### Sitemap for Multi-Language
+
+Include all language versions in a single `sitemap.xml`. Use the `hreflang` annotation:
+
+```xml
+<url>
+  <loc>https://domain.com/en/products/</loc>
+  <xhtml:link rel="alternate" hreflang="en" href="https://domain.com/en/products/"/>
+  <xhtml:link rel="alternate" hreflang="ar" href="https://domain.com/ar/products/"/>
+</url>
+```
+
+### robots.txt
+
+A single `robots.txt` in the root covers all language subdirectories. The sitemap URL is shared and language-agnostic.
+
+### Content Operations for Multi-Language
+
+- Per-language `content-plan.json` topics: each topic can have a `"language"` field to target a specific market.
+- When generating a draft in a non-default language, check if a default-language source article exists. If yes, adapt it; if not, write independently for that market.
+- Review gates: default language content follows the normal approval workflow. Translations of already-approved content can auto-publish when `review-policy.json` allows it.
+
 ## Verification Commands
 
 After deployment:
@@ -602,4 +706,8 @@ Manual checks when relevant:
 
 ```text
 部署当前站点到 Surge.sh，并验证首页、robots.txt、sitemap.xml、meta 标签和 canonical。
+```
+
+```text
+为 acme-tools 生成英语 + 阿拉伯语双语站点，使用子目录结构。英文优先，阿语内容按默认语言翻译并适配中东市场。部署后检查所有 hreflang 标签和 RTL 布局。
 ```

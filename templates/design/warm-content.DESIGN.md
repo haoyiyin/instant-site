@@ -64,6 +64,7 @@ Don't:
 - Use single-column layouts below 768px.
 - Ensure tap targets are at least 44px tall.
 - Keep sticky elements minimal.
+- RTL: mirror layout direction. Use `dir="rtl"` on `<html>`. Mirror padding/margin/text-align. Arabic font stack: `Tajawal, 'Noto Naskh Arabic', sans-serif`.
 
 ## 9. Agent Prompt Guide
 

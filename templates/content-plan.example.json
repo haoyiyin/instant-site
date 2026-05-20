@@ -15,6 +15,16 @@
       "dueDate": null
     },
     {
+      "type": "blog",
+      "language": "ar",
+      "title": "كيف تختار أدوات القطع CNC للألمنيوم",
+      "targetKeyword": "مورد أدوات قطع CNC",
+      "buyerStage": "consideration",
+      "status": "planned",
+      "dueDate": null,
+      "note": "Translate and adapt from English version; adjust buyer examples for Middle East market."
+    },
+    {
       "type": "product_update",
       "title": "Refresh CNC Cutting Tool Applications",
       "targetKeyword": "CNC cutting tool supplier",

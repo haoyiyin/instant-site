@@ -68,6 +68,7 @@ Don't:
 - Technical tables may scroll horizontally.
 - CTA groups stack vertically under 640px.
 - Keep dark sections readable with sufficient contrast.
+- RTL: mirror layout direction. Use `dir="rtl"` on `<html>`. Mirror padding/margin/text-align. Arabic font stack: `Tajawal, 'Noto Naskh Arabic', sans-serif`.
 
 ## 9. Agent Prompt Guide
 

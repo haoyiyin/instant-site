@@ -3,7 +3,10 @@
   "brand": {
     "name": "Acme Tools",
     "tagline": "Precision tools for global manufacturers",
-    "language": "en",
+    "languages": [
+      {"code": "en", "name": "English", "default": true},
+      {"code": "ar", "name": "العربية", "dir": "rtl"}
+    ],
     "markets": ["US", "EU", "Middle East"],
     "tone": "professional, trustworthy, practical, B2B"
   },

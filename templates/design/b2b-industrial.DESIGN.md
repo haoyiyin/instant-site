@@ -70,6 +70,7 @@ Don't:
 - Keep buttons at least 44px tall on touch devices.
 - Tables may scroll horizontally, but core specs should remain readable.
 - Navigation should prioritize Products, About, Blog, Contact.
+- RTL: mirror layout direction. Use `dir="rtl"` on `<html>`. Mirror padding/margin/text-align. Arabic font stack: `Tajawal, 'Noto Naskh Arabic', sans-serif`.
 
 ## 9. Agent Prompt Guide
 

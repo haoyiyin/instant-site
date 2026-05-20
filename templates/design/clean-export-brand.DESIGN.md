@@ -68,6 +68,7 @@ Don't:
 - Keep CTA buttons full-width on small screens when useful.
 - Keep nav compact and simple.
 - Avoid horizontal scrolling except for data tables.
+- RTL: mirror layout direction. Use `dir="rtl"` on `<html>`. Mirror padding/margin/text-align. Arabic font stack: `Tajawal, 'Noto Naskh Arabic', sans-serif`.
 
 ## 9. Agent Prompt Guide
 

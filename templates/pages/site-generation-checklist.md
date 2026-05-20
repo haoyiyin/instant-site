@@ -13,6 +13,17 @@
 - [ ] DESIGN.md template selected
 - [ ] Publishing policy selected
 
+## Multi-Language (if multiple languages configured)
+
+- [ ] Default language site generated first and verified.
+- [ ] Each language in its own subdirectory (`/en/`, `/ar/`).
+- [ ] Every page has `<link rel="alternate" hreflang="...">` for all configured languages.
+- [ ] Every page includes `<link rel="alternate" hreflang="x-default">`.
+- [ ] Root `index.html` does language detection redirect.
+- [ ] Language switcher present in nav on all pages.
+- [ ] RTL languages use `dir="rtl"` and mirrored CSS.
+- [ ] Sitemap includes hreflang annotations.
+
 ## Files
 
 - [ ] `site.config.json`
