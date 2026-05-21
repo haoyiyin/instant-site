@@ -197,11 +197,19 @@ Recommended templates:
 
 | Template | Best For |
 |----------|----------|
+| **B2B** | — |
 | `b2b-industrial` | Machinery, tools, hardware, building materials, industrial exports |
 | `clean-export-brand` | Consumer goods, homeware, packaging, light industry |
 | `premium-manufacturing` | OEM/ODM, precision manufacturing, high-ticket products |
+| `saas-tech` | SaaS platforms, cloud services, developer tools, API products |
+| `enterprise-corporate` | Enterprise services, consulting, professional services, B2B solutions |
+| `fintech-secure` | Fintech, payments, crypto, financial services, insurtech |
+| **B2C** | — |
 | `warm-content` | Content-heavy sites, guides, founder stories, educational blogs |
 | `dark-tech` | AI, electronics, industrial technology, high-tech products |
+| `ecommerce-vibrant` | DTC brands, fashion, consumer retail, product marketplaces |
+| `lifestyle-minimal` | Premium lifestyle, design-forward brands, wellness, premium home |
+| `luxury-automotive` | Luxury goods, automotive, high-end consumer products, premium accessories |
 
 When generating pages, read `DESIGN.md` before editing HTML/CSS and keep colors, typography, spacing, buttons, cards, forms, and responsive behavior consistent.
 

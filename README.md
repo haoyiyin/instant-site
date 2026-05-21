@@ -80,7 +80,7 @@ customer-site/
 | Feature | Description |
 |---------|-------------|
 | **Full Site Generation** | Home, products, about, contact, blog, robots.txt, sitemap.xml — complete from day one |
-| **DESIGN.md System** | 5 visual templates ensuring AI-generated pages look consistent |
+| **DESIGN.md System** | 11 visual templates ensuring AI-generated pages look consistent |
 | **Zero-Config Forms** | FormSubmit inquiry forms — no registration, no API key, emails go straight to your inbox |
 | **Multi-Language + RTL** | Subdirectory structure with hreflang, Arabic RTL support, per-language content |
 | **Content Calendar** | Scheduled blog posts, product refreshes, industry articles with review gates |
@@ -118,11 +118,19 @@ curl -s https://example-site.surge.sh/ | grep -E '<title>|<meta name="descriptio
 
 | Template | Best For |
 |----------|----------|
+| **B2B** | — |
 | `b2b-industrial` | Machinery, tools, hardware, building materials |
 | `clean-export-brand` | Homeware, consumer goods, light industry |
 | `premium-manufacturing` | OEM/ODM, precision manufacturing, high-ticket products |
+| `saas-tech` | SaaS platforms, cloud services, developer tools, API products |
+| `enterprise-corporate` | Enterprise services, consulting, professional services |
+| `fintech-secure` | Fintech, payments, crypto, financial services |
+| **B2C** | — |
 | `warm-content` | Blogs, founder stories, educational content |
 | `dark-tech` | AI, electronics, industrial technology |
+| `ecommerce-vibrant` | DTC brands, fashion, consumer retail |
+| `lifestyle-minimal` | Premium lifestyle, design-forward brands, wellness |
+| `luxury-automotive` | Luxury goods, automotive, high-end consumer products |
 
 ## Multi-Site Operations
 
