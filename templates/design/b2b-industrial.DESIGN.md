@@ -1,5 +1,26 @@
 # B2B Industrial DESIGN.md
 
+## Template Fit
+
+**Best for:** Machinery, tools, hardware, building materials, industrial exports, B2B procurement-heavy sites.
+
+**Avoid for:** Lifestyle brands, creative agencies, SaaS dashboards, playful consumer products.
+
+**Default dials:**
+- DESIGN_VARIANCE: 4-6
+- MOTION_INTENSITY: 2-4
+- VISUAL_DENSITY: 5-6
+
+**Asset strategy:** Technical product/factory photography, process diagrams, facility visuals. Avoid lifestyle imagery.
+
+**Layout families:** Two-column hero, product grids, capability sections, spec tables, FAQ.
+
+**Anti-slop risks:**
+- Do not default to Inter unless neutral procurement UI is desired. Prefer Geist, IBM Plex Sans, or system sans.
+- Avoid SaaS-looking purple gradients or playful motion.
+- No invented factory scale, certifications, or customer proof.
+- Dense spec tables need grouping, not hairline under every row.
+
 ## 1. Visual Theme & Atmosphere
 
 Precise, stable, trustworthy, and export-ready. The site should feel like a capable manufacturing partner: clear technical information, strong proof points, practical layouts, and direct inquiry paths.

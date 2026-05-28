@@ -1,5 +1,25 @@
 # Warm Content DESIGN.md
 
+## Template Fit
+
+**Best for:** Content-led sites, educational blogs, buyer guides, founder stories, trust-building articles.
+
+**Avoid for:** Product-heavy e-commerce, dark tech, industrial machinery.
+
+**Default dials:**
+- DESIGN_VARIANCE: 5-6
+- MOTION_INTENSITY: 2-4
+- VISUAL_DENSITY: 3-4
+
+**Asset strategy:** Editorial photography, author portraits, article illustrations.
+
+**Layout families:** Single-column content, article cards, callouts, FAQ.
+
+**Anti-slop risks:**
+- No invented statistics, citations, or fake author credentials.
+- Avoid flashy animations or marketing blocks inside articles.
+- Keep line length 65-75 characters for readability.
+
 ## 1. Visual Theme & Atmosphere
 
 Warm, editorial, calm, and readable. The site should support educational content, founder stories, buyer guides, and trust-building articles.

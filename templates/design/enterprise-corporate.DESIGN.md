@@ -1,5 +1,25 @@
 # Enterprise Corporate DESIGN.md
 
+## Template Fit
+
+**Best for:** Enterprise services, consulting, professional services, corporate B2B.
+
+**Avoid for:** Creative agencies, lifestyle brands, SaaS dashboards, playful products.
+
+**Default dials:**
+- DESIGN_VARIANCE: 4-5
+- MOTION_INTENSITY: 2-3
+- VISUAL_DENSITY: 5-6
+
+**Asset strategy:** Professional imagery, team photos, case study visuals when provided.
+
+**Layout families:** Two-column hero, service grids, case study cards, data tables.
+
+**Anti-slop risks:**
+- No invented case studies, client names, or partnerships.
+- Avoid casual marketing-heavy language.
+- Keep palette restrained and professional.
+
 ## 1. Visual Theme & Atmosphere
 
 Structured, authoritative, trustworthy, and systematically organized. The site should feel like a capable enterprise partner: clear service descriptions, case studies, and practical layouts.

@@ -1,5 +1,26 @@
 # Luxury Automotive DESIGN.md
 
+## Template Fit
+
+**Best for:** Luxury goods, automotive, high-end consumer products, premium accessories.
+
+**Avoid for:** Industrial B2B, SaaS platforms, fintech, content-heavy blogs.
+
+**Default dials:**
+- DESIGN_VARIANCE: 7-9
+- MOTION_INTENSITY: 6-8
+- VISUAL_DENSITY: 2-4
+
+**Asset strategy:** Cinematic photography, full-bleed imagery, metallic accents.
+
+**Layout families:** Full-bleed hero, spec displays, image galleries, dark surfaces.
+
+**Anti-slop risks:**
+- Page-level dark theme lock.
+- Avoid traditional shadows; use subtle border glow.
+- Metallic gold for CTAs only; do not saturate with bright colors.
+- No playful or casual design elements.
+
 ## 1. Visual Theme & Atmosphere
 
 Dramatic, cinematic, high-contrast, and exclusive. The site should feel like a luxury showcase: bold metallic accents, immersive photography, and precision typography.

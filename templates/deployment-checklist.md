@@ -36,3 +36,15 @@ surge . --domain www.example.com
 - [ ] No Surge 504 is observed.
 - [ ] `.instant-site/state.json` is updated.
 - [ ] `.instant-site/deployments.json` is updated.
+
+## Visual Production QA
+
+- [ ] Hero looks correct at laptop (1024px), mobile (375px), and large desktop (1440px).
+- [ ] Desktop navigation stays on one line, height at or below 80px.
+- [ ] CTA labels do not wrap.
+- [ ] Dark mode consistent across all sections (if included).
+- [ ] Reduced-motion respected (if animations exist).
+- [ ] No text-only or placeholder hero shipped accidentally.
+- [ ] OG image matches page and deployment domain.
+- [ ] Images have reserved dimensions, no visible CLS.
+- [ ] LCP risk low (hero image optimized or preloaded).

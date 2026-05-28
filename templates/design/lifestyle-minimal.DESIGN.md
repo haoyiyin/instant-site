@@ -1,5 +1,26 @@
 # Lifestyle Minimal DESIGN.md
 
+## Template Fit
+
+**Best for:** Premium lifestyle brands, design-forward consumer products, wellness, premium home goods.
+
+**Avoid for:** Industrial B2B, fintech, enterprise corporate, high-tech products.
+
+**Default dials:**
+- DESIGN_VARIANCE: 6-8
+- MOTION_INTENSITY: 3-5
+- VISUAL_DENSITY: 2-4
+
+**Asset strategy:** Photography-forward. Real product or lifestyle imagery required. No text-only minimalism.
+
+**Layout families:** Large display typography, edge-to-edge images, generous whitespace, single accent.
+
+**Anti-slop risks:**
+- Minimal does not mean text-only. Require real visuals.
+- Avoid default beige/brass/espresso palette unless brand-supported.
+- Avoid default serif unless brand is genuinely editorial, luxury, or heritage.
+- One consistent accent, no color fluctuation.
+
 ## 1. Visual Theme & Atmosphere
 
 Extremely restrained, elegant, typography-forward, and visually serene. The site should feel like a curated design studio: generous whitespace, photographic storytelling, and refined typography.

@@ -1,5 +1,26 @@
 # Fintech Secure DESIGN.md
 
+## Template Fit
+
+**Best for:** Fintech, payments, crypto, financial services, insurtech.
+
+**Avoid for:** Lifestyle brands, creative agencies, industrial manufacturing.
+
+**Default dials:**
+- DESIGN_VARIANCE: 4-5
+- MOTION_INTENSITY: 2-3
+- VISUAL_DENSITY: 5-6
+
+**Asset strategy:** Trust indicators, compliance icons, platform screenshots. No fake metrics.
+
+**Layout families:** Two-column hero, pricing tables, compliance sections, trust badges.
+
+**Anti-slop risks:**
+- No invented regulatory approvals, licenses, certifications.
+- No fake-precise financial metrics without source.
+- Avoid vague financial claims without supporting data.
+- Use tabular numbers for financial figures.
+
 ## 1. Visual Theme & Atmosphere
 
 Clean, high-trust, secure-feeling, and precisely organized. The site should feel like a reliable financial platform: transparent pricing, clear compliance, and professional presentation.

@@ -1,5 +1,25 @@
 # Premium Manufacturing DESIGN.md
 
+## Template Fit
+
+**Best for:** OEM/ODM, precision manufacturing, advanced materials, high-value industrial products.
+
+**Avoid for:** Lifestyle brands, creative agencies, playful consumer products.
+
+**Default dials:**
+- DESIGN_VARIANCE: 5-6
+- MOTION_INTENSITY: 3-4
+- VISUAL_DENSITY: 5-6
+
+**Asset strategy:** Product/factory photography, technical visuals, capability diagrams.
+
+**Layout families:** Dark/light hero, capability sections, process steps, spec tables.
+
+**Anti-slop risks:**
+- No invented metrics, factory size, patents, or customer names.
+- Avoid stock-sounding luxury claims without evidence.
+- Gold accents sparingly; do not overuse.
+
 ## 1. Visual Theme & Atmosphere
 
 Premium, precise, engineered, and high-confidence. The site should communicate advanced manufacturing capability, quality control, and long-term partnership value.

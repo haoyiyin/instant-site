@@ -75,3 +75,28 @@ Recommend that user site projects use git. Before first launch or major updates,
 - previous deployment record in `.instant-site/deployments.json`
 
 Surge deploys static files, so rollback usually means redeploying a previous known-good version.
+
+## Design Quality Gate
+
+Require review or correction when:
+
+- No design read was made before template selection.
+- Template choice conflicts with audience, industry, or brand vibe.
+- Hero overflows initial viewport or CTA is hidden.
+- Visual assets are missing, fake, or clearly placeholder in final output.
+- Layout repeats the same family too often (e.g., 5 zigzag sections).
+- Copy contains obvious AI tells (em-dashes, decorative metadata, fake-precise numbers without source).
+- CTA intent duplicated with inconsistent labels.
+- Button or form contrast fails WCAG AA.
+- Motion ignores reduced-motion preference.
+- Visual redesign risks SEO structure (URL changes, nav changes, metadata changes).
+
+## Redesign Gate
+
+For existing site redesigns, require audit before generation:
+
+- Preserve: brand tokens, URL structure, primary nav labels, form fields, analytics IDs, legal copy, verified claims.
+- Document: current SEO metadata, ranking-sensitive pages, accessibility wins, existing visual assets.
+- Identify: patterns to preserve, patterns to retire, patterns to modernize.
+
+Hard rule: Do not silently change URLs, nav labels, form fields, analytics hooks, or verified business claims.

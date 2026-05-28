@@ -73,3 +73,26 @@
 - [ ] No unsupported pricing or lead-time claims
 - [ ] No unresolved placeholders
 - [ ] Publish review prepared before first launch
+
+## Design Preflight
+
+- [ ] Design read stated before template selection.
+- [ ] Design dials selected or inferred.
+- [ ] Template selection justified (matches audience, industry, vibe).
+- [ ] Typography is brand-appropriate, not default Inter unless justified.
+- [ ] Palette has one consistent accent color.
+- [ ] Hero fits initial viewport (headline max 2 lines, subtext max 20 words).
+- [ ] Hero has max 4 text elements (eyebrow, headline, subtext, CTAs).
+- [ ] CTA visible without scroll on laptop viewport.
+- [ ] CTA label does not wrap on desktop.
+- [ ] Eyebrow count limited (max 1 per 3 sections).
+- [ ] No three consecutive zigzag image/text sections.
+- [ ] No unjustified three-equal-card feature rows.
+- [ ] Visual asset plan exists (hero, supporting visuals, OG image).
+- [ ] Images have alt text, width, height attributes.
+- [ ] No fake div-based product screenshots.
+- [ ] No em-dashes in visible copy.
+- [ ] No decorative version labels, section numbers, scroll cues, weather strips.
+- [ ] Mobile collapse explicit for every multi-column section.
+- [ ] Button and form contrast pass WCAG AA.
+- [ ] Reduced-motion fallback exists if motion is used.

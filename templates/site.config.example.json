@@ -36,7 +36,20 @@
   "generation": {
     "designTemplate": "b2b-industrial",
     "pages": ["home", "products", "productDetail", "about", "contact", "blog"],
-    "publishMode": "review_required"
+    "publishMode": "review_required",
+    "designRead": {
+      "pageKind": "B2B industrial export landing",
+      "audience": "procurement managers, distributors, manufacturers",
+      "vibe": "trustworthy, technical, practical",
+      "aestheticFamily": "industrial B2B with restrained visuals"
+    },
+    "designDials": {
+      "DESIGN_VARIANCE": 5,
+      "MOTION_INTENSITY": 3,
+      "VISUAL_DENSITY": 5
+    },
+    "visualAssetStrategy": "provided-assets",
+    "themeMode": "light"
   },
   "needsConfirmation": []
 }

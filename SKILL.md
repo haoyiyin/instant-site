@@ -35,6 +35,143 @@ Instant Site helps an agent build, deploy, update, and SEO-optimize static forei
 5. **State in files** — Use `site.config.json`, `.instant-site/state.json`, and related JSON files instead of relying on chat history.
 6. **Review risky publishing** — Default to `review_required` for new commercial content, product claims, pricing, certifications, legal text, and domain changes.
 7. **Multi-site isolation** — When operating multiple sites, read each site's config and state separately; never reuse canonical URLs, sitemap URLs, or domains across sites.
+8. **Design quality matters** — Prevent generic AI-looking sites. Infer design direction before template selection. Avoid default slop patterns. Follow layout discipline. Use real visuals.
+
+## Design Quality Rules
+
+These rules prevent generic LLM-style output and keep sites visually credible.
+
+### Design Read Before Template Selection
+
+Before selecting or generating a DESIGN.md, state one line:
+
+```text
+Reading this as: <page kind> for <audience>, with a <vibe> language, leaning toward <template or aesthetic family>.
+```
+
+Infer from:
+
+- Business type, industry, and target customers
+- Export markets and buyer expectations
+- Brand tone and existing visual assets
+- Product category and competitive positioning
+
+If ambiguous, ask one clarifying question. Do not select a template purely by name if the audience or vibe conflicts.
+
+### Design Dials
+
+Set three optional dials to tune visual intensity:
+
+- `DESIGN_VARIANCE`: 1-10 (symmetry vs asymmetry)
+- `MOTION_INTENSITY`: 1-10 (static vs cinematic)
+- `VISUAL_DENSITY`: 1-10 (airy vs dense)
+
+Static marketing site defaults:
+
+| Site type | Variance | Motion | Density |
+|-----------|----------|--------|---------|
+| B2B industrial, regulated, procurement-heavy | 4-6 | 2-4 | 5-6 |
+| SaaS, devtool, cloud/API | 6-7 | 4-6 | 4-5 |
+| Lifestyle, premium consumer | 6-8 | 3-5 | 2-4 |
+| Dark tech, AI, advanced electronics | 7-8 | 5-7 | 4-5 |
+| Content/editorial, blog, guides | 5-6 | 2-4 | 3-4 |
+
+These are optional. Infer them from brief when not specified.
+
+### Anti-Slop Defaults
+
+Avoid these LLM-signature patterns unless the brief explicitly calls for them:
+
+- Inter plus slate plus purple gradient as the default palette
+- Centered hero sections as the default layout
+- Three equal feature cards in a row
+- Fake dashboard or product screenshots built from styled divs
+- Decorative status dots, section-number eyebrows, scroll cues, version labels, weather/location strips
+- Plain text wordmarks for invented social-proof logo walls
+- Em-dashes in visible copy
+- Fake-precise metrics without a source
+- Text-only "minimalism" without real visuals
+
+### Layout Discipline
+
+Hard rules for static marketing pages:
+
+- Hero must fit the initial viewport without scroll.
+- Hero subtext max 20 words, max 4 lines.
+- Hero stack max 4 text elements: optional eyebrow/brand strip, headline, subtext, CTA group.
+- Desktop navigation must render on one line, height at or below 80px.
+- Eyebrow labels limited to about one per three sections.
+- No three or more consecutive zigzag image/text split sections.
+- Avoid split-header pattern (left big headline + right small paragraph) as default; stack vertically.
+- Every multi-column section must explicitly collapse below 768px.
+- CTA labels must not wrap on desktop.
+- Use `min-height: 100dvh` for viewport-height sections, not `h-screen`.
+
+### Visual Asset Strategy
+
+Every major landing page needs a visual asset plan:
+
+- Hero visual
+- 1-3 supporting visuals for key sections
+- OG image for social sharing
+- Optional logo assets for trust wall
+
+Priority order:
+
+1. Provided brand/product assets first
+2. Generated images if a tool is available
+3. Real stock or placeholder URLs with descriptive seeds
+4. Clearly labeled placeholders only for drafts
+
+Image requirements:
+
+- Descriptive filenames
+- Alt text for every image
+- Width and height attributes reserved
+- Appropriate loading strategy
+- No CLS regressions
+
+Do not ship final pages with placeholder images, fake div-based screenshots, or text-only heroes.
+
+### Accessibility and Motion
+
+- Text, CTA, form labels, placeholders, and helper text must meet WCAG AA contrast.
+- Forms: labels above inputs, placeholders do not replace labels.
+- Touch targets at least 44px on mobile.
+- If motion is used, respect `prefers-reduced-motion`.
+- Animate only `transform` and `opacity` for simple static sites.
+- Avoid scroll hijacks unless justified by the brief.
+
+### Theme Consistency
+
+If dark mode is included:
+
+- Lock it at page/theme level.
+- Do not randomly invert individual sections.
+- Test contrast in both modes.
+
+Do not force dark mode for every foreign-trade site. Include only when appropriate for the audience.
+
+### Redesign Mode
+
+Detect one of:
+
+- **Greenfield** — New site, no existing constraints.
+- **Redesign, preserve brand** — Modernize without breaking identity.
+- **Redesign, overhaul** — New visual language on existing content.
+
+For redesigns, audit before generation:
+
+- Current brand tokens (colors, typography, logo treatment)
+- URL structure and page slugs
+- Primary navigation labels
+- Conversion paths and forms
+- Current SEO metadata and ranking-sensitive pages
+- Existing visual assets
+- Accessibility wins to preserve
+- Patterns to retire
+
+Hard rule: Do not silently change URLs, nav labels, form field names/order, analytics-sensitive IDs, legal copy, brand logo, or verified claims.
 
 ## Part 1: Intake and Site Configuration
 

@@ -1,5 +1,25 @@
 # E-Commerce Vibrant DESIGN.md
 
+## Template Fit
+
+**Best for:** DTC brands, fashion retailers, consumer product stores, marketplaces.
+
+**Avoid for:** Industrial B2B, fintech, enterprise corporate, luxury automotive.
+
+**Default dials:**
+- DESIGN_VARIANCE: 7-8
+- MOTION_INTENSITY: 5-6
+- VISUAL_DENSITY: 4-5
+
+**Asset strategy:** Lifestyle product photography, model shots, review images. Real visuals required.
+
+**Layout families:** Full-width hero, product grids, review sections, sale badges.
+
+**Anti-slop risks:**
+- No invented reviews, ratings, or testimonials.
+- No fake urgency indicators or misleading pricing.
+- Avoid default three-equal product grids; vary layout families.
+
 ## 1. Visual Theme & Atmosphere
 
 Bold, energetic, conversion-optimized, and visually engaging. The site should feel like a vibrant retail destination: eye-catching product displays, clear CTAs, and social proof.

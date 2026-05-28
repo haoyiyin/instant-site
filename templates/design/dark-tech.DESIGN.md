@@ -1,5 +1,27 @@
 # Dark Tech DESIGN.md
 
+## Template Fit
+
+**Best for:** AI, electronics, industrial technology, high-tech products, developer tools.
+
+**Avoid for:** Traditional B2B manufacturing, lifestyle brands, regulated industries needing light mode.
+
+**Default dials:**
+- DESIGN_VARIANCE: 7-8
+- MOTION_INTENSITY: 5-7
+- VISUAL_DENSITY: 4-5
+
+**Asset strategy:** Gradient mesh backgrounds, abstract visuals, or real product photography. No neon overload.
+
+**Layout families:** Dark hero, alternating surfaces, code blocks, glow accents.
+
+**Anti-slop risks:**
+- Page-level dark theme lock; do not invert single sections.
+- Avoid neon overload, glowing borders everywhere, hacker cliches.
+- Accent color must stay consistent across the page.
+- Ensure CTA and body text contrast passes WCAG AA.
+- Avoid Inter default; consider Sora, Geist, or system sans.
+
 ## 1. Visual Theme & Atmosphere
 
 Dark, technical, cinematic, and future-facing. The site should feel premium and innovative while keeping product value and SEO-critical content readable.

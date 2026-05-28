@@ -1,5 +1,26 @@
 # SaaS Tech DESIGN.md
 
+## Template Fit
+
+**Best for:** SaaS platforms, cloud services, developer tools, API products, tech startups.
+
+**Avoid for:** Traditional B2B manufacturing, regulated industries, luxury brands.
+
+**Default dials:**
+- DESIGN_VARIANCE: 6-7
+- MOTION_INTENSITY: 4-6
+- VISUAL_DENSITY: 4-5
+
+**Asset strategy:** Real product screenshots, generated visuals, or abstract system diagrams. No fake div-based dashboards.
+
+**Layout families:** Hero with dual CTA, feature grids (avoid default three-equal), code blocks, metric displays.
+
+**Anti-slop risks:**
+- Avoid default indigo/purple gradient unless brand calls for it.
+- Do not use three equal feature cards as default layout.
+- No fake dashboard screenshots built from styled divs.
+- Avoid Inter default; consider Geist, Sora, or system sans.
+
 ## 1. Visual Theme & Atmosphere
 
 Clean, geometric, developer-friendly, and technically credible. The site should feel like a modern cloud platform: precise, fast, and approachable. Use subtle gradient mesh backgrounds for hero sections and clean card layouts.

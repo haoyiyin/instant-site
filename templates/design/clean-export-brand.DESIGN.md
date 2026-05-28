@@ -1,5 +1,25 @@
 # Clean Export Brand DESIGN.md
 
+## Template Fit
+
+**Best for:** Consumer goods, homeware, packaging, light industry, export-focused B2C/B2B.
+
+**Avoid for:** Heavy industrial machinery, fintech, dark tech, luxury automotive.
+
+**Default dials:**
+- DESIGN_VARIANCE: 5-6
+- MOTION_INTENSITY: 3-4
+- VISUAL_DENSITY: 4-5
+
+**Asset strategy:** Clean product photography, lifestyle imagery, consistent aspect ratios.
+
+**Layout families:** Two-column sections, product grids, simple testimonials, FAQ.
+
+**Anti-slop risks:**
+- Avoid aggressive sales copy or fake reviews.
+- No invented MOQ, certifications, or buyer testimonials.
+- Keep palette restrained; avoid mixing many colors.
+
 ## 1. Visual Theme & Atmosphere
 
 Clean, bright, approachable, and globally credible. The site should feel easy to browse for international buyers while still presenting products with commercial clarity.
