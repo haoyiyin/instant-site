@@ -13,25 +13,48 @@
 - [ ] DESIGN.md template selected
 - [ ] Publishing policy selected
 
-## Buyer Context (Recommended)
+## Responsive Design
 
-- [ ] Buyer roles identified (importer, distributor, procurement manager, OEM buyer)
-- [ ] Purchase concerns documented (MOQ, lead time, certification, customization)
-- [ ] Trust requirements listed (factory photos, certifications, case studies)
-- [ ] Conversion goal specified (quote request, sample request, WhatsApp inquiry)
-- [ ] `buyer-context.json` created or `.instant-site/buyer-context.json`
-- [ ] `needsConfirmation` fields populated for uncertain claims
+- [ ] Viewport meta tag present: `<meta name="viewport" content="width=device-width, initial-scale=1">`
+- [ ] Mobile-first CSS strategy used (or equivalent desktop-first with proper overrides).
+- [ ] Hero stacks vertically on mobile (no fixed height).
+- [ ] All multi-column sections collapse to single column below 768px.
+- [ ] Navigation collapses to hamburger menu on mobile.
+- [ ] All touch targets ≥ 44px height (buttons, links, inputs).
+- [ ] Input fields font-size ≥ 16px (prevents iOS zoom).
+- [ ] Images scale properly with max-width: 100% or object-fit.
+- [ ] No horizontal scroll on any viewport width.
+- [ ] Tables have mobile-friendly layout (card stack or horizontal scroll).
+- [ ] Typography uses fluid scaling (clamp) or proper breakpoints.
+- [ ] Reduced motion fallback implemented.
+- [ ] Tested on mobile viewport (375px-480px).
+- [ ] Tested on tablet viewport (768px).
+- [ ] Tested on desktop viewport (1280px+).
 
-## Multi-Language (if multiple languages configured)
+## Design Preflight
 
-- [ ] Default language site generated first and verified.
-- [ ] Each language in its own subdirectory (`/en/`, `/ar/`).
-- [ ] Every page has `<link rel="alternate" hreflang="...">` for all configured languages.
-- [ ] Every page includes `<link rel="alternate" hreflang="x-default">`.
-- [ ] Root `index.html` does language detection redirect.
-- [ ] Language switcher present in nav on all pages.
-- [ ] RTL languages use `dir="rtl"` and mirrored CSS.
-- [ ] Sitemap includes hreflang annotations.
+- [ ] Design read stated before template selection.
+- [ ] Design dials selected or inferred.
+- [ ] Template selection justified (matches audience, industry, vibe).
+- [ ] Typography is brand-appropriate, not default Inter unless justified.
+- [ ] Palette has one consistent accent color.
+- [ ] Hero fits initial viewport (headline max 2 lines, subtext max 20 words).
+- [ ] Hero has max 4 text elements (eyebrow, headline, subtext, CTAs).
+- [ ] CTA visible without scroll on laptop viewport.
+- [ ] CTA label does not wrap on desktop.
+- [ ] Eyebrow count limited (max 1 per 3 sections).
+- [ ] No three consecutive zigzag image/text sections.
+- [ ] No unjustified three-equal-card feature rows.
+- [ ] Visual asset plan exists (hero, supporting visuals, OG image).
+- [ ] All images from free commercial-use sources (Unsplash/Pexels/Pixabay/Burst).
+- [ ] No placeholder images in production files.
+- [ ] Images have alt text, width, height attributes.
+- [ ] No fake div-based product screenshots.
+- [ ] No em-dashes in visible copy.
+- [ ] No decorative version labels, section numbers, scroll cues, weather strips.
+- [ ] Mobile collapse explicit for every multi-column section.
+- [ ] Button and form contrast pass WCAG AA.
+- [ ] Reduced-motion fallback exists if motion is used.
 
 ## Files
 
@@ -82,31 +105,6 @@
 - [ ] No unsupported pricing or lead-time claims
 - [ ] No unresolved placeholders
 - [ ] Publish review prepared before first launch
-
-## Design Preflight
-
-- [ ] Design read stated before template selection.
-- [ ] Design dials selected or inferred.
-- [ ] Template selection justified (matches audience, industry, vibe).
-- [ ] Typography is brand-appropriate, not default Inter unless justified.
-- [ ] Palette has one consistent accent color.
-- [ ] Hero fits initial viewport (headline max 2 lines, subtext max 20 words).
-- [ ] Hero has max 4 text elements (eyebrow, headline, subtext, CTAs).
-- [ ] CTA visible without scroll on laptop viewport.
-- [ ] CTA label does not wrap on desktop.
-- [ ] Eyebrow count limited (max 1 per 3 sections).
-- [ ] No three consecutive zigzag image/text sections.
-- [ ] No unjustified three-equal-card feature rows.
-- [ ] Visual asset plan exists (hero, supporting visuals, OG image).
-- [ ] All images from free commercial-use sources (Unsplash/Pexels/Pixabay/Burst).
-- [ ] No placeholder images in production files.
-- [ ] Images have alt text, width, height attributes.
-- [ ] No fake div-based product screenshots.
-- [ ] No em-dashes in visible copy.
-- [ ] No decorative version labels, section numbers, scroll cues, weather strips.
-- [ ] Mobile collapse explicit for every multi-column section.
-- [ ] Button and form contrast pass WCAG AA.
-- [ ] Reduced-motion fallback exists if motion is used.
 
 ## Image Acquisition
 

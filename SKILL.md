@@ -44,6 +44,7 @@ Before execution, read the appropriate workflow document:
 | Task | Read First |
 |------|------------|
 | **From-zero site generation** | `docs/workflows/site-generation.md` → `templates/pages/site-generation-checklist.md` |
+| **Responsive design** | `docs/workflows/responsive-design.md` → CSS framework template |
 | **Image acquisition** | `docs/workflows/image-acquisition.md` → `docs/tool-registry.md` (Image Acquisition section) |
 | **Deployment** | `docs/workflows/deployment.md` → `templates/deployment-checklist.md` |
 | **SEO audit** | `docs/workflows/seo-audit.md` → `docs/seo-operations.md` |
@@ -85,6 +86,36 @@ Avoid these LLM-signature patterns unless the brief explicitly calls for them:
 - Desktop navigation height at or below 80px
 - Every multi-column section must collapse below 768px
 - CTA labels must not wrap on desktop
+
+### Responsive Design Rules
+
+**Required viewport meta** (every page):
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1">
+```
+
+**Breakpoint targets**:
+| Size | Width | Devices |
+|------|-------|---------|
+| Mobile | ≤ 480px | Phones |
+| Tablet | 768px-1024px | Tablets, iPad |
+| Desktop | ≥ 1024px | Laptops, monitors |
+
+**Touch target minimum**: All buttons, links, inputs ≥ 44px height (WCAG 2.5.5)
+
+**Input font size**: 16px minimum to prevent iOS auto-zoom
+
+**Mobile-first strategy**: Start with mobile styles, expand for larger screens
+
+**Key responsive patterns**:
+- Hero: Stack vertically on mobile, two columns on tablet/desktop
+- Grids: 1 column mobile → 2 columns tablet → 3-4 columns desktop
+- Navigation: Horizontal on desktop, hamburger menu on mobile
+- Tables: Stack as cards or horizontal scroll on mobile
+
+**Testing devices**: iPhone SE (375px), iPhone 14 (390px), iPad (768px), Desktop (1280px)
+
+See `docs/workflows/responsive-design.md` for complete CSS framework and patterns.
 
 ### Visual Asset Strategy
 
