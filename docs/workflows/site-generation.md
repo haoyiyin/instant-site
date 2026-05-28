@@ -36,7 +36,7 @@ Before generation, gather or create:
 5. **Design inputs**
    - DESIGN.md template selection
    - Design dials (optional): VARIANCE, MOTION_INTENSITY, VISUAL_DENSITY
-   - Visual asset strategy: provided assets, generated, or placeholders for draft
+   - Visual asset strategy: provided assets, generated, or free stock images
 
 6. **Buyer context (recommended)**
    - Buyer roles: importer, distributor, procurement manager, OEM buyer
@@ -81,7 +81,37 @@ Minimum page set:
 
 - `assets/css/styles.css` — Based on DESIGN.md
 - `assets/js/main.js` — Only when needed for non-critical enhancements
-- `assets/images/` — Placeholders or user-provided images
+- `assets/images/` — Follow image acquisition workflow below
+
+### 5a. Acquire images (if not provided by user)
+
+If user has not provided images, follow `docs/workflows/image-acquisition.md`:
+
+1. **Define image needs** — List required images per page (hero, products, supporting visuals, OG image)
+2. **Search free stock sources** — Use Unsplash/Pexels/Pixabay (all free for commercial use, no attribution required)
+3. **Download and organize** — Save to `assets/images/` with proper naming: `{purpose}-{source}-{id}.jpg`
+4. **Integrate into HTML** — Add proper alt text, width, height, lazy loading
+
+**Priority order**:
+```
+User-provided → Generated images → Unsplash → Pexels → Pixabay → Burst → Placeholder (draft only)
+```
+
+**Image sources (all free for commercial use, no attribution required)**:
+- **Unsplash** — Best for hero backgrounds, general business photos
+- **Pexels** — Best for products, industrial settings, machinery
+- **Pixabay** — Fallback, diverse content including vectors
+- **Burst by Shopify** — E-commerce and consumer goods
+
+**Search keywords by industry**:
+| Industry | Keywords |
+|----------|----------|
+| Manufacturing | `industrial factory`, `manufacturing plant`, `production line` |
+| Machinery | `heavy machinery`, `industrial equipment`, `CNC machine` |
+| Electronics | `electronics manufacturing`, `pcb assembly` |
+| Automotive | `automotive manufacturing`, `car parts` |
+
+**Production rule**: Never ship pages with placeholder images. If all sources fail, ask user for assets.
 
 ### 6. Generate inquiry form
 
@@ -147,6 +177,9 @@ customer-site/
     css/styles.css
     js/main.js
     images/
+      hero-unsplash-{id}.jpg
+      product-pexels-{id}.jpg
+      og-image.jpg
   robots.txt
   sitemap.xml
   .instant-site/
@@ -176,6 +209,9 @@ After generation, verify:
 - `sitemap.xml` includes all important pages
 - `robots.txt` references sitemap
 - No unresolved placeholders in files meant for publish
+- All images from free commercial-use sources (Unsplash/Pexels/Pixabay)
+- No placeholder images in production files
+- All images have proper alt text
 - FormSubmit form uses correct contact email
 - `thanks.html` exists with absolute `_next` URL
 
@@ -189,3 +225,5 @@ After generation, verify:
 - Missing canonical or OG URLs
 - FormSubmit `_next` URL not absolute
 - Inventing certifications, customers, or factory capacity
+- **Using placeholder images in production** (use free stock instead)
+- **Using images from non-commercial sources** (use Unsplash/Pexels/Pixabay only)

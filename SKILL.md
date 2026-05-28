@@ -44,6 +44,7 @@ Before execution, read the appropriate workflow document:
 | Task | Read First |
 |------|------------|
 | **From-zero site generation** | `docs/workflows/site-generation.md` → `templates/pages/site-generation-checklist.md` |
+| **Image acquisition** | `docs/workflows/image-acquisition.md` → `docs/tool-registry.md` (Image Acquisition section) |
 | **Deployment** | `docs/workflows/deployment.md` → `templates/deployment-checklist.md` |
 | **SEO audit** | `docs/workflows/seo-audit.md` → `docs/seo-operations.md` |
 | **Multi-language / RTL** | `docs/workflows/multilingual-rtl.md` |
@@ -92,9 +93,27 @@ Every major landing page needs a visual asset plan:
 - 1-3 supporting visuals
 - OG image for social sharing
 
-Priority: provided assets first → generated images → real stock → clearly labeled placeholders (drafts only).
+**Priority order**:
+```
+User-provided assets → Generated images → Free stock images → Placeholder (draft only)
+```
 
-Do not ship final pages with placeholder images or fake div-based screenshots.
+**Free stock sources (all commercial-use, no attribution required)**:
+- **Unsplash** — Hero backgrounds, general business photos
+- **Pexels** — Products, industrial settings, machinery
+- **Pixabay** — Fallback, vectors/illustrations
+- **Burst by Shopify** — E-commerce, consumer goods
+
+**Search workflow**:
+1. Use brave-search/web-fetch/scrapling skills to search stock sites
+2. Keywords: `{industry} professional`, `{product} equipment`, `manufacturing plant`
+3. Download to `assets/images/`, integrate with proper alt text
+
+**Rules**:
+- Never ship production pages with placeholder images
+- Never use images from non-commercial sources (Google Images, Pinterest)
+- All images must have descriptive alt text
+- See `docs/workflows/image-acquisition.md` for complete workflow
 
 ## Review Gates and Claim Safety
 

@@ -27,6 +27,106 @@ Reference for tools, services, and fallbacks used in Instant Site workflow.
 
 ---
 
+## Image Acquisition
+
+### Unsplash (Primary)
+
+**Purpose**: Free commercial-use photos, no attribution required.
+
+**When to use**: Hero backgrounds, lifestyle images, general business photos.
+
+**Required inputs**: Keyword search terms.
+
+**Safe automation level**: Full.
+
+**Search methods**:
+- Web search skill: "Unsplash free stock image `{keyword}`"
+- Direct: `https://unsplash.com/s/photos/{keyword}`
+- API (optional): `https://api.unsplash.com/search/photos?query={keyword}`
+
+**License**: Free for commercial use, no attribution required.
+
+**Fallback**: Pexels.
+
+**Notes**:
+- High-quality professional photos
+- Cannot create competing stock service from images
+
+### Pexels (Primary for Products)
+
+**Purpose**: Free commercial-use photos, strong business/product category.
+
+**When to use**: Product photography, industrial settings, machinery.
+
+**Required inputs**: Keyword search terms.
+
+**Safe automation level**: Full.
+
+**Search methods**:
+- Web search skill: "Pexels royalty free `{keyword}`"
+- Direct: `https://www.pexels.com/search/{keyword}/`
+
+**License**: Free for commercial use, no attribution required.
+
+**Fallback**: Pixabay.
+
+**Notes**:
+- Excellent for manufacturing/industrial content
+- Also offers free videos
+
+### Pixabay (Fallback)
+
+**Purpose**: Free commercial-use photos, vectors, illustrations.
+
+**When to use**: When Unsplash/Pexels lack content, need vectors/illustrations.
+
+**Required inputs**: Keyword search terms.
+
+**Safe automation level**: Full.
+
+**Search methods**:
+- Direct: `https://pixabay.com/images/search/{keyword}/`
+
+**License**: Free for commercial use, no attribution required.
+
+**Fallback**: Burst by Shopify (B2C).
+
+**Notes**:
+- Largest library of free images
+- Includes vectors and illustrations
+
+### Burst by Shopify (E-commerce)
+
+**Purpose**: Free commercial-use images for e-commerce/retail.
+
+**When to use**: B2C consumer goods, retail, product photography.
+
+**Required inputs**: Keyword search terms.
+
+**Safe automation level**: Full.
+
+**Search URL**: `https://burst.shopify.com/search?q={keyword}`
+
+**License**: Free for commercial use, no attribution required.
+
+**Fallback**: Placeholder (draft only).
+
+**Notes**:
+- E-commerce focused
+- High-quality lifestyle images
+
+### Image Search Skills
+
+**brave-search**: Search for "Unsplash/Pexels `{keyword}` free commercial image"
+
+**web-fetch**: Fetch search pages and extract image URLs/IDs
+
+**scrapling**: Scrape stock sites when API unavailable
+
+**Workflow**: See `docs/workflows/image-acquisition.md` for complete process.
+
+---
+
 ## Design
 
 ### DESIGN.md Templates
@@ -359,6 +459,9 @@ curl -s https://domain.com/ | grep -E '<title>|canonical'
 | Deployment | Surge.sh | Netlify Drop | Surge unavailable, urgent demo |
 | Deployment (headers) | Cloudflare Pages | Surge | CSP/HSTS required |
 | Forms | FormSubmit | Web3Forms | FormSubmit blocked |
+| Images (general) | Unsplash | Pexels | Unsplash lacks content |
+| Images (products) | Pexels | Pixabay | Pexels lacks content |
+| Images (e-commerce) | Burst | Unsplash | Burst lacks content |
 | SEO Data | GSC (if configured) | Technical audit | No API access |
 | Analytics | GA4 | Plausible | User preference |
 | Verification | curl | Browser manual | Visual QA needed |

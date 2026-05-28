@@ -98,6 +98,8 @@
 - [ ] No three consecutive zigzag image/text sections.
 - [ ] No unjustified three-equal-card feature rows.
 - [ ] Visual asset plan exists (hero, supporting visuals, OG image).
+- [ ] All images from free commercial-use sources (Unsplash/Pexels/Pixabay/Burst).
+- [ ] No placeholder images in production files.
 - [ ] Images have alt text, width, height attributes.
 - [ ] No fake div-based product screenshots.
 - [ ] No em-dashes in visible copy.
@@ -105,3 +107,15 @@
 - [ ] Mobile collapse explicit for every multi-column section.
 - [ ] Button and form contrast pass WCAG AA.
 - [ ] Reduced-motion fallback exists if motion is used.
+
+## Image Acquisition
+
+- [ ] User-provided images checked first.
+- [ ] Free stock search performed (Unsplash/Pexels/Pixabay).
+- [ ] Keywords appropriate for industry and page type.
+- [ ] Images downloaded and saved to `assets/images/`.
+- [ ] Image naming follows convention: `{purpose}-{source}-{id}.jpg`.
+- [ ] All images verified for commercial-use license.
+- [ ] No images from Google Images/Pinterest/unknown sources.
+- [ ] OG image configured for each page.
+- [ ] Image files optimized (< 500KB for hero, < 200KB for others).
