@@ -1,0 +1,12 @@
+{
+  "name": "instant-site",
+  "description": "Agent-operated foreign trade independent site platform — build, deploy, SEO, content ops, and multi-language support",
+  "version": "0.1.0",
+  "author": {
+    "name": "Yi Hao"
+  },
+  "homepage": "https://github.com/haoyiyin/instant-site",
+  "repository": "https://github.com/haoyiyin/instant-site",
+  "license": "MIT",
+  "skills": "./"
+}

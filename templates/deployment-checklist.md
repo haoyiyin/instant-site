@@ -2,6 +2,8 @@
 
 ## Before Deploy
 
+**Reference**: `docs/tool-registry.md` for deployment tools and fallbacks.
+
 - [ ] `index.html` exists.
 - [ ] `DESIGN.md` exists and matches the selected template.
 - [ ] `robots.txt` exists and references the deployed sitemap URL.

@@ -1,0 +1,21 @@
+{
+  "name": "instant-site",
+  "version": "0.1.0",
+  "description": "Agent-operated foreign trade independent site platform for static site generation, deployment, SEO, content operations, multi-language support, and inquiry forms.",
+  "entrypoint": "SKILL.md",
+  "license": "MIT",
+  "languages": ["en", "zh"],
+  "categories": ["website", "seo", "foreign-trade", "static-site", "content-ops"],
+  "capabilities": [
+    "site-generation",
+    "deployment",
+    "seo-audit",
+    "content-ops",
+    "multilingual",
+    "multi-site"
+  ],
+  "repository": "https://github.com/haoyiyin/instant-site",
+  "author": {
+    "name": "Yi Hao"
+  }
+}

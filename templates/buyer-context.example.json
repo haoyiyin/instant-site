@@ -1,0 +1,68 @@
+{
+  "siteId": "acme-tools",
+  "targetMarkets": ["US", "EU", "Middle East", "Southeast Asia"],
+  "buyerRoles": [
+    {
+      "role": "procurement_manager",
+      "description": "Purchasing decision-maker at manufacturing companies",
+      "concerns": ["price", "MOQ", "lead time", "quality consistency"],
+      "language_patterns": ["supplier", "quote", "delivery", "specification"]
+    },
+    {
+      "role": "distributor",
+      "description": "Industrial tool distributors serving local markets",
+      "concerns": ["product range", "margins", "brand reputation", "after-sales support"],
+      "language_patterns": ["catalog", "wholesale", "stock", "warranty"]
+    },
+    {
+      "role": "oem_buyer",
+      "description": "OEM manufacturers integrating tools into their products",
+      "concerns": ["customization", "technical support", "certifications", "sample testing"],
+      "language_patterns": ["specification", "custom", "OEM", "integration"]
+    }
+  ],
+  "purchaseConcerns": [
+    {"concern": "MOQ", "description": "Minimum order quantity requirements", "objection_handling": "Offer sample order for evaluation"},
+    {"concern": "lead_time", "description": "Production and shipping time", "objection_handling": "Provide clear timeline and tracking"},
+    {"concern": "certification", "description": "Required compliance certificates", "objection_handling": "List available certifications upfront"},
+    {"concern": "quality_consistency", "description": "Batch-to-batch consistency", "objection_handling": "Share QC process and test reports"},
+    {"concern": "customization", "description": "Custom specifications needed", "objection_handling": "Describe OEM capabilities and sample process"}
+  ],
+  "trustRequirements": [
+    {"requirement": "factory_photos", "description": "Photos or videos of production facility", "status": "available"},
+    {"requirement": "certifications", "description": "ISO 9001, CE certification (example only — user must verify)", "status": "needsConfirmation"},
+    {"requirement": "test_reports", "description": "Third-party quality test results", "status": "needsConfirmation"},
+    {"requirement": "case_studies", "description": "Customer success stories", "status": "needsConfirmation"}
+  ],
+  "conversionGoal": "quote_request",
+  "conversionDescription": "Primary action is to request a formal quote for products",
+  "alternativeConversionGoals": ["sample_request", "catalog_download", "whatsapp_inquiry"],
+  "customerLanguage": {
+    "problem_descriptions": [
+      "Looking for reliable CNC tool supplier",
+      "Need consistent quality for production line",
+      "Current supplier has long lead times"
+    ],
+    "solution_descriptions": [
+      "Precision cutting tools for aluminum machining",
+      "Long tool life reducing replacement frequency"
+    ],
+    "terms_to_use": ["supplier", "manufacturer", "export", "precision", "reliable"],
+    "terms_to_avoid": ["cheap", "discount", "budget"]
+  },
+  "objections": [
+    {
+      "objection": "Price is higher than competitors",
+      "response_pattern": "Focus on total cost: longer tool life means fewer replacements and lower per-part cost"
+    },
+    {
+      "objection": "No experience with this supplier",
+      "response_pattern": "Offer sample order, share factory photos and certifications, provide customer references after approval"
+    }
+  ],
+  "needsConfirmation": [
+    "test_reports availability",
+    "case_studies for US market",
+    "MOQ for first order"
+  ]
+}

@@ -7,7 +7,7 @@ Agent-operated platform for foreign trade independent sites. An AI agent reads t
 Full lifecycle, agent-operated:
 
 1. **Build** — Generate a complete static site from product, brand, market, and SEO inputs.
-2. **Design** — Use DESIGN.md templates (B2B industrial, clean export, premium manufacturing, warm content, dark tech) for visual consistency.
+2. **Design** — Use DESIGN.md templates (11 templates for B2B/B2C) for visual consistency.
 3. **Deploy** — Publish to Surge.sh with custom domain support and post-deploy verification.
 4. **Verify** — Check homepage, robots.txt, sitemap.xml, metadata, canonical URLs, and CDN availability.
 5. **Content Operations** — Generate blog drafts, product updates, and industry articles on a schedule with review gates.
@@ -29,7 +29,7 @@ Full lifecycle, agent-operated:
 Create a project directory, then ask an AI agent:
 
 ```text
-Build an English B2B foreign trade site for the following brand and products. Use the b2b-industrial DESIGN.md template. Generate site.config.json, DESIGN.md, index.html, product pages, about.html, contact.html, robots.txt, and sitemap.xml. Prepare a publish review before deployment.
+Build an English B2B foreign trade site for the following brand and products. Use the b2b-industrial DESIGN.md template. Generate site.config.json, buyer-context.json, DESIGN.md, index.html, product pages, about.html, contact.html, robots.txt, and sitemap.xml. Prepare a publish review before deployment.
 ```
 
 Minimum inputs:
@@ -37,7 +37,7 @@ Minimum inputs:
 - Brand name and tagline
 - Target markets and languages
 - Product list, features, applications, and target keywords
-- Certifications or proof points
+- Verified certifications or proof points
 - Contact email and primary CTA
 - Preferred Surge domain or custom domain
 - Design template selection
@@ -46,8 +46,49 @@ Minimum inputs:
 ## Project Structure
 
 ```text
+instant-site/
+  SKILL.md                      — Agent skill entry point
+  README.md
+  VERSION
+  CHANGELOG.md
+  skill.json                    — Skill metadata
+  .claude-plugin/               — Claude Code plugin metadata
+    plugin.json
+    marketplace.json
+  docs/
+    review-gates.md             — Publishing approval rules
+    site-state.md               — State file specification
+    content-lifecycle.md        — Content operations workflow
+    seo-operations.md           — SEO audit reference
+    multi-site-operations.md    — Multi-site management
+    buyer-context.md            — Buyer context documentation
+    tool-registry.md            — Tool and fallback reference
+    workflows/
+      site-generation.md        — From-zero build workflow
+      deployment.md             — Deploy and verify workflow
+      seo-audit.md              — SEO audit workflow
+      multilingual-rtl.md       — Multi-language workflow
+  templates/
+    design/                     — 11 DESIGN.md templates
+    *.example.json              — Config templates
+    pages/
+      site-generation-checklist.md
+    deployment-checklist.md
+  evals/
+    README.md                   — Eval framework intro
+    rubric.md                   — Quality dimensions
+    cases/                      — Eval cases for regression testing
+  scripts/
+    validate-skill.mjs          — Skill structure validator
+  package.json
+```
+
+User site structure:
+
+```text
 customer-site/
   site.config.json
+  buyer-context.json
   content-plan.json
   seo-profile.json
   review-policy.json
@@ -71,9 +112,21 @@ customer-site/
     state.json
     deployments.json
     content-calendar.json
+    buyer-context.json
     content-drafts/
     seo-audits/
 ```
+
+## Buyer Context
+
+Before generating pages, create `buyer-context.json` to capture:
+- Target markets and buyer roles
+- Purchase concerns (MOQ, lead time, certification)
+- Trust requirements (factory photos, certifications, case studies)
+- Conversion goal (quote request, sample request, WhatsApp inquiry)
+- Customer language patterns and objections
+
+See `docs/buyer-context.md` and `templates/buyer-context.example.json`.
 
 ## Core Features
 
@@ -158,14 +211,65 @@ Human approval required by default for:
 
 Low-risk actions (sitemap updates, minor metadata, health checks, SEO audit reports) may be automated when policy allows.
 
-## Installation
+## Evals
+
+Evals prevent skill regression. See `evals/README.md` for the framework and `evals/cases/` for core scenarios:
+- B2B industrial site generation
+- Multi-language RTL support
+- SEO audit without external data claims
+- Redesign preserving SEO
+- Content draft review gates
+
+## Validation
+
+Run the skill structure validator:
 
 ```bash
-# Copy to your agent's skills/tools directory
+npm run validate
+```
+
+Checks: SKILL.md frontmatter, required docs, workflow files, templates JSON, metadata, evals, triggers coverage.
+
+## Installation
+
+### Option 1: Clone and Copy
+
+```bash
+git clone https://github.com/haoyiyin/instant-site.git
 cp -r instant-site ~/.your-agent/skills/
 ```
 
+### Option 2: Claude Code Plugin
+
+```bash
+/plugin marketplace add haoyiyin/instant-site
+/plugin install instant-site
+```
+
+### Option 3: Git Submodule
+
+```bash
+git submodule add https://github.com/haoyiyin/instant-site.git .agents/instant-site
+```
+
 `SKILL.md` is a standalone operating guide — copy it into any site project and any AI agent can read and follow it.
+
+## Documentation
+
+| Document | Purpose |
+|----------|---------|
+| `docs/workflows/site-generation.md` | From-zero build workflow |
+| `docs/workflows/deployment.md` | Deploy and verify workflow |
+| `docs/workflows/seo-audit.md` | SEO audit workflow |
+| `docs/workflows/multilingual-rtl.md` | Multi-language workflow |
+| `docs/buyer-context.md` | Buyer context documentation |
+| `docs/tool-registry.md` | Tool and fallback reference |
+| `docs/review-gates.md` | Publishing approval rules |
+| `docs/content-lifecycle.md` | Content operations workflow |
+| `docs/seo-operations.md` | SEO audit reference |
+| `docs/multi-site-operations.md` | Multi-site management |
+| `docs/site-state.md` | State file specification |
+| `evals/rubric.md` | Quality dimensions for evals |
 
 ## License
 

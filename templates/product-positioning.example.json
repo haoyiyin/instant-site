@@ -1,0 +1,66 @@
+{
+  "productId": "cnc-cutting-tool",
+  "productCategory": "industrial cutting tools",
+  "productName": "CNC Cutting Tool Series",
+  "exportUseCases": [
+    {
+      "use_case": "aluminum_machining",
+      "description": "High-speed machining of aluminum parts for automotive and aerospace",
+      "target_buyer": "automotive_parts_manufacturer"
+    },
+    {
+      "use_case": "mold_manufacturing",
+      "description": "Precision mold cavity machining",
+      "target_buyer": "mold_maker"
+    },
+    {
+      "use_case": "general_metalworking",
+      "description": "General-purpose metal cutting in job shops",
+      "target_buyer": "metalworking_job_shop"
+    }
+  ],
+  "differentiators": [
+    {
+      "differentiator": "extended_tool_life",
+      "description": "Carbide grade optimized for longer tool life",
+      "proof": "needsConfirmation"
+    },
+    {
+      "differentiator": "stable_performance",
+      "description": "Consistent results across production batches",
+      "proof": "qc_process_documentation"
+    },
+    {
+      "differentiator": "oem_customization",
+      "description": "Custom geometries available for specific applications",
+      "proof": "custom_order_examples"
+    }
+  ],
+  "verifiedClaims": [
+    {"claim": "ISO 9001 certified factory", "status": "needsConfirmation", "note": "example — user must verify"},
+    {"claim": "CE marked products", "status": "needsConfirmation", "note": "example — user must verify"},
+    {"claim": "10+ years export experience", "status": "needsConfirmation", "note": "example — user must verify"}
+  ],
+  "claimsNeedConfirmation": [
+    {"claim": "Test reports from third-party lab", "status": "needsConfirmation"},
+    {"claim": "Tool life comparison data vs. competitors", "status": "needsConfirmation"},
+    {"claim": "Customer testimonials from US distributors", "status": "needsConfirmation"}
+  ],
+  "targetKeywords": [
+    {"keyword": "CNC cutting tool supplier", "intent": "commercial", "priority": "high"},
+    {"keyword": "precision cutting tools", "intent": "commercial", "priority": "medium"},
+    {"keyword": "aluminum machining tools", "intent": "informational", "priority": "medium"}
+  ],
+  "proofAssets": [
+    {"asset_type": "factory_photos", "status": "available", "description": "Production line and QC area photos"},
+    {"asset_type": "certification_certificates", "status": "available", "description": "ISO 9001 and CE certificates"},
+    {"asset_type": "product_photos", "status": "available", "description": "Product line catalog images"},
+    {"asset_type": "technical_specs", "status": "available", "description": "Detailed specification sheets"}
+  ],
+  "competitivePosition": {
+    "price_position": "mid-range",
+    "quality_position": "premium",
+    "service_position": "responsive",
+    "notes": "Not the cheapest, but better total cost due to longer tool life and responsive support"
+  }
+}

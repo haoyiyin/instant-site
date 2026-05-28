@@ -13,6 +13,15 @@
 - [ ] DESIGN.md template selected
 - [ ] Publishing policy selected
 
+## Buyer Context (Recommended)
+
+- [ ] Buyer roles identified (importer, distributor, procurement manager, OEM buyer)
+- [ ] Purchase concerns documented (MOQ, lead time, certification, customization)
+- [ ] Trust requirements listed (factory photos, certifications, case studies)
+- [ ] Conversion goal specified (quote request, sample request, WhatsApp inquiry)
+- [ ] `buyer-context.json` created or `.instant-site/buyer-context.json`
+- [ ] `needsConfirmation` fields populated for uncertain claims
+
 ## Multi-Language (if multiple languages configured)
 
 - [ ] Default language site generated first and verified.

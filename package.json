@@ -1,0 +1,14 @@
+{
+  "name": "instant-site-skill",
+  "version": "0.1.0",
+  "description": "Agent-operated foreign trade independent site platform",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate-skill.mjs"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haoyiyin/instant-site.git"
+  }
+}
