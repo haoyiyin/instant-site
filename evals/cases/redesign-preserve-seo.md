@@ -5,7 +5,7 @@ Redesign existing site without breaking SEO.
 ## Prompt
 
 ```text
-Redesign the existing site at hardware-export.surge.sh.
+Redesign the existing site at hardware-export.pages.dev.
 Modernize the visual design using the b2b-industrial DESIGN.md template.
 Keep existing URLs, navigation labels, and SEO metadata.
 Do not change the contact form fields.

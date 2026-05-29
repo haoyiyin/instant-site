@@ -151,50 +151,68 @@ Reference for tools, services, and fallbacks used in Instant Site workflow.
 
 ## Deployment
 
-### Surge.sh (Primary)
+### Cloudflare Pages (Primary)
 
-**Purpose**: Default static site deployment.
+**Purpose**: Default static site deployment with global CDN, automatic HTTPS, custom domains, `_headers`, `_redirects`.
 
-**When to use**: All deployments unless custom headers/CSP/HSTS required.
+**When to use**: All deployments unless Cloudflare auth/setup is unavailable.
+
+**Required inputs**: `site.config.json` with project name, generated files. Optional `_headers`, `_redirects`.
+
+**Safe automation level**: High after OAuth login. First login requires user to click OAuth URL and authorize.
+
+**Commands**:
+- `npx wrangler whoami` — Check authentication
+- `npx wrangler login --browser=false` — OAuth login, prints URL for user
+- `npx wrangler pages project list` — Check existing projects
+- `npx wrangler pages project create <name> --production-branch main` — Create project
+- `npx wrangler pages deploy . --project-name <name> --branch main` — Deploy
+
+**Fallback**: Surge.sh.
+
+**Notes**:
+- OAuth URL flow is user-friendly: agent shows URL, user clicks, authorizes
+- Do not ask users to create API tokens unless OAuth impossible
+- Custom domains may require dashboard/DNS confirmation
+- Supports `_headers` for CSP, HSTS, custom caching
+- Supports `_redirects` for redirect rules
+
+### Surge.sh (Fallback)
+
+**Purpose**: Fallback static site deployment when Cloudflare unavailable.
+
+**When to use**: Cloudflare auth/setup blocked, user explicitly requests Surge, urgent fallback needed.
 
 **Required inputs**: `site.config.json` with domain, generated files.
 
 **Safe automation level**: Full after first-time credentials stored.
 
-**Fallback**: Netlify Drop for emergency demos only.
+**Fallback**: Netlify Drop for emergency demos.
+
+**Commands**:
+- `npm install -g surge`
+- `surge . <domain>.surge.sh`
+- `surge . --domain www.example.com` — Custom domain
 
 **Notes**:
 - First use prompts for email/password, stores in `~/.netrc`
 - Temporary 504 can occur after CLI success (wait 10-30 min)
 - No custom headers support
+- Cannot use `_headers` or `_redirects`
 
-### Netlify Drop (Fallback)
+### Netlify Drop (Emergency Demo)
 
-**Purpose**: Emergency deployment when Surge fails.
+**Purpose**: Emergency deployment when both Cloudflare and Surge fail.
 
-**When to use**: Only for urgent demos when Surge unavailable.
+**When to use**: Only for urgent demos when Cloudflare and Surge unavailable.
 
 **Required inputs**: Generated files.
 
 **Safe automation level**: Full.
 
-**Fallback**: None (Surge is primary).
+**Fallback**: None.
 
 **Notes**: Not default operating path. Use sparingly.
-
-### Cloudflare Pages (Advanced)
-
-**Purpose**: Deployment with custom headers, CSP, HSTS.
-
-**When to use**: When security headers required (CSP, HSTS, custom caching).
-
-**Required inputs**: Generated files, `_headers` configuration.
-
-**Safe automation level**: Requires separate setup workflow.
-
-**Fallback**: Surge for standard deployments.
-
-**Notes**: More setup complexity. Use when Surge limitations are blockers.
 
 ---
 
@@ -456,8 +474,8 @@ curl -s https://domain.com/ | grep -E '<title>|canonical'
 
 | Category | Primary | Fallback | When to Switch |
 |----------|---------|----------|----------------|
-| Deployment | Surge.sh | Netlify Drop | Surge unavailable, urgent demo |
-| Deployment (headers) | Cloudflare Pages | Surge | CSP/HSTS required |
+| Deployment | Cloudflare Pages | Surge.sh | Cloudflare auth/setup unavailable, user explicitly requests fallback |
+| Deployment (headers) | Cloudflare Pages | None | `_headers`, CSP, HSTS, redirects, or custom caching needed |
 | Forms | FormSubmit | Web3Forms | FormSubmit blocked |
 | Images (general) | Unsplash | Pexels | Unsplash lacks content |
 | Images (products) | Pexels | Pixabay | Pexels lacks content |
@@ -471,6 +489,8 @@ curl -s https://domain.com/ | grep -E '<title>|canonical'
 ## Limitations
 
 - **curl cannot detect JS-injected schema**: Use browser tools for JSON-LD check
-- **Surge cannot add custom headers**: Use Cloudflare Pages for CSP/HSTS
+- **Cloudflare Pages supports `_headers` and `_redirects`**: Use for CSP, HSTS, custom caching, redirects
+- **Surge.sh fallback cannot add custom headers**: Use Cloudflare Pages when security headers required
+- **Custom domains may require dashboard/DNS confirmation**: `.pages.dev` is automatic; custom domain may need dashboard
 - **External SEO data requires authorization**: Do not claim rankings without access
 - **FormSubmit first submission needs confirmation**: Remind user to check email

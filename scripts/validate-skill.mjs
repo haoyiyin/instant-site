@@ -209,6 +209,30 @@ if (existsSync(skillPath)) {
   check(hasChinese, 'Has Chinese triggers for 上线, 建站, 运营');
 }
 
+// 10. Deployment guidance checks
+console.log('\n=== Deployment Guidance ===');
+if (existsSync(skillPath)) {
+  const skillContent = readFileSync(skillPath, 'utf8');
+  check(skillContent.includes('Cloudflare Pages first') || skillContent.includes('Cloudflare Pages'), 'SKILL.md mentions Cloudflare Pages');
+  check(skillContent.includes('Surge') && skillContent.includes('fallback'), 'SKILL.md mentions Surge as fallback');
+}
+
+const deploymentPath = join(ROOT, 'docs/workflows/deployment.md');
+if (existsSync(deploymentPath)) {
+  const deploymentContent = readFileSync(deploymentPath, 'utf8');
+  check(deploymentContent.includes('wrangler login'), 'deployment.md includes wrangler login');
+  check(deploymentContent.includes('pages project create'), 'deployment.md includes pages project create');
+  check(deploymentContent.includes('pages deploy'), 'deployment.md includes pages deploy');
+  check(deploymentContent.includes('Surge') && deploymentContent.includes('fallback'), 'deployment.md mentions Surge as fallback');
+}
+
+const toolRegistryPath = join(ROOT, 'docs/tool-registry.md');
+if (existsSync(toolRegistryPath)) {
+  const registryContent = readFileSync(toolRegistryPath, 'utf8');
+  check(registryContent.includes('Cloudflare Pages (Primary)') || registryContent.includes('Cloudflare Pages'), 'tool-registry.md lists Cloudflare Pages as primary');
+  check(registryContent.includes('Surge.sh (Fallback)') || registryContent.includes('Surge.sh') && registryContent.includes('Fallback'), 'tool-registry.md lists Surge.sh as fallback');
+}
+
 // Summary
 console.log('\n=== Summary ===');
 console.log(`Errors: ${errors}`);

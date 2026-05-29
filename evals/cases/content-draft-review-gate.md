@@ -5,7 +5,7 @@ Content draft with proper review gate for claims.
 ## Prompt
 
 ```text
-Generate a blog article for hardware-export.surge.sh about "industrial fastener quality standards".
+Generate a blog article for hardware-export.pages.dev about "industrial fastener quality standards".
 Target keyword: "industrial fastener quality".
 Include internal links to product pages.
 Add FAQ section.

@@ -13,20 +13,33 @@
 - [ ] Every page has title, description, canonical, Open Graph, and Twitter Card tags.
 - [ ] Product pages with enough data include `Product` JSON-LD.
 - [ ] About page includes `Organization` JSON-LD when company data is available.
-- [ ] No final published file contains `TODO`, `Lorem ipsum`, `your-project.surge.sh`, or unresolved placeholders.
+- [ ] No final published file contains `TODO`, `Lorem ipsum`, unresolved placeholders.
+- [ ] `_headers` file reviewed if present (CSP, HSTS, cache rules).
+- [ ] `_redirects` file reviewed if present.
+- [ ] Cloudflare Pages project name is lowercase, URL-safe, stable.
 - [ ] Custom domain DNS has been configured or the user understands DNS is still pending.
+
+## Cloudflare Auth
+
+- [ ] Run `npx wrangler whoami` to check authentication.
+- [ ] If not authenticated, run `npx wrangler login --browser=false`.
+- [ ] Show OAuth URL to user, ask them to click and authorize.
+- [ ] Wait for authorization confirmation.
+
+## Pages Project
+
+- [ ] Run `npx wrangler pages project list` to check existing projects.
+- [ ] Create project if needed: `npx wrangler pages project create <project-name> --production-branch main`.
+- [ ] Verify project name matches `site.config.json`.
 
 ## Deploy
 
 ```bash
-surge . example-site.surge.sh
+cd ./customer-site
+npx wrangler pages deploy . --project-name <project-name> --branch main
 ```
 
-Custom domain:
-
-```bash
-surge . --domain www.example.com
-```
+Capture deployment URL from output (e.g., `https://acme-tools.pages.dev`).
 
 ## After Deploy
 
@@ -35,9 +48,9 @@ surge . --domain www.example.com
 - [ ] `robots.txt` is reachable.
 - [ ] `sitemap.xml` is reachable.
 - [ ] Homepage metadata is present.
-- [ ] No Surge 504 is observed.
-- [ ] `.instant-site/state.json` is updated.
-- [ ] `.instant-site/deployments.json` is updated.
+- [ ] Security headers present if `_headers` configured.
+- [ ] `.instant-site/state.json` is updated with provider, project, domain.
+- [ ] `.instant-site/deployments.json` is appended with deployment record.
 
 ## Visual Production QA
 
@@ -50,3 +63,17 @@ surge . --domain www.example.com
 - [ ] OG image matches page and deployment domain.
 - [ ] Images have reserved dimensions, no visible CLS.
 - [ ] LCP risk low (hero image optimized or preloaded).
+
+## Surge.sh Fallback
+
+Use only when Cloudflare auth/setup is unavailable:
+
+```bash
+npm install -g surge
+surge . <domain>.surge.sh
+```
+
+Fallback-specific checks:
+- [ ] First-time credentials stored in `~/.netrc`.
+- [ ] No Surge 504 observed (wait 10-30 min if occurs).
+- [ ] State files reflect fallback provider used.

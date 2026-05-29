@@ -5,7 +5,7 @@ SEO audit without external data claims.
 ## Prompt
 
 ```text
-Run an SEO audit for the site at hardware-export.surge.sh.
+Run an SEO audit for the site at hardware-export.pages.dev.
 Check local static files, deployed URLs, and identify issues.
 We don't have Search Console or PageSpeed configured yet.
 Report issues by severity and recommend fixes.

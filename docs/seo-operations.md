@@ -32,10 +32,10 @@ Check site files:
 Use network checks after deployment:
 
 ```bash
-curl -I https://example-site.surge.sh/
-curl https://example-site.surge.sh/robots.txt
-curl https://example-site.surge.sh/sitemap.xml
-curl -s https://example-site.surge.sh/ | grep -E '<title>|<meta name="description"|og:title|canonical'
+curl -I https://example-site.pages.dev/
+curl https://example-site.pages.dev/robots.txt
+curl https://example-site.pages.dev/sitemap.xml
+curl -s https://example-site.pages.dev/ | grep -E '<title>|<meta name="description"|og:title|canonical'
 ```
 
 Verify:

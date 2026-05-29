@@ -8,7 +8,7 @@ Full lifecycle, agent-operated:
 
 1. **Build** — Generate a complete static site from product, brand, market, and SEO inputs.
 2. **Design** — Use DESIGN.md templates (11 templates for B2B/B2C) for visual consistency.
-3. **Deploy** — Publish to Surge.sh with custom domain support and post-deploy verification.
+3. **Deploy** — Publish to Cloudflare Pages via Wrangler OAuth, project creation, and direct upload. Surge.sh available as fallback.
 4. **Verify** — Check homepage, robots.txt, sitemap.xml, metadata, canonical URLs, and CDN availability.
 5. **Content Operations** — Generate blog drafts, product updates, and industry articles on a schedule with review gates.
 6. **SEO Optimization** — Three-layer audits: local static, deployed-site, and external data (Search Console, PageSpeed, etc.).
@@ -39,7 +39,9 @@ Minimum inputs:
 - Product list, features, applications, and target keywords
 - Verified certifications or proof points
 - Contact email and primary CTA
-- Preferred Surge domain or custom domain
+- Cloudflare Pages project name or preferred Pages subdomain
+- Optional custom domain
+- Optional Surge fallback domain
 - Design template selection
 - Publishing policy: `review_required`, `hybrid`, or `auto_publish`
 
@@ -144,27 +146,46 @@ See `docs/buyer-context.md` and `templates/buyer-context.example.json`.
 
 ## Deployment
 
-Surge.sh is the default target — simple, free, automatic HTTPS on `*.surge.sh`:
+Cloudflare Pages is the default target — global CDN, automatic HTTPS on `*.pages.dev`, custom domains, and `_headers` support:
+
+```bash
+# Authenticate (user clicks OAuth URL shown by Wrangler)
+npx wrangler login
+
+# Create Pages project
+npx wrangler pages project create acme-tools --production-branch main
+
+# Deploy static files
+cd ./customer-site
+npx wrangler pages deploy . --project-name acme-tools --branch main
+```
+
+### User Authorization Flow
+
+Wrangler prints an OAuth URL. The agent shows it to the user. User clicks, logs into Cloudflare, and authorizes. Wrangler stores credentials locally.
+
+### Surge.sh Fallback
+
+When Cloudflare auth/setup is unavailable:
 
 ```bash
 npm install -g surge
-cd ./customer-site
-surge . example-site.surge.sh
-```
-
-Custom domain:
-
-```bash
-surge . --domain www.example.com
+surge . acme-tools.surge.sh
 ```
 
 ### Verification
 
 ```bash
-curl -I https://example-site.surge.sh/
-curl https://example-site.surge.sh/robots.txt
-curl https://example-site.surge.sh/sitemap.xml
-curl -s https://example-site.surge.sh/ | grep -E '<title>|<meta name="description"|og:title|canonical'
+curl -I https://acme-tools.pages.dev/
+curl https://acme-tools.pages.dev/robots.txt
+curl https://acme-tools.pages.dev/sitemap.xml
+curl -s https://acme-tools.pages.dev/ | grep -E '<title>|<meta name="description"|og:title|canonical'
+```
+
+Custom headers check (if `_headers` configured):
+
+```bash
+curl -I https://acme-tools.pages.dev/ | grep -Ei 'content-security-policy|strict-transport-security|x-content-type-options'
 ```
 
 ## Design Templates

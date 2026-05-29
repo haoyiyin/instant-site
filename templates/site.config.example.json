@@ -26,8 +26,12 @@
     ]
   },
   "site": {
-    "domain": "acme-tools.surge.sh",
+    "deploymentProvider": "cloudflare_pages",
+    "cloudflareProject": "acme-tools",
+    "domain": "acme-tools.pages.dev",
     "customDomain": "www.acmetools.com",
+    "fallbackProvider": "surge",
+    "fallbackDomain": "acme-tools.surge.sh",
     "primaryCta": "Request a Quote",
     "contactEmail": "sales@example.com",
     "whatsapp": "+0000000000",

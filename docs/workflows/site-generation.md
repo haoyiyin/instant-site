@@ -29,8 +29,10 @@ Before generation, gather or create:
    - Address (optional, can be "To be confirmed")
 
 4. **Deployment inputs**
-   - Surge domain (e.g., `brand-name.surge.sh`)
+   - Cloudflare Pages project name (e.g., `brand-name`)
+   - Pages deployment domain (e.g., `brand-name.pages.dev`)
    - Custom domain (optional)
+   - Optional Surge fallback domain (e.g., `brand-name.surge.sh`)
    - Publishing policy: `review_required`, `hybrid`, or `auto_publish`
 
 5. **Design inputs**

@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "Agent-operated foreign trade independent site platform — static site generation, deployment, SEO, content ops, multi-language, inquiry forms",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "repository": "https://github.com/haoyiyin/instant-site"
   },
   "plugins": [
     {
       "name": "instant-site",
-      "description": "Build, deploy, update, and SEO-optimize static foreign trade independent sites using HTML/CSS/JS, DESIGN.md templates, Surge.sh, and scheduled agent operations",
+      "description": "Build, deploy, update, and SEO-optimize static foreign trade independent sites using HTML/CSS/JS, DESIGN.md templates, Cloudflare Pages (Wrangler), and scheduled agent operations",
       "source": "./"
     }
   ]

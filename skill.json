@@ -1,6 +1,6 @@
 {
   "name": "instant-site",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Agent-operated foreign trade independent site platform for static site generation, deployment, SEO, content operations, multi-language support, and inquiry forms.",
   "entrypoint": "SKILL.md",
   "license": "MIT",
@@ -9,6 +9,7 @@
   "capabilities": [
     "site-generation",
     "deployment",
+    "cloudflare-pages",
     "seo-audit",
     "content-ops",
     "multilingual",

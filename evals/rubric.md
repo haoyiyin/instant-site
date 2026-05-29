@@ -110,6 +110,17 @@ After operations:
 - `.instant-site/content-calendar.json` updated after publishing
 - `.instant-site/buyer-context.json` created or reused
 
+### 11. Cloudflare Pages Default Deployment
+
+Deployment planning follows Cloudflare Pages first:
+- Cloudflare Pages selected as default deployment provider
+- Wrangler OAuth login flow documented or planned
+- Pages project name defined
+- Surge.sh appears only as fallback option
+- Deployment records include provider, project name, command, domain
+- `.pages.dev` URLs used for primary deployed domain
+- `.surge.sh` only used as explicit fallback domain
+
 ## Scoring
 
 | Level | Criteria |

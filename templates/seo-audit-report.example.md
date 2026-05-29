@@ -1,8 +1,9 @@
 # SEO Audit Report
 
 - Site: acme-tools
-- Domain: https://acme-tools.surge.sh/
-- Audit date: 2026-05-19
+- Deployment provider: cloudflare_pages
+- Domain: https://acme-tools.pages.dev/
+- Audit date: 2026-05-29
 - Audit type: local-static + deployed-site
 
 ## Summary

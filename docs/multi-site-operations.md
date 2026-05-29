@@ -22,8 +22,11 @@ Each site entry should include:
 
 - `siteId`
 - `path`
+- `deploymentProvider`
+- `cloudflareProject` (if Cloudflare Pages)
 - `domain`
 - `customDomain`
+- `fallbackDomain`
 - `language`
 - `status`
 - `contentCadence`
@@ -47,7 +50,9 @@ Each site entry should include:
 - robots.txt status
 - sitemap.xml status
 - last deployment state
-- obvious Surge 504 or DNS failure
+- Cloudflare Pages deployment active
+- Custom domain DNS/HTTPS status (if configured)
+- Fallback Surge errors if fallback was used
 
 ### Weekly Content Planning
 

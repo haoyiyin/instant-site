@@ -1,6 +1,6 @@
 {
   "name": "instant-site-skill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Agent-operated foreign trade independent site platform",
   "type": "module",
   "scripts": {

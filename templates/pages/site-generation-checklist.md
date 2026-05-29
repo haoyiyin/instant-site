@@ -9,7 +9,10 @@
 - [ ] Target keywords mapped to pages
 - [ ] Certifications and proof points verified by user
 - [ ] Contact email, WhatsApp, or inquiry CTA
-- [ ] Surge domain or custom domain
+- [ ] Cloudflare Pages project name
+- [ ] Pages deployment domain (e.g., `acme-tools.pages.dev`)
+- [ ] Optional custom domain
+- [ ] Optional Surge fallback domain
 - [ ] DESIGN.md template selected
 - [ ] Publishing policy selected
 

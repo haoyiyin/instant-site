@@ -1,9 +1,12 @@
 # Verification Report
 
 - Site: acme-tools
-- Domain: https://acme-tools.surge.sh/
-- Checked at: 2026-05-19T00:00:00Z
-- Deployment command: `surge . acme-tools.surge.sh`
+- Deployment provider: cloudflare_pages
+- Project: acme-tools
+- Domain: https://acme-tools.pages.dev/
+- Custom domain: www.acmetools.com (pending)
+- Checked at: 2026-05-29T00:00:00Z
+- Deployment command: `npx wrangler pages deploy . --project-name acme-tools --branch main`
 
 ## Results
 
@@ -17,7 +20,8 @@
 | Meta description | Present | pending | |
 | Canonical | Matches deployed domain | pending | |
 | Open Graph | Present | pending | |
-| Surge 504 | Not present | pending | |
+| Security headers | Present if `_headers` configured | pending | |
+| Cloudflare deployment | Active | pending | |
 
 ## Follow-ups
 

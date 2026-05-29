@@ -1,12 +1,13 @@
 ---
 name: instant-site
-description: "Build, deploy, update, and SEO-optimize static foreign trade independent sites using HTML/CSS/JS, DESIGN.md templates, Surge.sh, and scheduled agent operations. Use for from-zero site generation, static deployment, scheduled content operations, SEO audits, and multi-site independent site operations."
+description: "Build, deploy, update, and SEO-optimize static foreign trade independent sites using HTML/CSS/JS, DESIGN.md templates, Cloudflare Pages (Wrangler), and scheduled agent operations. Use for from-zero site generation, static deployment, scheduled content operations, SEO audits, and multi-site independent site operations."
 triggers:
   - deploy static site
   - free hosting
-  - no registration hosting
+  - cloudflare pages deploy
+  - wrangler deploy
+  - pages deploy
   - surge deploy
-  - netlify drop
   - static site SEO
   - build foreign trade site
   - independent site operations
@@ -14,6 +15,8 @@ triggers:
   - multi-site operations
   - 上线静态站
   - 免费部署
+  - Cloudflare Pages 部署
+  - 自动部署静态站
   - 外贸独立站
   - 从零建站
   - 独立站运营
@@ -24,12 +27,12 @@ triggers:
 
 # Instant Site — Agent-Operated Foreign Trade Independent Sites
 
-Instant Site helps an agent build, deploy, update, and SEO-optimize static foreign trade independent sites. The default stack is HTML/CSS/JS, DESIGN.md, Surge.sh, JSON state files, and scheduled agent operations.
+Instant Site helps an agent build, deploy, update, and SEO-optimize static foreign trade independent sites. The default stack is HTML/CSS/JS, DESIGN.md, Cloudflare Pages (Wrangler), JSON state files, and scheduled agent operations.
 
 ## Operating Principles
 
 1. **Static first** — Generate crawlable HTML/CSS/JS. Do not use pure CSR/SPAs for SEO-critical pages.
-2. **Surge first** — Use Surge.sh as the default deployment provider; use Netlify Drop only as emergency demo fallback; use Cloudflare Pages when CSP/HSTS/custom headers are required.
+2. **Cloudflare Pages first** — Use Cloudflare Pages as the default deployment provider via Wrangler OAuth; use Surge.sh as fallback when Cloudflare auth/setup is unavailable or the user explicitly requests the simpler fallback host.
 3. **DESIGN.md required** — Generate or reuse a DESIGN.md before building pages.
 4. **SEO by default** — Every page needs title, description, canonical, Open Graph, Twitter Card, and relevant JSON-LD.
 5. **State in files** — Use `site.config.json`, `.instant-site/state.json`, and related JSON files instead of relying on chat history.
@@ -238,7 +241,9 @@ Minimum inputs:
 - Product list, features, applications, and target keywords
 - Certifications or proof points (verified)
 - Contact email and primary CTA
-- Surge domain or custom domain
+- Cloudflare Pages project name or preferred Pages subdomain
+- Optional custom domain
+- Optional Surge fallback domain
 - Design template selection
 - Publishing policy: `review_required`, `hybrid`, or `auto_publish`
 
@@ -252,7 +257,9 @@ Minimum inputs:
 
 ## Limitations
 
-- **Surge cannot add custom headers** — Use Cloudflare Pages for CSP/HSTS
+- **Cloudflare Pages supports `_headers` and `_redirects`** — Use for CSP, HSTS, custom caching, and redirect rules
+- **Surge.sh fallback cannot add custom headers** — Use Cloudflare Pages when security headers required
+- **Custom domains may require dashboard/DNS confirmation** — Wrangler deploys to `.pages.dev` automatically; custom domain activation may need Cloudflare dashboard
 - **External SEO data requires authorization** — Do not claim rankings without Search Console access
 - **curl cannot detect JS-injected schema** — Use browser tools for JSON-LD verification
 - **FormSubmit first submission needs confirmation** — Remind user to check email

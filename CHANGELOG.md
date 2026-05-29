@@ -2,6 +2,15 @@
 
 All notable changes to Instant Site skill.
 
+## [0.1.1] - 2026-05-29
+
+### Changed
+- Made Cloudflare Pages the preferred/default deployment workflow
+- Added Wrangler OAuth login, Pages project creation, deployment, verification, and state-recording guidance
+- Demoted Surge.sh to fallback deployment provider
+- Updated templates, state examples, evals, and validation guidance for Cloudflare Pages
+- Added `cloudflare-pages` capability to skill.json
+
 ## [0.1.0] - 2026-05-28
 
 ### Added

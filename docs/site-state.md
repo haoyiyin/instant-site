@@ -27,7 +27,8 @@ It should define:
 - `siteId`
 - brand identity, language, tone, and markets
 - business type, industry, products, and certifications
-- deployment domain and optional custom domain
+- deployment provider, project name, domain, and optional custom domain
+- fallback provider and domain
 - contact methods and primary CTA
 - selected DESIGN.md template
 - required page types
@@ -42,10 +43,16 @@ Recommended shape:
 ```json
 {
   "siteId": "acme-tools",
-  "currentDomain": "acme-tools.surge.sh",
+  "currentDomain": "acme-tools.pages.dev",
+  "deploymentProvider": "cloudflare_pages",
+  "cloudflareProject": "acme-tools",
+  "customDomain": "www.acmetools.com",
+  "customDomainStatus": "pending",
   "lastDeployment": {
-    "timestamp": "2026-05-19T00:00:00Z",
-    "command": "surge . acme-tools.surge.sh",
+    "timestamp": "2026-05-29T00:00:00Z",
+    "provider": "cloudflare_pages",
+    "projectName": "acme-tools",
+    "command": "npx wrangler pages deploy . --project-name acme-tools --branch main",
     "status": "success",
     "verified": true
   },
@@ -62,6 +69,24 @@ Recommended shape:
 }
 ```
 
+For Surge fallback:
+
+```json
+{
+  "siteId": "acme-tools",
+  "currentDomain": "acme-tools.surge.sh",
+  "deploymentProvider": "surge",
+  "lastDeployment": {
+    "timestamp": "2026-05-29T00:00:00Z",
+    "provider": "surge",
+    "domain": "acme-tools.surge.sh",
+    "command": "surge . acme-tools.surge.sh",
+    "status": "success",
+    "verified": true
+  }
+}
+```
+
 ## `.instant-site/deployments.json`
 
 Track every deployment:
@@ -70,7 +95,35 @@ Track every deployment:
 {
   "deployments": [
     {
-      "timestamp": "2026-05-19T00:00:00Z",
+      "timestamp": "2026-05-29T00:00:00Z",
+      "provider": "cloudflare_pages",
+      "projectName": "acme-tools",
+      "domain": "acme-tools.pages.dev",
+      "customDomain": "www.acmetools.com",
+      "customDomainStatus": "pending",
+      "command": "npx wrangler pages deploy . --project-name acme-tools --branch main",
+      "status": "success",
+      "verification": {
+        "homepage": "pass",
+        "robots": "pass",
+        "sitemap": "pass",
+        "metadata": "pass",
+        "headers": "pass"
+      },
+      "notes": []
+    }
+  ]
+}
+```
+
+For Surge fallback:
+
+```json
+{
+  "deployments": [
+    {
+      "timestamp": "2026-05-29T00:00:00Z",
+      "provider": "surge",
       "domain": "acme-tools.surge.sh",
       "command": "surge . acme-tools.surge.sh",
       "status": "success",
@@ -80,7 +133,7 @@ Track every deployment:
         "sitemap": "pass",
         "metadata": "pass"
       },
-      "notes": []
+      "notes": ["fallback used: Cloudflare OAuth unavailable"]
     }
   ]
 }
@@ -91,4 +144,6 @@ Track every deployment:
 - Read state before scheduled operations.
 - Update state after deployment, publishing, or SEO audit.
 - Keep each site's `.instant-site/` directory isolated.
+- Record deployment provider, project name, and command for Cloudflare Pages.
+- Record fallback reason if Surge used.
 - Do not use a previous chat message as the only record of deployment or content status.

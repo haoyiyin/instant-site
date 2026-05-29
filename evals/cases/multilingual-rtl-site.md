@@ -12,7 +12,7 @@ Target markets: US, EU, Middle East.
 Products: industrial fasteners, hinges, brackets.
 Certifications: ISO 9001.
 Contact: sales@hardwareexporter.com.
-Domain: hardware-export.surge.sh.
+Domain: hardware-export.pages.dev.
 Use subdirectory structure (/en/, /ar/).
 Generate hreflang for all pages.
 Include language switcher in navigation.
