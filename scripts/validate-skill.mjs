@@ -215,28 +215,32 @@ if (existsSync(skillPath)) {
   const skillContent = readFileSync(skillPath, 'utf8');
   check(skillContent.includes('Cloudflare Pages first') || skillContent.includes('Cloudflare Pages'), 'SKILL.md mentions Cloudflare Pages');
   check(skillContent.includes('Surge') && skillContent.includes('fallback'), 'SKILL.md mentions Surge as fallback');
-  check(skillContent.includes('OAuth must not block') || skillContent.includes('semi-interactive'), 'SKILL.md includes OAuth semi-interactive guidance');
+  check(skillContent.includes('API Token') || skillContent.includes('CLOUDFLARE_API_TOKEN'), 'SKILL.md includes API Token authorization guidance');
+  check(skillContent.includes('Token authorization must be safe'), 'SKILL.md includes token safety principle');
 }
 
 const deploymentPath = join(ROOT, 'docs/workflows/deployment.md');
 if (existsSync(deploymentPath)) {
   const deploymentContent = readFileSync(deploymentPath, 'utf8');
-  check(deploymentContent.includes('wrangler login'), 'deployment.md includes wrangler login');
+  check(deploymentContent.includes('CLOUDFLARE_API_TOKEN'), 'deployment.md includes CLOUDFLARE_API_TOKEN');
+  check(deploymentContent.includes('wrangler whoami'), 'deployment.md includes wrangler whoami');
   check(deploymentContent.includes('pages project create'), 'deployment.md includes pages project create');
   check(deploymentContent.includes('pages deploy'), 'deployment.md includes pages deploy');
   check(deploymentContent.includes('Surge') && deploymentContent.includes('fallback'), 'deployment.md mentions Surge as fallback');
-  check(deploymentContent.includes('callback'), 'deployment.md includes callback guidance');
-  check(deploymentContent.includes('whoami'), 'deployment.md includes whoami verification');
+  check(deploymentContent.includes('Cloudflare Pages / Edit'), 'deployment.md includes minimal token permission guidance');
+  check(deploymentContent.includes('Account Settings / Read'), 'deployment.md includes Account Settings permission');
   check(deploymentContent.includes('sensitive') || deploymentContent.includes('Do not'), 'deployment.md includes sensitive credential handling');
-  check(deploymentContent.includes('cross-device') || deploymentContent.includes('another device'), 'deployment.md includes cross-device OAuth guidance');
+  check(deploymentContent.includes('Do not store') || deploymentContent.includes('never store'), 'deployment.md includes token storage prohibition');
 }
 
 const checklistPath = join(ROOT, 'templates/deployment-checklist.md');
 if (existsSync(checklistPath)) {
   const checklistContent = readFileSync(checklistPath, 'utf8');
-  check(checklistContent.includes('callback'), 'deployment-checklist.md includes callback guidance');
+  check(checklistContent.includes('CLOUDFLARE_API_TOKEN'), 'deployment-checklist.md includes CLOUDFLARE_API_TOKEN');
   check(checklistContent.includes('whoami'), 'deployment-checklist.md includes whoami verification');
-  check(checklistContent.includes('sensitive') || checklistContent.includes('Do not'), 'deployment-checklist.md includes sensitive credential handling');
+  check(checklistContent.includes('API Token'), 'deployment-checklist.md includes API Token authorization');
+  check(checklistContent.includes('Cloudflare Pages / Edit'), 'deployment-checklist.md includes minimal permission guidance');
+  check(checklistContent.includes('Do not store') || checklistContent.includes('sensitive'), 'deployment-checklist.md includes sensitive credential handling');
 }
 
 const toolRegistryPath = join(ROOT, 'docs/tool-registry.md');

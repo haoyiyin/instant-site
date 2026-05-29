@@ -19,32 +19,36 @@
 - [ ] Cloudflare Pages project name is lowercase, URL-safe, stable.
 - [ ] Custom domain DNS has been configured or the user understands DNS is still pending.
 
-## Cloudflare Auth
+## Cloudflare Token Authorization
 
-- [ ] Run `npx wrangler whoami` to check authentication.
-- [ ] If not authenticated, run `npx wrangler login --browser=false`.
-- [ ] Show the OAuth URL to the user with cross-device/browser authorization guidance.
-- [ ] Tell the user: if authorization happens on another device/browser and the final page cannot reach localhost, they should paste the full final callback URL or authorization result back to the agent.
-- [ ] Keep the Wrangler login process open while waiting for authorization or manual callback input.
-- [ ] Treat any pasted callback URL/code/state as sensitive: do not repeat it in chat, do not save it, do not write it to state files or deployment records.
-- [ ] If Wrangler prompts for the returned URL/result, paste the user's input into Wrangler.
-- [ ] Re-run `npx wrangler whoami` and continue only after it succeeds.
-- [ ] If OAuth cannot be completed after retry with manual callback guidance, choose fallback path (same-device browser, API token for technical users, or Surge.sh) with user approval.
+- [ ] Guide the user to register or log into Cloudflare.
+- [ ] Guide the user to create a Custom API Token with minimal permissions:
+  - `Account / Cloudflare Pages / Edit`
+  - `Account / Account Settings / Read`
+- [ ] Inform the user that the Token is sensitive and should not be shared publicly.
+- [ ] User understands the Token is used only for the current deployment session.
+- [ ] Do not store the Token in `.instant-site/state.json`, `.instant-site/deployments.json`, `site.config.json`, logs, README, or any project file.
+- [ ] Verify auth with `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami`.
+- [ ] Continue only after token-based `whoami` succeeds.
+- [ ] If auth fails, guide user to check token completeness, permissions, selected account, and expiry.
+- [ ] Do not request broad permissions (Zone:Edit, DNS:Edit, full admin) unless user explicitly approves for custom-domain automation.
 
 ## Pages Project
 
-- [ ] Run `npx wrangler pages project list` to check existing projects.
-- [ ] Create project if needed: `npx wrangler pages project create <project-name> --production-branch main`.
+- [ ] Run `CLOUDFLARE_API_TOKEN=<token> npx wrangler pages project list` to check existing projects.
+- [ ] Create project if needed: `CLOUDFLARE_API_TOKEN=<token> npx wrangler pages project create <project-name> --production-branch main`.
 - [ ] Verify project name matches `site.config.json`.
 
 ## Deploy
 
 ```bash
 cd ./customer-site
-npx wrangler pages deploy . --project-name <project-name> --branch main
+CLOUDFLARE_API_TOKEN=<token> npx wrangler pages deploy . --project-name <project-name> --branch main
 ```
 
 Capture deployment URL from output (e.g., `https://acme-tools.pages.dev`).
+
+**Important:** Deployment records must omit `CLOUDFLARE_API_TOKEN=...`. Record the sanitized command only.
 
 ## After Deploy
 
@@ -55,7 +59,8 @@ Capture deployment URL from output (e.g., `https://acme-tools.pages.dev`).
 - [ ] Homepage metadata is present.
 - [ ] Security headers present if `_headers` configured.
 - [ ] `.instant-site/state.json` is updated with provider, project, domain.
-- [ ] `.instant-site/deployments.json` is appended with deployment record.
+- [ ] `.instant-site/deployments.json` is appended with deployment record (sanitized command).
+- [ ] Suggest user can delete the Cloudflare API Token after successful deployment.
 
 ## Visual Production QA
 
@@ -71,10 +76,12 @@ Capture deployment URL from output (e.g., `https://acme-tools.pages.dev`).
 
 ## Surge.sh Fallback
 
-Use only when Cloudflare OAuth is unavailable after:
-- Manual callback guidance has been attempted
-- Same-device/browser retry has been attempted if feasible
-- User understands Cloudflare OAuth limitations and agrees to fallback
+Use only when Cloudflare account/token setup is unavailable:
+- User cannot register Cloudflare account
+- User cannot create or submit API Token
+- Token permissions insufficient and user declines to adjust
+- Cloudflare Pages deployment fails repeatedly
+- User explicitly requests Surge fallback
 
 ```bash
 npm install -g surge

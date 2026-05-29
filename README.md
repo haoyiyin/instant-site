@@ -8,7 +8,7 @@ Full lifecycle, agent-operated:
 
 1. **Build** — Generate a complete static site from product, brand, market, and SEO inputs.
 2. **Design** — Use DESIGN.md templates (11 templates for B2B/B2C) for visual consistency.
-3. **Deploy** — Publish to Cloudflare Pages via Wrangler OAuth, project creation, and direct upload. Surge.sh available as fallback.
+3. **Deploy** — Publish to Cloudflare Pages via Wrangler with API Token authorization. Surge.sh available as fallback.
 4. **Verify** — Check homepage, robots.txt, sitemap.xml, metadata, canonical URLs, and CDN availability.
 5. **Content Operations** — Generate blog drafts, product updates, and industry articles on a schedule with review gates.
 6. **SEO Optimization** — Three-layer audits: local static, deployed-site, and external data (Search Console, PageSpeed, etc.).
@@ -149,24 +149,33 @@ See `docs/buyer-context.md` and `templates/buyer-context.example.json`.
 Cloudflare Pages is the default target — global CDN, automatic HTTPS on `*.pages.dev`, custom domains, and `_headers` support:
 
 ```bash
-# Authenticate (agent shows OAuth URL; manual callback paste may be needed across devices/browsers)
-npx wrangler login --browser=false
+# Verify token authorization
+CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami
 
 # Create Pages project
-npx wrangler pages project create acme-tools --production-branch main
+CLOUDFLARE_API_TOKEN=<token> npx wrangler pages project create acme-tools --production-branch main
 
 # Deploy static files
 cd ./customer-site
-npx wrangler pages deploy . --project-name acme-tools --branch main
+CLOUDFLARE_API_TOKEN=<token> npx wrangler pages deploy . --project-name acme-tools --branch main
 ```
 
-### User Authorization Flow
+### Token Setup Flow
 
-Wrangler prints an OAuth URL. The agent shows it to the user. User opens the URL, logs into Cloudflare, and authorizes. If authorization happens on another device/browser and the final callback cannot reach the local Wrangler process (localhost error or long URL in address bar), the user copies the full final callback URL or authorization result and pastes it back to the agent. The agent uses it only to complete the current login, does not save it in project files, and verifies with `wrangler whoami` before deploying.
+Users create a minimal-scope Cloudflare API Token in Cloudflare Dashboard:
+1. Click avatar → My Profile → API Tokens → Create Token
+2. Choose Custom token
+3. Add permissions: `Account / Cloudflare Pages / Edit` + `Account / Account Settings / Read`
+4. Select Account Resources
+5. Create and copy token
+
+The token is used only for the current deployment session, never written to project files. Users can delete the token after deployment succeeds — deletion does not affect the deployed site.
+
+See `docs/workflows/deployment.md` for full non-technical guidance (Chinese instructions included).
 
 ### Surge.sh Fallback
 
-When Cloudflare auth/setup is unavailable:
+When Cloudflare account/token setup is unavailable:
 
 ```bash
 npm install -g surge

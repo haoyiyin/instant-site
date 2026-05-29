@@ -133,7 +133,7 @@ For Surge fallback:
         "sitemap": "pass",
         "metadata": "pass"
       },
-      "notes": ["fallback used: Cloudflare OAuth unavailable"]
+      "notes": ["fallback used: Cloudflare account/token setup unavailable"]
     }
   ]
 }
@@ -147,3 +147,6 @@ For Surge fallback:
 - Record deployment provider, project name, and command for Cloudflare Pages.
 - Record fallback reason if Surge used.
 - Do not use a previous chat message as the only record of deployment or content status.
+- Never store Cloudflare API Tokens, OAuth callback URLs, authorization codes, or other secrets in state files.
+- Deployment command records must omit environment variable assignments containing secrets. Record the sanitized command only (e.g., `npx wrangler pages deploy . --project-name acme-tools --branch main`, without `CLOUDFLARE_API_TOKEN=...`).
+- If token auth was used, state may optionally record `"authMethod": "api_token"` but must not record token value, prefix, suffix, hash, token name, or any metadata that identifies the secret.

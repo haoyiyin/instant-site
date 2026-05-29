@@ -155,29 +155,29 @@ Reference for tools, services, and fallbacks used in Instant Site workflow.
 
 **Purpose**: Default static site deployment with global CDN, automatic HTTPS, custom domains, `_headers`, `_redirects`.
 
-**When to use**: All deployments unless Cloudflare auth/setup is unavailable after OAuth attempts.
+**When to use**: All deployments unless Cloudflare account/token setup is unavailable.
 
-**Required inputs**: `site.config.json` with project name, generated files. Optional `_headers`, `_redirects`.
+**Required inputs**: `site.config.json` with project name, generated files, Cloudflare API Token with minimal Pages permissions. Optional `_headers`, `_redirects`.
 
-**Safe automation level**: High after OAuth login. First login is semi-interactive: user may need to authorize in a browser and manually paste the final callback URL/result if authorization happens outside the local browser environment.
+**Safe automation level**: High after token authorization succeeds. The token is sensitive and must only be used transiently through `CLOUDFLARE_API_TOKEN` environment variable — never stored or logged.
 
 **Commands**:
-- `npx wrangler whoami` — Check authentication
-- `npx wrangler login --browser=false` — OAuth login, prints URL for user
-- `npx wrangler pages project list` — Check existing projects
-- `npx wrangler pages project create <name> --production-branch main` — Create project
-- `npx wrangler pages deploy . --project-name <name> --branch main` — Deploy
+- `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami` — Check token authentication
+- `CLOUDFLARE_API_TOKEN=<token> npx wrangler pages project list` — Check existing projects
+- `CLOUDFLARE_API_TOKEN=<token> npx wrangler pages project create <name> --production-branch main` — Create project
+- `CLOUDFLARE_API_TOKEN=<token> npx wrangler pages deploy . --project-name <name> --branch main` — Deploy
 
 **Fallback**: Surge.sh.
 
 **Notes**:
-- OAuth URL flow is the default user-friendly path: agent shows URL, user opens and authorizes
-- Cross-device or remote-browser OAuth may not auto-return to the local Wrangler process
-- When this happens, guide the user to copy the full final callback URL or authorization result from the browser address bar and paste it back
-- Treat callback URLs and authorization codes as secrets; never store them in project state, deployment records, or any files
-- Verify auth with `npx wrangler whoami` after any manual callback before running project or deploy commands
-- If manual callback fails or is rejected, restart with a fresh OAuth URL before falling back to Surge
-- Do not ask users to create API tokens unless OAuth is impossible after manual callback attempts
+- API Token is the default authorization path for Cloudflare Pages deployment
+- Guide non-technical users to create a minimal-scope Custom API Token in Cloudflare Dashboard
+- Token permissions should be minimal: `Account / Cloudflare Pages / Edit` + `Account / Account Settings / Read`
+- Do not request Zone:Edit, DNS:Edit, or full account admin unless user explicitly approves for custom-domain automation
+- Token must not be stored or logged in project files, state files, deployment records, README, or any output
+- Deployment records must omit `CLOUDFLARE_API_TOKEN=...` from recorded commands — store sanitized commands only
+- Verify auth with `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami` before project creation or deploy
+- Suggest user can delete token after deployment succeeds; deletion does not affect deployed site
 - Custom domains may require dashboard/DNS confirmation
 - Supports `_headers` for CSP, HSTS, custom caching
 - Supports `_redirects` for redirect rules
@@ -479,7 +479,7 @@ curl -s https://domain.com/ | grep -E '<title>|canonical'
 
 | Category | Primary | Fallback | When to Switch |
 |----------|---------|----------|----------------|
-| Deployment | Cloudflare Pages | Surge.sh | Cloudflare auth/setup unavailable, user explicitly requests fallback |
+| Deployment | Cloudflare Pages | Surge.sh | Cloudflare account/token unavailable, token permissions cannot be fixed, or user explicitly requests fallback |
 | Deployment (headers) | Cloudflare Pages | None | `_headers`, CSP, HSTS, redirects, or custom caching needed |
 | Forms | FormSubmit | Web3Forms | FormSubmit blocked |
 | Images (general) | Unsplash | Pexels | Unsplash lacks content |

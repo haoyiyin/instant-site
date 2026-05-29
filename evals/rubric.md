@@ -114,12 +114,14 @@ After operations:
 
 Deployment planning follows Cloudflare Pages first:
 - Cloudflare Pages selected as default deployment provider
-- Wrangler OAuth login flow documented or planned, including manual callback paste guidance for cross-device/browser authorization
-- OAuth callback URLs/codes are treated as sensitive and are not written to state files or deployment records
-- Deployment continues only after `npx wrangler whoami` succeeds
+- Cloudflare API Token authorization documented or planned for deployment
+- Non-technical users receive step-by-step guidance to register Cloudflare, create a minimal-scope token, submit it safely, and deploy
+- Token scopes are minimal: `Account / Cloudflare Pages / Edit` and `Account / Account Settings / Read`
+- Token is treated as sensitive and is not written to state files, deployment records, logs, README output, or project files
+- Deployment continues only after `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami` succeeds
 - Pages project name defined
-- Surge.sh appears only as fallback option after OAuth attempts with manual callback guidance
-- Deployment records include provider, project name, command, domain
+- Surge.sh appears only as fallback option when Cloudflare account/token setup is unavailable or user explicitly requests fallback
+- Deployment records include provider, project name, sanitized command, and domain
 - `.pages.dev` URLs used for primary deployed domain
 - `.surge.sh` only used as explicit fallback domain
 

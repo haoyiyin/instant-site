@@ -1,6 +1,6 @@
 # Deployment Workflow
 
-Deploy and verify static sites to Cloudflare Pages by default, with Surge.sh fallback.
+Deploy and verify static sites to Cloudflare Pages by default using a Cloudflare API Token, with Surge.sh fallback.
 
 ## When to use
 
@@ -22,6 +22,10 @@ Before deployment:
 - OG and Twitter image URLs are absolute
 - Optional `_headers` file for CSP/HSTS/custom caching
 - Optional `_redirects` file for redirect rules
+- Cloudflare account created and email verified
+- Cloudflare API Token provided only for the current deployment session
+- Token has minimal Pages permissions
+- Token must not be stored in project files or deployment records
 
 ## Steps
 
@@ -40,73 +44,79 @@ Run `templates/deployment-checklist.md` before deploy section:
 - Project name is lowercase, URL-safe, stable
 - Custom domain DNS configured (if applicable)
 
-### 2. Cloudflare Authentication
+### 2. Cloudflare Token Authorization
 
-Check authentication status:
+Check authentication status with the user-provided token:
 ```bash
-npx wrangler whoami
+CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami
 ```
 
-If not authenticated, trigger OAuth login:
-```bash
-npx wrangler login --browser=false
-```
+**Important security rules:**
+- Do not run `npx wrangler whoami` without the token as the primary check — this may misuse existing local OAuth state
+- Do not echo the token back in chat
+- Do not store the token in state files, deployment records, logs, README, or any project files
+- Never store commands containing `CLOUDFLARE_API_TOKEN=...` in deployment records
+- If `whoami` fails, stop deployment — do not continue to project creation or deploy
+- The token is used only for the current deployment session
 
-**User authorization flow:**
-- Wrangler prints an OAuth URL
-- Agent shows the URL to the user
-- User opens URL, registers/logs into Cloudflare, authorizes Wrangler
-- Wrangler stores OAuth credentials locally after success
-- Agent runs `npx wrangler whoami` again to verify login before continuing
+**Guidance for non-technical users (Chinese):**
 
-**Cross-device / other-browser OAuth callback:**
-
-Wrangler normally completes login automatically when the authorization browser can reach the local callback listener. If the user opens the OAuth URL on another device, another browser profile, a remote browser, or a sandboxed environment, the callback may not reach the local Wrangler process.
-
-Agent behavior:
-- Keep the `wrangler login --browser=false` process open while the user authorizes
-- Tell the user: after approving Cloudflare, if the page cannot load `localhost`, shows a callback error, or leaves a URL with `code`, `state`, or other authorization parameters in the address bar, copy the full final URL and paste it back here
-- Treat the pasted callback URL or authorization result as sensitive. Do not repeat it in chat, do not write it to state files, and do not include it in deployment records
-- If Wrangler prompts for a callback URL or authorization result, paste the user's full returned value into that prompt
-- After Wrangler reports success, run `npx wrangler whoami` again. Continue only if it succeeds
-
-**Suggested user prompt for non-technical users:**
+当用户需要提供 Cloudflare API Token 时，可直接发送以下指引：
 
 ```
-Cloudflare needs one-time authorization before I can deploy the site.
+为了把网站发布到 Cloudflare Pages，我需要你提供一个临时使用的 Cloudflare API Token。
+这个 Token 相当于一把钥匙，请不要发给无关人员。部署完成后，你可以在 Cloudflare 后台删除它。
 
-Please open this URL and authorize Wrangler:
-<OAuth URL>
+请按下面步骤操作：
 
-If you see a success page, reply: authorized.
+1. 打开 https://dash.cloudflare.com/sign-up 注册 Cloudflare 账号（如果还没有）。
+2. 使用邮箱注册并完成邮箱验证。
+3. 登录 Cloudflare Dashboard。
+4. 点击右上角头像，进入 My Profile（我的个人资料）。
+5. 点击 API Tokens。
+6. 点击 Create Token。
+7. 选择 Create a Custom Token（创建自定义令牌）。
+8. Token 名称填写：Instant Site Pages Deploy（或任意你喜欢的名称）。
+9. 权限 Permissions 设置：
+   - Account / Cloudflare Pages / Edit
+   - Account / Account Settings / Read
+10. Account Resources 选择 Include / All accounts（或选择你的具体账号）。
+11. 其他选项保持默认。
+12. 点击 Continue to summary。
+13. 点击 Create Token。
+14. Cloudflare 只会显示一次 Token，请立即复制完整 Token 发给我。
 
-If the page fails after authorization, says localhost cannot be reached, or shows a long URL in the address bar, copy the entire address bar URL and paste it here. This can happen when login is completed on another device or browser. I will use it only to finish this Cloudflare login and will not save it in project files.
+安全提醒：
+- 不要截图公开这个 Token。
+- 不要把 Token 保存到网站项目文件里。
+- 部署成功后，如果你担心安全，可以回到 API Tokens 页面删除这个 Token。
+- 删除 Token 不会删除已经上线的网站，只是以后重新部署时需要重新创建 Token。
 ```
 
-**Do not block indefinitely:**
-- If the user needs time, pause deployment and wait for their pasted callback/confirmation instead of retrying commands
-- If no callback is available or Wrangler does not accept the pasted result, stop the current login attempt and restart `npx wrangler login --browser=false` with a fresh OAuth URL
-- After two failed OAuth attempts, offer options:
-  1. Open the OAuth URL on the same machine/browser environment as the agent
-  2. Use an API token (only for technical users who understand token scopes)
-  3. Use Surge.sh fallback for urgent publishing
+**Token submission prompt:**
 
-**Important:**
-- Do not ask ordinary users to create API tokens unless OAuth login is impossible after manual callback attempts
-- OAuth URL flow with manual callback support is the recommended user-friendly path
-- Credentials stored in `~/.wrangler/config/default.toml`
-- Never write callback URLs, authorization codes, or state parameters to `.instant-site/state.json`, `.instant-site/deployments.json`, or any project files
+当用户准备提交 Token 时：
+
+```
+请把刚刚复制的 Cloudflare API Token 粘贴给我。
+我只会在当前部署命令中临时使用它，不会保存到项目文件、状态文件或部署记录。
+```
+
+**Do not request broad permissions:**
+- Default token scope is minimal: `Account / Cloudflare Pages / Edit` + `Account / Account Settings / Read`
+- Do not request Zone:Edit, DNS:Edit, or full account admin unless a specific custom-domain automation step requires it and the user explicitly approves
+- Custom domains can still be configured manually in Cloudflare Dashboard without DNS-edit token permissions
 
 ### 3. Create or Reuse Pages Project
 
 Check existing projects:
 ```bash
-npx wrangler pages project list
+CLOUDFLARE_API_TOKEN=<token> npx wrangler pages project list
 ```
 
 Create new project if needed:
 ```bash
-npx wrangler pages project create <project-name> --production-branch main
+CLOUDFLARE_API_TOKEN=<token> npx wrangler pages project create <project-name> --production-branch main
 ```
 
 **Rules:**
@@ -119,7 +129,7 @@ npx wrangler pages project create <project-name> --production-branch main
 Deploy the static site directory:
 ```bash
 cd ./customer-site
-npx wrangler pages deploy . --project-name <project-name> --branch main
+CLOUDFLARE_API_TOKEN=<token> npx wrangler pages deploy . --project-name <project-name> --branch main
 ```
 
 Capture the deployment URL from Wrangler output:
@@ -163,8 +173,9 @@ Verification passes when:
 ### 7. Update state files
 
 After successful deployment:
-- Update `.instant-site/deployments.json` with timestamp, provider, project, domain, command, status, verification results
+- Update `.instant-site/deployments.json` with timestamp, provider, project, domain, sanitized command, status, verification results
 - Update `.instant-site/state.json` with current domain and last deployment info
+- **Important:** Deployment records must store sanitized commands only — omit `CLOUDFLARE_API_TOKEN=...` from the recorded command
 
 ### 8. Visual QA (manual)
 
@@ -200,15 +211,15 @@ Low-risk redeployments can be automated when policy allows:
 ## Surge.sh Fallback
 
 Use Surge.sh only when:
-- Cloudflare OAuth cannot be completed after manual callback attempts and same-device/browser retry
-- Cloudflare account/project setup is unavailable
-- User explicitly requests Surge after understanding Cloudflare OAuth limitations
-- Urgent demo needed and Cloudflare setup is blocked
+- User cannot register or log into Cloudflare
+- User cannot create or submit an API Token
+- Token permissions are insufficient and user declines to adjust
+- Cloudflare Pages project creation or deployment fails repeatedly
+- User explicitly requests Surge for quick temporary publishing
 
 Before switching to Surge:
-- Confirm Cloudflare OAuth has been attempted with manual callback guidance
-- Confirm same-device/browser OAuth has been attempted if feasible
-- Do not switch to Surge solely because the first OAuth URL timed out without manual callback attempt
+- Confirm Cloudflare account/token setup has been attempted
+- Confirm user understands Cloudflare Token limitations and agrees to fallback
 
 Fallback commands:
 ```bash
@@ -272,16 +283,16 @@ For Surge fallback:
     "sitemap": "pass",
     "metadata": "pass"
   },
-  "notes": ["fallback used: Cloudflare OAuth unavailable after manual callback attempt"]
+  "notes": ["fallback used: Cloudflare account/token setup unavailable"]
 }
 ```
 
-**Important:** Never include OAuth callback URLs, authorization codes, or state parameters in deployment records. The notes field should only describe the reason for fallback, not any sensitive credentials.
+**Important:** Never include Cloudflare API Tokens, OAuth callback URLs, authorization codes, or other secrets in deployment records. The notes field should only describe the reason for fallback, not any sensitive credentials. Commands must be sanitized — omit any `CLOUDFLARE_API_TOKEN=...` assignments.
 
 ## Common mistakes
 
-- Running `wrangler pages deploy` before OAuth login
-- Running `wrangler pages project create` or `pages deploy` before `wrangler whoami` succeeds
+- Running `wrangler pages deploy` before token authorization
+- Running `wrangler pages project create` or `pages deploy` before `CLOUDFLARE_API_TOKEN=<token> wrangler whoami` succeeds
 - Forgetting project creation step
 - Using different project name from `site.config.json`
 - Leaving canonical URLs on old domain after Cloudflare deploy
@@ -291,21 +302,32 @@ For Surge fallback:
 - Deploying with unresolved placeholders
 - OG image URLs not absolute
 - Missing `thanks.html` for FormSubmit `_next`
-- Assuming cross-device OAuth will automatically return to Wrangler
-- Logging or storing OAuth callback URLs in `.instant-site/state.json` or `.instant-site/deployments.json`
-- Retrying `pages deploy` while auth is still incomplete
-- Reusing an expired OAuth callback URL
-- Switching to Surge fallback without attempting manual callback guidance
+- Recording commands with `CLOUDFLARE_API_TOKEN=...` in deployment records or state files
+- Requesting broad token permissions (Zone:Edit, DNS:Edit, full admin) when minimal Pages permissions suffice
+- Retrying deployment while auth is still incomplete
+- Asking users for OAuth callback URL or manual callback paste (token auth is simpler)
 
 ## Troubleshooting
 
-- `wrangler whoami` fails: run OAuth login flow
-- `wrangler login` waits after user authorized: ask user to paste the final callback URL or authorization result, then verify with `wrangler whoami`
-- Callback page says localhost cannot be reached: this is expected for cross-device auth; ask user to copy the full address bar URL back to the agent
-- Pasted callback rejected by Wrangler: restart login with `wrangler login --browser=false` to get a fresh OAuth URL; old OAuth URLs/codes may expire or be single-use
-- `wrangler whoami` still fails after callback: do not continue to project creation or deploy; retry OAuth or switch fallback
-- Project creation fails: check project name format, check existing projects
-- Deploy fails: verify static files exist, check project name match
-- Custom domain pending: verify DNS CNAME, check Cloudflare dashboard
-- Surge 504: wait 10-30 minutes and retry
-- Headers not applied: verify `_headers` file format, check Cloudflare Pages headers documentation
+- `wrangler whoami` fails with token:
+  - Check token was copied completely (no truncation)
+  - Check token has not been revoked or expired in Cloudflare Dashboard
+  - Check token permissions include `Account / Cloudflare Pages / Edit` and `Account / Account Settings / Read`
+  - Check Account Resources was set correctly when creating token
+- `Invalid API Token` error:
+  - Recreate the token in Cloudflare Dashboard
+- `Missing permissions` error:
+  - Add minimal required permissions based on Wrangler error message
+  - Do not default to full admin permissions
+- `pages project create` fails:
+  - Check project name is lowercase and URL-safe
+  - Check Cloudflare account has Pages available
+- `pages deploy` succeeds but URL unavailable:
+  - Wait a few minutes for global propagation
+  - Retry curl checks
+- User concerned about security:
+  - Remind user they can delete token after deployment succeeds
+  - Deleting token does not affect deployed site
+- Token visible in shell history:
+  - Remind user to clear shell history if concerned, or use a different terminal session
+  - Skill cannot control shell history, but commits to not writing token to project files

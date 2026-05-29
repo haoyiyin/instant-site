@@ -32,14 +32,14 @@ Instant Site helps an agent build, deploy, update, and SEO-optimize static forei
 ## Operating Principles
 
 1. **Static first** — Generate crawlable HTML/CSS/JS. Do not use pure CSR/SPAs for SEO-critical pages.
-2. **Cloudflare Pages first** — Use Cloudflare Pages as the default deployment provider via Wrangler OAuth; use Surge.sh as fallback when Cloudflare auth/setup is unavailable or the user explicitly requests the simpler fallback host.
+2. **Cloudflare Pages first** — Use Cloudflare Pages as the default deployment provider via Wrangler with a user-provided Cloudflare API Token; use Surge.sh as fallback when Cloudflare account/token setup is unavailable or the user explicitly requests the simpler fallback host.
 3. **DESIGN.md required** — Generate or reuse a DESIGN.md before building pages.
 4. **SEO by default** — Every page needs title, description, canonical, Open Graph, Twitter Card, and relevant JSON-LD.
 5. **State in files** — Use `site.config.json`, `.instant-site/state.json`, and related JSON files instead of relying on chat history.
 6. **Review risky publishing** — Default to `review_required` for new commercial content, product claims, pricing, certifications, legal text, and domain changes.
 7. **Multi-site isolation** — When operating multiple sites, read each site's config and state separately; never reuse canonical URLs, sitemap URLs, or domains across sites.
 8. **Design quality matters** — Prevent generic AI-looking sites. Infer design direction before template selection. Avoid default slop patterns. Follow layout discipline. Use real visuals.
-9. **OAuth must not block deployment silently** — Wrangler OAuth first login is semi-interactive. For cross-device/browser authorization, support manual callback paste, treat callback URLs/codes as sensitive, verify with `wrangler whoami` before continuing, and use documented fallbacks if OAuth cannot complete.
+9. **Token authorization must be safe and explicit** — For Cloudflare Pages deployment, guide non-technical users to create a minimal-scope Cloudflare API Token, verify with `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami`, never store or log the token, and continue only after token auth succeeds.
 
 ## Read Documents by Task
 

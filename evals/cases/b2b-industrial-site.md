@@ -30,7 +30,7 @@ Prepare a publish review before deployment.
 8. **Sitemap/robots**: Correct and cross-referencing
 9. **Publish review**: Produced before deployment, lists Cloudflare Pages deployment plan, files and claims needing confirmation
 10. **No invented claims**: Does not add certifications, customers, or factory capacity not provided
-11. **Cloudflare Pages default**: Deployment plan uses Wrangler and `.pages.dev`, Surge only as fallback
+11. **Cloudflare Pages default**: Deployment plan uses Wrangler with API Token authorization and `.pages.dev`, Surge only as fallback
 
 ## Assertions
 
@@ -50,7 +50,10 @@ Prepare a publish review before deployment.
 - [ ] No centered hero + three feature cards pattern
 - [ ] No fake div screenshots or placeholder images in final output
 - [ ] No invented certifications, customer names, or factory capacity
-- [ ] Publish review lists Cloudflare Pages deployment plan (Wrangler, project, domain)
+- [ ] Publish review lists Cloudflare Pages deployment plan (Wrangler, API Token authorization, project, domain)
+- [ ] User-facing deployment instructions explain Cloudflare account registration and API Token creation
+- [ ] API Token permissions are minimal and explicitly listed (Pages Edit, Account Settings Read)
+- [ ] Token is never stored in site config, state files, deployment records, or generated customer docs
 - [ ] Surge.sh only listed as fallback option
 - [ ] Deployment domain uses `.pages.dev` (not `.surge.sh` as primary)
 - [ ] Review gate triggered (review_required default)
