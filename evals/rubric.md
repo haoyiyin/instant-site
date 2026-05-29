@@ -114,9 +114,11 @@ After operations:
 
 Deployment planning follows Cloudflare Pages first:
 - Cloudflare Pages selected as default deployment provider
-- Wrangler OAuth login flow documented or planned
+- Wrangler OAuth login flow documented or planned, including manual callback paste guidance for cross-device/browser authorization
+- OAuth callback URLs/codes are treated as sensitive and are not written to state files or deployment records
+- Deployment continues only after `npx wrangler whoami` succeeds
 - Pages project name defined
-- Surge.sh appears only as fallback option
+- Surge.sh appears only as fallback option after OAuth attempts with manual callback guidance
 - Deployment records include provider, project name, command, domain
 - `.pages.dev` URLs used for primary deployed domain
 - `.surge.sh` only used as explicit fallback domain

@@ -57,11 +57,45 @@ npx wrangler login --browser=false
 - Agent shows the URL to the user
 - User opens URL, registers/logs into Cloudflare, authorizes Wrangler
 - Wrangler stores OAuth credentials locally after success
+- Agent runs `npx wrangler whoami` again to verify login before continuing
+
+**Cross-device / other-browser OAuth callback:**
+
+Wrangler normally completes login automatically when the authorization browser can reach the local callback listener. If the user opens the OAuth URL on another device, another browser profile, a remote browser, or a sandboxed environment, the callback may not reach the local Wrangler process.
+
+Agent behavior:
+- Keep the `wrangler login --browser=false` process open while the user authorizes
+- Tell the user: after approving Cloudflare, if the page cannot load `localhost`, shows a callback error, or leaves a URL with `code`, `state`, or other authorization parameters in the address bar, copy the full final URL and paste it back here
+- Treat the pasted callback URL or authorization result as sensitive. Do not repeat it in chat, do not write it to state files, and do not include it in deployment records
+- If Wrangler prompts for a callback URL or authorization result, paste the user's full returned value into that prompt
+- After Wrangler reports success, run `npx wrangler whoami` again. Continue only if it succeeds
+
+**Suggested user prompt for non-technical users:**
+
+```
+Cloudflare needs one-time authorization before I can deploy the site.
+
+Please open this URL and authorize Wrangler:
+<OAuth URL>
+
+If you see a success page, reply: authorized.
+
+If the page fails after authorization, says localhost cannot be reached, or shows a long URL in the address bar, copy the entire address bar URL and paste it here. This can happen when login is completed on another device or browser. I will use it only to finish this Cloudflare login and will not save it in project files.
+```
+
+**Do not block indefinitely:**
+- If the user needs time, pause deployment and wait for their pasted callback/confirmation instead of retrying commands
+- If no callback is available or Wrangler does not accept the pasted result, stop the current login attempt and restart `npx wrangler login --browser=false` with a fresh OAuth URL
+- After two failed OAuth attempts, offer options:
+  1. Open the OAuth URL on the same machine/browser environment as the agent
+  2. Use an API token (only for technical users who understand token scopes)
+  3. Use Surge.sh fallback for urgent publishing
 
 **Important:**
-- Do not ask ordinary users to create API tokens unless OAuth login is impossible
-- OAuth URL flow is the recommended user-friendly path
+- Do not ask ordinary users to create API tokens unless OAuth login is impossible after manual callback attempts
+- OAuth URL flow with manual callback support is the recommended user-friendly path
 - Credentials stored in `~/.wrangler/config/default.toml`
+- Never write callback URLs, authorization codes, or state parameters to `.instant-site/state.json`, `.instant-site/deployments.json`, or any project files
 
 ### 3. Create or Reuse Pages Project
 
@@ -166,10 +200,15 @@ Low-risk redeployments can be automated when policy allows:
 ## Surge.sh Fallback
 
 Use Surge.sh only when:
-- Cloudflare OAuth cannot be completed
+- Cloudflare OAuth cannot be completed after manual callback attempts and same-device/browser retry
 - Cloudflare account/project setup is unavailable
-- User explicitly requests Surge
+- User explicitly requests Surge after understanding Cloudflare OAuth limitations
 - Urgent demo needed and Cloudflare setup is blocked
+
+Before switching to Surge:
+- Confirm Cloudflare OAuth has been attempted with manual callback guidance
+- Confirm same-device/browser OAuth has been attempted if feasible
+- Do not switch to Surge solely because the first OAuth URL timed out without manual callback attempt
 
 Fallback commands:
 ```bash
@@ -233,13 +272,16 @@ For Surge fallback:
     "sitemap": "pass",
     "metadata": "pass"
   },
-  "notes": ["fallback used: Cloudflare OAuth unavailable"]
+  "notes": ["fallback used: Cloudflare OAuth unavailable after manual callback attempt"]
 }
 ```
+
+**Important:** Never include OAuth callback URLs, authorization codes, or state parameters in deployment records. The notes field should only describe the reason for fallback, not any sensitive credentials.
 
 ## Common mistakes
 
 - Running `wrangler pages deploy` before OAuth login
+- Running `wrangler pages project create` or `pages deploy` before `wrangler whoami` succeeds
 - Forgetting project creation step
 - Using different project name from `site.config.json`
 - Leaving canonical URLs on old domain after Cloudflare deploy
@@ -249,10 +291,19 @@ For Surge fallback:
 - Deploying with unresolved placeholders
 - OG image URLs not absolute
 - Missing `thanks.html` for FormSubmit `_next`
+- Assuming cross-device OAuth will automatically return to Wrangler
+- Logging or storing OAuth callback URLs in `.instant-site/state.json` or `.instant-site/deployments.json`
+- Retrying `pages deploy` while auth is still incomplete
+- Reusing an expired OAuth callback URL
+- Switching to Surge fallback without attempting manual callback guidance
 
 ## Troubleshooting
 
 - `wrangler whoami` fails: run OAuth login flow
+- `wrangler login` waits after user authorized: ask user to paste the final callback URL or authorization result, then verify with `wrangler whoami`
+- Callback page says localhost cannot be reached: this is expected for cross-device auth; ask user to copy the full address bar URL back to the agent
+- Pasted callback rejected by Wrangler: restart login with `wrangler login --browser=false` to get a fresh OAuth URL; old OAuth URLs/codes may expire or be single-use
+- `wrangler whoami` still fails after callback: do not continue to project creation or deploy; retry OAuth or switch fallback
 - Project creation fails: check project name format, check existing projects
 - Deploy fails: verify static files exist, check project name match
 - Custom domain pending: verify DNS CNAME, check Cloudflare dashboard

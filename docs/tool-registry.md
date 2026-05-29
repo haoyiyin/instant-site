@@ -155,11 +155,11 @@ Reference for tools, services, and fallbacks used in Instant Site workflow.
 
 **Purpose**: Default static site deployment with global CDN, automatic HTTPS, custom domains, `_headers`, `_redirects`.
 
-**When to use**: All deployments unless Cloudflare auth/setup is unavailable.
+**When to use**: All deployments unless Cloudflare auth/setup is unavailable after OAuth attempts.
 
 **Required inputs**: `site.config.json` with project name, generated files. Optional `_headers`, `_redirects`.
 
-**Safe automation level**: High after OAuth login. First login requires user to click OAuth URL and authorize.
+**Safe automation level**: High after OAuth login. First login is semi-interactive: user may need to authorize in a browser and manually paste the final callback URL/result if authorization happens outside the local browser environment.
 
 **Commands**:
 - `npx wrangler whoami` — Check authentication
@@ -171,8 +171,13 @@ Reference for tools, services, and fallbacks used in Instant Site workflow.
 **Fallback**: Surge.sh.
 
 **Notes**:
-- OAuth URL flow is user-friendly: agent shows URL, user clicks, authorizes
-- Do not ask users to create API tokens unless OAuth impossible
+- OAuth URL flow is the default user-friendly path: agent shows URL, user opens and authorizes
+- Cross-device or remote-browser OAuth may not auto-return to the local Wrangler process
+- When this happens, guide the user to copy the full final callback URL or authorization result from the browser address bar and paste it back
+- Treat callback URLs and authorization codes as secrets; never store them in project state, deployment records, or any files
+- Verify auth with `npx wrangler whoami` after any manual callback before running project or deploy commands
+- If manual callback fails or is rejected, restart with a fresh OAuth URL before falling back to Surge
+- Do not ask users to create API tokens unless OAuth is impossible after manual callback attempts
 - Custom domains may require dashboard/DNS confirmation
 - Supports `_headers` for CSP, HSTS, custom caching
 - Supports `_redirects` for redirect rules

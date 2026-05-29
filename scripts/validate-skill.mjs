@@ -215,6 +215,7 @@ if (existsSync(skillPath)) {
   const skillContent = readFileSync(skillPath, 'utf8');
   check(skillContent.includes('Cloudflare Pages first') || skillContent.includes('Cloudflare Pages'), 'SKILL.md mentions Cloudflare Pages');
   check(skillContent.includes('Surge') && skillContent.includes('fallback'), 'SKILL.md mentions Surge as fallback');
+  check(skillContent.includes('OAuth must not block') || skillContent.includes('semi-interactive'), 'SKILL.md includes OAuth semi-interactive guidance');
 }
 
 const deploymentPath = join(ROOT, 'docs/workflows/deployment.md');
@@ -224,6 +225,18 @@ if (existsSync(deploymentPath)) {
   check(deploymentContent.includes('pages project create'), 'deployment.md includes pages project create');
   check(deploymentContent.includes('pages deploy'), 'deployment.md includes pages deploy');
   check(deploymentContent.includes('Surge') && deploymentContent.includes('fallback'), 'deployment.md mentions Surge as fallback');
+  check(deploymentContent.includes('callback'), 'deployment.md includes callback guidance');
+  check(deploymentContent.includes('whoami'), 'deployment.md includes whoami verification');
+  check(deploymentContent.includes('sensitive') || deploymentContent.includes('Do not'), 'deployment.md includes sensitive credential handling');
+  check(deploymentContent.includes('cross-device') || deploymentContent.includes('another device'), 'deployment.md includes cross-device OAuth guidance');
+}
+
+const checklistPath = join(ROOT, 'templates/deployment-checklist.md');
+if (existsSync(checklistPath)) {
+  const checklistContent = readFileSync(checklistPath, 'utf8');
+  check(checklistContent.includes('callback'), 'deployment-checklist.md includes callback guidance');
+  check(checklistContent.includes('whoami'), 'deployment-checklist.md includes whoami verification');
+  check(checklistContent.includes('sensitive') || checklistContent.includes('Do not'), 'deployment-checklist.md includes sensitive credential handling');
 }
 
 const toolRegistryPath = join(ROOT, 'docs/tool-registry.md');

@@ -149,8 +149,8 @@ See `docs/buyer-context.md` and `templates/buyer-context.example.json`.
 Cloudflare Pages is the default target — global CDN, automatic HTTPS on `*.pages.dev`, custom domains, and `_headers` support:
 
 ```bash
-# Authenticate (user clicks OAuth URL shown by Wrangler)
-npx wrangler login
+# Authenticate (agent shows OAuth URL; manual callback paste may be needed across devices/browsers)
+npx wrangler login --browser=false
 
 # Create Pages project
 npx wrangler pages project create acme-tools --production-branch main
@@ -162,7 +162,7 @@ npx wrangler pages deploy . --project-name acme-tools --branch main
 
 ### User Authorization Flow
 
-Wrangler prints an OAuth URL. The agent shows it to the user. User clicks, logs into Cloudflare, and authorizes. Wrangler stores credentials locally.
+Wrangler prints an OAuth URL. The agent shows it to the user. User opens the URL, logs into Cloudflare, and authorizes. If authorization happens on another device/browser and the final callback cannot reach the local Wrangler process (localhost error or long URL in address bar), the user copies the full final callback URL or authorization result and pastes it back to the agent. The agent uses it only to complete the current login, does not save it in project files, and verifies with `wrangler whoami` before deploying.
 
 ### Surge.sh Fallback
 

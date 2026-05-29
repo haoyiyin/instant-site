@@ -23,8 +23,13 @@
 
 - [ ] Run `npx wrangler whoami` to check authentication.
 - [ ] If not authenticated, run `npx wrangler login --browser=false`.
-- [ ] Show OAuth URL to user, ask them to click and authorize.
-- [ ] Wait for authorization confirmation.
+- [ ] Show the OAuth URL to the user with cross-device/browser authorization guidance.
+- [ ] Tell the user: if authorization happens on another device/browser and the final page cannot reach localhost, they should paste the full final callback URL or authorization result back to the agent.
+- [ ] Keep the Wrangler login process open while waiting for authorization or manual callback input.
+- [ ] Treat any pasted callback URL/code/state as sensitive: do not repeat it in chat, do not save it, do not write it to state files or deployment records.
+- [ ] If Wrangler prompts for the returned URL/result, paste the user's input into Wrangler.
+- [ ] Re-run `npx wrangler whoami` and continue only after it succeeds.
+- [ ] If OAuth cannot be completed after retry with manual callback guidance, choose fallback path (same-device browser, API token for technical users, or Surge.sh) with user approval.
 
 ## Pages Project
 
@@ -66,7 +71,10 @@ Capture deployment URL from output (e.g., `https://acme-tools.pages.dev`).
 
 ## Surge.sh Fallback
 
-Use only when Cloudflare auth/setup is unavailable:
+Use only when Cloudflare OAuth is unavailable after:
+- Manual callback guidance has been attempted
+- Same-device/browser retry has been attempted if feasible
+- User understands Cloudflare OAuth limitations and agrees to fallback
 
 ```bash
 npm install -g surge
