@@ -7,7 +7,7 @@
 - [ ] `index.html` exists.
 - [ ] `DESIGN.md` exists and matches the selected template.
 - [ ] `robots.txt` exists and references the deployed sitemap URL.
-- [ ] `sitemap.xml` exists and includes homepage, product pages, about page, contact page, and blog index.
+- [ ] `sitemap.xml` exists and includes homepage, product pages, about page, contact page, blog index, and all generated/published blog article detail pages.
 - [ ] Canonical URLs use the deployment domain.
 - [ ] Open Graph and Twitter image URLs are absolute.
 - [ ] Every page has title, description, canonical, Open Graph, and Twitter Card tags.
@@ -18,6 +18,7 @@
 - [ ] `_redirects` file reviewed if present.
 - [ ] Cloudflare Pages project name is lowercase, URL-safe, stable.
 - [ ] Custom domain DNS has been configured or the user understands DNS is still pending.
+- [ ] If `blog/index.html` lists articles, every article link resolves to an existing `blog/{slug}.html` file.
 
 ## Cloudflare Token Authorization
 

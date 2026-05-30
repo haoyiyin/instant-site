@@ -24,6 +24,17 @@ Full lifecycle, agent-operated:
 - Small brand independent sites
 - Static marketing sites that need repeatable content and SEO operations
 
+## Demo
+
+See a live example built with this skill: **[petking.pages.dev](https://petking.pages.dev)**
+
+A complete B2B pet product manufacturing site with:
+- Responsive design (mobile-first)
+- Product catalog with detail pages
+- SEO-optimized pages (title, meta, canonical, OG, JSON-LD)
+- Inquiry form via FormSubmit
+- Sitemap and robots.txt
+
 ## Quick Start
 
 Create a project directory, then ask an AI agent:
@@ -162,7 +173,7 @@ CLOUDFLARE_API_TOKEN=<token> npx wrangler pages deploy . --project-name acme-too
 
 ### Token Setup Flow
 
-Users create a minimal-scope Cloudflare API Token in Cloudflare Dashboard:
+Users create a minimal-scope Cloudflare API Token in Cloudflare Dashboard (labels may be localized depending on account language):
 1. Click avatar → My Profile → API Tokens → Create Token
 2. Choose Custom token
 3. Select template: **Edit Cloudflare Workers** (sufficient for Pages deployment)
@@ -171,7 +182,7 @@ Users create a minimal-scope Cloudflare API Token in Cloudflare Dashboard:
 
 The token is used only for the current deployment session, never written to project files. Users can delete the token after deployment succeeds — deletion does not affect the deployed site.
 
-See `docs/workflows/deployment.md` for full non-technical guidance (Chinese instructions included).
+See `docs/workflows/deployment.md` for full global, novice-friendly Cloudflare token guidance. Use the user's preferred language when possible; default to simple English.
 
 ### Surge.sh Fallback
 

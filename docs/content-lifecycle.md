@@ -31,14 +31,17 @@ Instant Site supports recurring content operations for blogs, product updates, a
 - [ ] Includes FAQ where useful.
 - [ ] Avoids unsupported certifications, prices, lead times, factory capacity, and client claims.
 - [ ] Contains no placeholders.
+- [ ] Draft includes intended publish slug/path (e.g., `blog/article-slug.html`).
+- [ ] Publish plan notes that approval will create `blog/{slug}.html`, add a clickable `blog/index.html` entry, and update `sitemap.xml`.
 
 ## Publish Updates
 
 When a draft is approved and published, update:
 
-- `blog/{slug}.html` or the relevant target page
-- `blog/index.html`
-- `sitemap.xml`
+- `blog/{slug}.html` with the full static article
+- Add or update a clickable entry in `blog/index.html` linking to the article detail page
+- Ensure the link target exists before deployment
+- Add the article detail URL to `sitemap.xml`
 - relevant internal links
 - `.instant-site/content-calendar.json`
 - `.instant-site/state.json`

@@ -75,9 +75,22 @@ Minimum page set:
 - `products/{slug}.html` — Product detail pages with specs, applications, FAQ, quote CTA
 - `about.html` — Company introduction, capabilities, export markets
 - `contact.html` — FormSubmit inquiry form, email, WhatsApp, address
-- `blog/index.html` — Blog listing (can be empty initially)
+- `blog/index.html` — Blog listing with clickable links to article detail pages when articles exist
+- `blog/{slug}.html` — Static blog article detail pages for every generated or published article
 - `robots.txt` — Sitemap reference
 - `sitemap.xml` — All important pages with lastmod
+
+### 4a. Blog generation rules
+
+- Do not create title/summary-only blog cards with no destination.
+- If `blog/index.html` lists any article, each article title/card/read-more CTA must link to an existing `blog/{slug}.html`.
+- If no articles exist, `blog/index.html` may be empty or show a "No articles yet" state.
+- For every generated or published blog article, create `blog/{slug}.html` with full static article content.
+- Article detail pages must be crawlable without JavaScript.
+- Article detail pages must include semantic headings, full body content, publish/update date when known, internal links, and product/contact CTA.
+- Article detail pages must have unique title, meta description, canonical, Open Graph, Twitter tags, and `Article` or `BlogPosting` JSON-LD when enough verified data exists.
+- Add every generated/published article detail URL to `sitemap.xml`.
+- Do not invent authors, statistics, citations, certifications, customer names, prices, or lead times.
 
 ### 5. Generate shared assets
 
@@ -175,6 +188,7 @@ customer-site/
   thanks.html
   blog/
     index.html
+    {slug}.html              # required for every generated/published article
   assets/
     css/styles.css
     js/main.js
@@ -216,6 +230,9 @@ After generation, verify:
 - All images have proper alt text
 - FormSubmit form uses correct contact email
 - `thanks.html` exists with absolute `_next` URL
+- If `blog/index.html` lists articles, each article link resolves to an existing `blog/{slug}.html`
+- Every generated/published blog detail page is included in `sitemap.xml`
+- Blog article detail pages contain full static article content, not only summaries
 
 ## Common mistakes
 
@@ -229,3 +246,5 @@ After generation, verify:
 - Inventing certifications, customers, or factory capacity
 - **Using placeholder images in production** (use free stock instead)
 - **Using images from non-commercial sources** (use Unsplash/Pexels/Pixabay only)
+- **Creating blog index cards with titles/summaries but no clickable article detail pages**
+- **Omitting generated blog article detail pages from `sitemap.xml`**

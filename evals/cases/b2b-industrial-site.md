@@ -51,12 +51,15 @@ Prepare a publish review before deployment.
 - [ ] No fake div screenshots or placeholder images in final output
 - [ ] No invented certifications, customer names, or factory capacity
 - [ ] Publish review lists Cloudflare Pages deployment plan (Wrangler, API Token authorization, project, domain)
-- [ ] User-facing deployment instructions explain Cloudflare account registration and API Token creation
+- [ ] User-facing deployment instructions explain Cloudflare account registration/login and API Token creation in global, novice-friendly language, not Chinese-only or country-specific
 - [ ] API Token uses the **Edit Cloudflare Workers** template (sufficient for Pages deployment)
 - [ ] Token is never stored in site config, state files, deployment records, or generated customer docs
 - [ ] Surge.sh only listed as fallback option
 - [ ] Deployment domain uses `.pages.dev` (not `.surge.sh` as primary)
 - [ ] Review gate triggered (review_required default)
+- [ ] If blog article cards are generated, each card/title/read-more link points to an existing `blog/{slug}.html`
+- [ ] If blog article detail pages are generated, each has full static article content and SEO tags
+- [ ] `sitemap.xml` includes all generated blog article detail pages, if any
 
 ## Common Failures
 
@@ -68,3 +71,4 @@ Prepare a publish review before deployment.
 - Deploying without publish review
 - Using Surge.sh as primary deployment (Cloudflare Pages should be default)
 - Missing Cloudflare Pages project name in config or publish review
+- Blog index shows article titles/summaries without clickable links to full article pages

@@ -69,6 +69,7 @@
 - [ ] `about.html`
 - [ ] `contact.html`
 - [ ] `blog/index.html`
+- [ ] Blog detail pages exist for every generated/published article shown on `blog/index.html`
 - [ ] `robots.txt`
 - [ ] `sitemap.xml`
 - [ ] `assets/css/styles.css`
@@ -83,6 +84,7 @@
 - [ ] Semantic headings
 - [ ] Internal links
 - [ ] CTA
+- [ ] Blog article detail pages have unique title, description, canonical, OG, Twitter, semantic headings, internal links, and CTA
 
 ## Inquiry Form
 
@@ -120,3 +122,13 @@
 - [ ] No images from Google Images/Pinterest/unknown sources.
 - [ ] OG image configured for each page.
 - [ ] Image files optimized (< 500KB for hero, < 200KB for others).
+
+## Blog
+
+- [ ] `blog/index.html` exists.
+- [ ] If articles are listed, each article title/card/read-more link points to an existing `blog/{slug}.html`.
+- [ ] Each generated/published article has a full static detail page.
+- [ ] Article detail pages are crawlable without JavaScript.
+- [ ] Article detail pages include internal links to relevant product/contact pages.
+- [ ] Article detail pages are included in `sitemap.xml`.
+- [ ] No unsupported authors, citations, statistics, certifications, prices, or lead-time claims.

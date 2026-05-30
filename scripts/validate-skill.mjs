@@ -230,6 +230,8 @@ if (existsSync(deploymentPath)) {
   check(deploymentContent.includes('Edit Cloudflare Workers'), 'deployment.md includes Edit Cloudflare Workers template guidance');
   check(deploymentContent.includes('sensitive') || deploymentContent.includes('Do not'), 'deployment.md includes sensitive credential handling');
   check(deploymentContent.includes('Do not store') || deploymentContent.includes('never store'), 'deployment.md includes token storage prohibition');
+  check(deploymentContent.includes('global') || deploymentContent.includes('language-agnostic'), 'deployment.md includes global/language-agnostic token guidance');
+  check(deploymentContent.includes('simple English') || deploymentContent.includes('Default English'), 'deployment.md includes default English novice guidance');
 }
 
 const checklistPath = join(ROOT, 'templates/deployment-checklist.md');
@@ -247,6 +249,28 @@ if (existsSync(toolRegistryPath)) {
   const registryContent = readFileSync(toolRegistryPath, 'utf8');
   check(registryContent.includes('Cloudflare Pages (Primary)') || registryContent.includes('Cloudflare Pages'), 'tool-registry.md lists Cloudflare Pages as primary');
   check(registryContent.includes('Surge.sh (Fallback)') || registryContent.includes('Surge.sh') && registryContent.includes('Fallback'), 'tool-registry.md lists Surge.sh as fallback');
+}
+
+// 11. README Cloudflare guidance check
+console.log('\n=== README Guidance ===');
+if (existsSync(readmePath)) {
+  const readmeContent = readFileSync(readmePath, 'utf8');
+  check(!readmeContent.includes('Chinese instructions included'), 'README does not describe Cloudflare guidance as Chinese-only');
+}
+
+// 12. Blog guidance checks
+console.log('\n=== Blog Guidance ===');
+const siteGenerationPath = join(ROOT, 'docs/workflows/site-generation.md');
+if (existsSync(siteGenerationPath)) {
+  const siteGenerationContent = readFileSync(siteGenerationPath, 'utf8');
+  check(siteGenerationContent.includes('blog/{slug}.html'), 'site-generation.md requires blog detail pages');
+  check(siteGenerationContent.includes('clickable') && siteGenerationContent.includes('blog/index.html'), 'site-generation.md requires clickable blog index links');
+}
+
+const genChecklistPath = join(ROOT, 'templates/pages/site-generation-checklist.md');
+if (existsSync(genChecklistPath)) {
+  const genChecklistContent = readFileSync(genChecklistPath, 'utf8');
+  check(genChecklistContent.includes('blog/{slug}.html') || genChecklistContent.includes('Blog detail pages'), 'site-generation-checklist.md checks blog detail pages');
 }
 
 // Summary

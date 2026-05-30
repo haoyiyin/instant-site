@@ -65,7 +65,7 @@ Without these sources, the agent should report technical SEO status and content 
 ## Severity Model
 
 - Critical: indexing blocked, page unreachable, sitemap broken, canonical points to wrong domain.
-- High: missing title, description, canonical, important schema, or sitemap entry.
+- High: missing title, description, canonical, important schema, or sitemap entry; blog index lists articles but links are missing or point to non-existent detail pages; published blog detail pages missing from sitemap.
 - Medium: weak image SEO, heading structure, internal links, performance risk.
 - Low: content expansion, FAQ/AEO improvements, minor copy refinements.
 
@@ -77,7 +77,7 @@ Can be auto-fixed when policy allows:
 - robots sitemap URL correction
 - missing canonical from known domain
 - basic Open Graph and Twitter tag completion
-- blog index links for already approved pages
+- blog index links for already approved/generated article detail pages
 
 Requires review:
 

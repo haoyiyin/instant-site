@@ -59,9 +59,46 @@ CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami
 - If `whoami` fails, stop deployment — do not continue to project creation or deploy
 - The token is used only for the current deployment session
 
-**Guidance for non-technical users (Chinese):**
+**Guidance for non-technical users (global, language-agnostic):**
 
-当用户需要提供 Cloudflare API Token 时，可直接发送以下指引：
+Principles:
+- Use the user's preferred language when possible.
+- Default to simple English if no language preference is known.
+- Do not assume the user is located in a specific country.
+- Cloudflare Dashboard labels may appear in English or localized form; refer to recognizable labels such as avatar/profile icon, "API Tokens", "Create Token", "Custom token", "Edit Cloudflare Workers".
+
+Default English copy for novice users:
+
+```
+To publish your site to Cloudflare Pages, I need a temporary Cloudflare API Token.
+
+The token works like a temporary key. Please do not share it publicly or send screenshots of it. I will only use it for the current deployment command and will not save it in project files, state files, logs, README, or deployment records. After deployment succeeds, you may delete the token in Cloudflare Dashboard. Deleting the token does not remove the live website.
+
+Steps:
+1. Open https://dash.cloudflare.com/sign-up if you need a Cloudflare account, or log in at https://dash.cloudflare.com/.
+2. Verify your email address if Cloudflare asks you to.
+3. Open Cloudflare Dashboard.
+4. Open your profile menu, usually your avatar or account icon.
+5. Go to My Profile / Profile.
+6. Open API Tokens.
+7. Click Create Token.
+8. Choose Create Custom Token.
+9. Name it something like: Instant Site Pages Deploy.
+10. In the template area, find and select: Edit Cloudflare Workers. This template includes the permissions needed for Cloudflare Pages deployment.
+11. For Account Resources, choose Include / All accounts, or select the specific account you want to deploy under.
+12. Leave other options unchanged unless Cloudflare requires a selection.
+13. Click Continue to summary.
+14. Click Create Token.
+15. Cloudflare shows the token only once. Copy the complete token and paste it here.
+
+Safety reminders:
+- Do not post the token publicly.
+- Do not save it inside your website project files.
+- You can delete it after deployment succeeds.
+- If you delete it, the live website stays online; you only need a new token for future deployments.
+```
+
+If the user prefers Chinese, use this localized copy:
 
 ```
 为了把网站发布到 Cloudflare Pages，我需要你提供一个临时使用的 Cloudflare API Token。
@@ -93,7 +130,14 @@ CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami
 
 **Token submission prompt:**
 
-当用户准备提交 Token 时：
+When the user is ready to submit the token, use their preferred language. Default English prompt:
+
+```
+Please paste the Cloudflare API Token you just copied.
+I will use it only in the current deployment command and will not save it to project files, state files, logs, README, or deployment records.
+```
+
+Chinese prompt if user prefers:
 
 ```
 请把刚刚复制的 Cloudflare API Token 粘贴给我。

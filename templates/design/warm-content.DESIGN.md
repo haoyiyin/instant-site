@@ -45,7 +45,7 @@ Warm, editorial, calm, and readable. The site should support educational content
 ## 4. Component Stylings
 
 - Buttons: softly rounded, calm primary color.
-- Article cards: title, excerpt, date, category, light border.
+- Article cards: clickable title/card, excerpt, date, category, light border, and a clear "Read article" link to the full detail page.
 - Callouts: warm background, left border, concise text.
 - FAQ: accordion only if it degrades gracefully; static content preferred.
 
@@ -69,6 +69,7 @@ Do:
 - Use clear article structure.
 - Include summaries and practical takeaways.
 - Link articles to relevant products or contact pages.
+- Ensure every article card links to a full static article page.
 - Keep claims grounded.
 
 Don't:

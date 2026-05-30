@@ -39,7 +39,7 @@ Instant Site helps an agent build, deploy, update, and SEO-optimize static forei
 6. **Review risky publishing** — Default to `review_required` for new commercial content, product claims, pricing, certifications, legal text, and domain changes.
 7. **Multi-site isolation** — When operating multiple sites, read each site's config and state separately; never reuse canonical URLs, sitemap URLs, or domains across sites.
 8. **Design quality matters** — Prevent generic AI-looking sites. Infer design direction before template selection. Avoid default slop patterns. Follow layout discipline. Use real visuals.
-9. **Token authorization must be safe and explicit** — For Cloudflare Pages deployment, guide non-technical users to create a minimal-scope Cloudflare API Token, verify with `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami`, never store or log the token, and continue only after token auth succeeds.
+9. **Token authorization must be safe and explicit** — For Cloudflare Pages deployment, guide non-technical users to create a minimal-scope Cloudflare API Token, verify with `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami`, never store or log the token, and continue only after token auth succeeds. For novice users, explain Cloudflare account and API Token setup in the user's preferred language when possible; default to simple English and avoid country-specific assumptions.
 
 ## Read Documents by Task
 

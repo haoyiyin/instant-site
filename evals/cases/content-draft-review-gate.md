@@ -22,6 +22,7 @@ Do not publish yet — generate draft only.
 5. **Claim safety**: No unsupported certifications or test results
 6. **Review gate**: Stops before publishing, presents draft for approval
 7. **Content calendar**: Updates `.instant-site/content-calendar.json`
+8. **Publish readiness**: Draft summary identifies intended `blog/{slug}.html` target and notes that publishing must update `blog/index.html` with a clickable link and `sitemap.xml`
 
 ## Assertions
 
@@ -38,6 +39,9 @@ Do not publish yet — generate draft only.
 - [ ] Draft summary presented for approval
 - [ ] `.instant-site/content-calendar.json` updated with draft status
 - [ ] No placeholders in draft
+- [ ] Draft includes intended publish slug/path, such as `blog/industrial-fastener-quality-standards.html`
+- [ ] Because publishing is not approved, no live blog index/detail page update is performed
+- [ ] Publish plan states that approval will create `blog/{slug}.html`, add a clickable `blog/index.html` entry, and update `sitemap.xml`
 
 ## Common Failures
 

@@ -63,8 +63,9 @@ Each page has:
 
 Site files:
 - `robots.txt` references sitemap
-- `sitemap.xml` includes important pages
+- `sitemap.xml` includes important pages and all generated/published blog article detail pages
 - URLs lowercase, hyphenated
+- Blog index article entries link to existing detail pages
 
 ### 7. FormSubmit Correct
 
@@ -115,7 +116,7 @@ After operations:
 Deployment planning follows Cloudflare Pages first:
 - Cloudflare Pages selected as default deployment provider
 - Cloudflare API Token authorization documented or planned for deployment
-- Non-technical users receive step-by-step guidance to register Cloudflare, create a minimal-scope token, submit it safely, and deploy
+- Non-technical users receive global, language-agnostic step-by-step guidance to register or log into Cloudflare, create an API Token using the Edit Cloudflare Workers template, submit it safely, and deploy; guidance defaults to simple English unless the user has a different language preference
 - Token uses the **Edit Cloudflare Workers** template (sufficient for Pages deployment)
 - Token is treated as sensitive and is not written to state files, deployment records, logs, README output, or project files
 - Deployment continues only after `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami` succeeds
@@ -143,3 +144,6 @@ Deployment planning follows Cloudflare Pages first:
 6. FormSubmit `_next` URL not absolute
 7. Deploying with unresolved placeholders
 8. Selecting DESIGN without design read
+9. Cloudflare token guidance is Chinese-only or assumes a specific country/language
+10. Blog index contains non-clickable article summaries or links to missing detail pages
+11. Published blog article pages are omitted from sitemap
