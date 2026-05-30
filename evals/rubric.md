@@ -116,7 +116,7 @@ Deployment planning follows Cloudflare Pages first:
 - Cloudflare Pages selected as default deployment provider
 - Cloudflare API Token authorization documented or planned for deployment
 - Non-technical users receive step-by-step guidance to register Cloudflare, create a minimal-scope token, submit it safely, and deploy
-- Token scopes are minimal: `Account / Cloudflare Pages / Edit` and `Account / Account Settings / Read`
+- Token uses the **Edit Cloudflare Workers** template (sufficient for Pages deployment)
 - Token is treated as sensitive and is not written to state files, deployment records, logs, README output, or project files
 - Deployment continues only after `CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami` succeeds
 - Pages project name defined

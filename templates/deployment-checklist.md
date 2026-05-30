@@ -22,9 +22,7 @@
 ## Cloudflare Token Authorization
 
 - [ ] Guide the user to register or log into Cloudflare.
-- [ ] Guide the user to create a Custom API Token with minimal permissions:
-  - `Account / Cloudflare Pages / Edit`
-  - `Account / Account Settings / Read`
+- [ ] Guide the user to create a Custom API Token using the **Edit Cloudflare Workers** template (sufficient for Pages deployment).
 - [ ] Inform the user that the Token is sensitive and should not be shared publicly.
 - [ ] User understands the Token is used only for the current deployment session.
 - [ ] Do not store the Token in `.instant-site/state.json`, `.instant-site/deployments.json`, `site.config.json`, logs, README, or any project file.

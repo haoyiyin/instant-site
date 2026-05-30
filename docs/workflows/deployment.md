@@ -77,9 +77,7 @@ CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami
 6. 点击 Create Token。
 7. 选择 Create a Custom Token（创建自定义令牌）。
 8. Token 名称填写：Instant Site Pages Deploy（或任意你喜欢的名称）。
-9. 权限 Permissions 设置：
-   - Account / Cloudflare Pages / Edit
-   - Account / Account Settings / Read
+9. 在模板区域找到并选择：**Edit Cloudflare Workers**（这个模板包含了部署 Pages 所需的权限）。
 10. Account Resources 选择 Include / All accounts（或选择你的具体账号）。
 11. 其他选项保持默认。
 12. 点击 Continue to summary。
@@ -103,7 +101,7 @@ CLOUDFLARE_API_TOKEN=<token> npx wrangler whoami
 ```
 
 **Do not request broad permissions:**
-- Default token scope is minimal: `Account / Cloudflare Pages / Edit` + `Account / Account Settings / Read`
+- Default token uses the **Edit Cloudflare Workers** template (sufficient for Pages deployment)
 - Do not request Zone:Edit, DNS:Edit, or full account admin unless a specific custom-domain automation step requires it and the user explicitly approves
 - Custom domains can still be configured manually in Cloudflare Dashboard without DNS-edit token permissions
 
@@ -312,7 +310,7 @@ For Surge fallback:
 - `wrangler whoami` fails with token:
   - Check token was copied completely (no truncation)
   - Check token has not been revoked or expired in Cloudflare Dashboard
-  - Check token permissions include `Account / Cloudflare Pages / Edit` and `Account / Account Settings / Read`
+  - Check token uses the **Edit Cloudflare Workers** template (or equivalent permissions)
   - Check Account Resources was set correctly when creating token
 - `Invalid API Token` error:
   - Recreate the token in Cloudflare Dashboard

@@ -165,7 +165,7 @@ CLOUDFLARE_API_TOKEN=<token> npx wrangler pages deploy . --project-name acme-too
 Users create a minimal-scope Cloudflare API Token in Cloudflare Dashboard:
 1. Click avatar → My Profile → API Tokens → Create Token
 2. Choose Custom token
-3. Add permissions: `Account / Cloudflare Pages / Edit` + `Account / Account Settings / Read`
+3. Select template: **Edit Cloudflare Workers** (sufficient for Pages deployment)
 4. Select Account Resources
 5. Create and copy token
 

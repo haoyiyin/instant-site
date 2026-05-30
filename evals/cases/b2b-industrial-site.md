@@ -52,7 +52,7 @@ Prepare a publish review before deployment.
 - [ ] No invented certifications, customer names, or factory capacity
 - [ ] Publish review lists Cloudflare Pages deployment plan (Wrangler, API Token authorization, project, domain)
 - [ ] User-facing deployment instructions explain Cloudflare account registration and API Token creation
-- [ ] API Token permissions are minimal and explicitly listed (Pages Edit, Account Settings Read)
+- [ ] API Token uses the **Edit Cloudflare Workers** template (sufficient for Pages deployment)
 - [ ] Token is never stored in site config, state files, deployment records, or generated customer docs
 - [ ] Surge.sh only listed as fallback option
 - [ ] Deployment domain uses `.pages.dev` (not `.surge.sh` as primary)

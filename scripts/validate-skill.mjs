@@ -227,8 +227,7 @@ if (existsSync(deploymentPath)) {
   check(deploymentContent.includes('pages project create'), 'deployment.md includes pages project create');
   check(deploymentContent.includes('pages deploy'), 'deployment.md includes pages deploy');
   check(deploymentContent.includes('Surge') && deploymentContent.includes('fallback'), 'deployment.md mentions Surge as fallback');
-  check(deploymentContent.includes('Cloudflare Pages / Edit'), 'deployment.md includes minimal token permission guidance');
-  check(deploymentContent.includes('Account Settings / Read'), 'deployment.md includes Account Settings permission');
+  check(deploymentContent.includes('Edit Cloudflare Workers'), 'deployment.md includes Edit Cloudflare Workers template guidance');
   check(deploymentContent.includes('sensitive') || deploymentContent.includes('Do not'), 'deployment.md includes sensitive credential handling');
   check(deploymentContent.includes('Do not store') || deploymentContent.includes('never store'), 'deployment.md includes token storage prohibition');
 }
@@ -239,7 +238,7 @@ if (existsSync(checklistPath)) {
   check(checklistContent.includes('CLOUDFLARE_API_TOKEN'), 'deployment-checklist.md includes CLOUDFLARE_API_TOKEN');
   check(checklistContent.includes('whoami'), 'deployment-checklist.md includes whoami verification');
   check(checklistContent.includes('API Token'), 'deployment-checklist.md includes API Token authorization');
-  check(checklistContent.includes('Cloudflare Pages / Edit'), 'deployment-checklist.md includes minimal permission guidance');
+  check(checklistContent.includes('Edit Cloudflare Workers'), 'deployment-checklist.md includes Edit Cloudflare Workers template guidance');
   check(checklistContent.includes('Do not store') || checklistContent.includes('sensitive'), 'deployment-checklist.md includes sensitive credential handling');
 }
 

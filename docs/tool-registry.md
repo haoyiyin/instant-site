@@ -172,7 +172,7 @@ Reference for tools, services, and fallbacks used in Instant Site workflow.
 **Notes**:
 - API Token is the default authorization path for Cloudflare Pages deployment
 - Guide non-technical users to create a minimal-scope Custom API Token in Cloudflare Dashboard
-- Token permissions should be minimal: `Account / Cloudflare Pages / Edit` + `Account / Account Settings / Read`
+- Token permissions: use the **Edit Cloudflare Workers** template (sufficient for Pages deployment)
 - Do not request Zone:Edit, DNS:Edit, or full account admin unless user explicitly approves for custom-domain automation
 - Token must not be stored or logged in project files, state files, deployment records, README, or any output
 - Deployment records must omit `CLOUDFLARE_API_TOKEN=...` from recorded commands — store sanitized commands only
